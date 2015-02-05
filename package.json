@@ -1,6 +1,10 @@
 {
   "name": "mp1_starter",
-  "version": "0.0.1",
+  "version": "1.0",
+  "homepage": "https://github.com/uiuc-web-programming/mp1_starter",
+  "authors": [
+    "biplabdeka <biplab.deka@gmail.com>"
+  ],
   "dependencies": {
     "express": "^4.11.1",
     "grunt-express-server": "^0.4.19",
