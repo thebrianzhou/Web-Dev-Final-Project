@@ -6,11 +6,23 @@ module.exports = function(grunt) {
   grunt.initConfig({
     uglify: {
       my_target: {
+        options: {
+          mangle: false
+        },
         files: {
-          'public/js/script.js': ['js/*.js']
+          'public/js/script.js': ['js/script.js'],
+          'public/js/controllers.js': ['js/controllers.js']
         } //files
       } //my_target
     }, //uglify
+    copy: {
+      files: {
+        cwd: '.',  // set working folder / root to copy
+        src: 'js/*.js',           // copy all files and subfolders
+        dest: 'public/js/',    // destination folder
+        expand: true           // required when using cwd
+      }
+    },
     compass: {
       dev: {
         options: {
@@ -28,7 +40,8 @@ module.exports = function(grunt) {
       options: { livereload: true },
       scripts: {
         files: ['js/*.js'],
-        tasks: ['uglify']
+        //tasks: ['uglify']
+        tasks: ['copy']
       }, //script
       sass: {
         files: ['sass/*.scss'],
