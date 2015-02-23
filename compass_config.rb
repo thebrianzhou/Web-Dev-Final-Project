@@ -2,4 +2,4 @@
 css_dir = 'public/css'
 sass_dir = 'sass'
 javascripts_dir = 'js'
-output_style = :compressed #change this to :nested if you want readable CSS
+output_style = :nested #change this to :nested if you want readable CSS
