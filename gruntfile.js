@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.initConfig({
     uglify: {
       my_target: {
@@ -17,10 +18,12 @@ module.exports = function(grunt) {
     }, //uglify
     copy: {
       files: {
-        cwd: '.',  // set working folder / root to copy
-        src: 'js/*.js',           // copy all files and subfolders
-        dest: 'public/js/',    // destination folder
-        expand: true           // required when using cwd
+            expand : true,
+            dest   : 'public/js',
+            cwd    : 'js',
+            src    : [
+              '**/*.js'
+            ]
       }
     },
     compass: {
@@ -40,15 +43,15 @@ module.exports = function(grunt) {
       options: { livereload: true },
       scripts: {
         files: ['js/*.js'],
-        //tasks: ['uglify']
-        tasks: ['copy']
+        tasks: ['uglify'],
+        //tasks: ['copy']
       }, //script
       sass: {
         files: ['sass/*.scss'],
         tasks: ['compass:dev','compass:foundation']
       }, //sass
       sass_foundation: {
-        files: ['public/lib/foundation/scss/foundation.scss','public/lib/foundation/scss/foundation/*.scss','public/lib/foundation/scss/foundation/components/*.scss'],
+        files: ['public/foundation/scss/foundation.scss','public/foundation/scss/foundation/*.scss','public/foundation/scss/foundation/components/*.scss'],
         tasks: ['compass:foundation']
       }, //sass_foundation
       html: {
@@ -63,39 +66,7 @@ module.exports = function(grunt) {
         options: {
           script: 'app.js'
         }
-      },
-  compassMultiple: {
-    options : {
-      // if you need, you can set options. 
-      environment: 'production',
-      outputStyle: 'compressed',
-      javascriptsDir: './js',
-      imagesDir: './image',
-      fontsDir: './font',
-      importPath: './css/framework',
-      relativeAssets: true,
-      time: true
-    },
- 
- 
-    // multiple option provides you to compile multi sassDir. 
-    all: {
-      options: {
-        multiple: [
-          {
-          sassDir: 'page/css/cmn/',
-          cssDir: '../static/page/css/cmn/'
-          },{
-          sassDir: 'page/css/orgn/scss',
-          cssDir: '../static/page/css/orgn/'
-          }
-        ]
       }
-    }
-  }
-
-
-
   }
   }) //initConfig
   grunt.registerTask('default', ['express:dev', 'watch']);
