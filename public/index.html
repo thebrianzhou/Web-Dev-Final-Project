@@ -31,12 +31,12 @@
 	  </section>
 	</nav>
 
-	<div class="row">
-		<div class="columns small-12 medium-4">
-			
-		</div>
-		<div class="columns small-12 medium-4">
-			
+	<div class="row" ng-app = "demoApp">
+		<div class="panel small-centered columns small-12 medium-4">
+    	<input id="nameInput" ng-model="name" placeholder="Your Name" autofocus>
+	
+		<h3>Hello, {{name}}</h3>
+
 		</div>
 	</div>
 	<div class="row">
