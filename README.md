@@ -17,4 +17,4 @@ For MP2, you should edit the following:
 - `js` folder - all javascript files here will be uglified and put in `public/js/script.js`
 - `public/lib/foundation/scss` - all scss files here will be compiled and put in `public/lib/foundation/css/foundation.css`
 
-Also, if you have problems debugging your JavaScript due to uglification, you can disable it by commenting out line 46 of `gruntfile.js` and uncommenting line 47. Your final submission should work with minification though.
+Also, if you have problems debugging your JavaScript due to uglification, you can disable it by commenting out line 46 of `gruntfile.js` and uncommenting line 47. Your final submission should work with uglification though.
