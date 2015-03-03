@@ -4,7 +4,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.initConfig({
+    clean: ["public/js"],
     uglify: {
       my_target: {
         options: {
@@ -44,7 +46,7 @@ module.exports = function(grunt) {
       options: { livereload: true },
       scripts: {
         files: ['js/*.js'],
-        tasks: ['uglify'],
+        tasks: ['clean','uglify'],
         //tasks: ['copy']
       }, //script
       sass: {
