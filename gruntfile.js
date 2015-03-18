@@ -15,7 +15,8 @@ module.exports = function(grunt) {
         files: {
           'public/js/script.js': ['js/script.js'],
           'public/js/controllers.js': ['js/controllers.js'],
-          'public/js/app.js': ['js/app.js']
+          'public/js/app.js': ['js/app.js'],
+          'public/js/services.js': ['js/services.js']
         } //files
       } //my_target
     }, //uglify
@@ -46,8 +47,8 @@ module.exports = function(grunt) {
       options: { livereload: true },
       scripts: {
         files: ['js/*.js'],
-        tasks: ['clean','uglify'],
-        //tasks: ['copy']
+        //tasks: ['clean','uglify'],
+        tasks: ['copy']
       }, //script
       sass: {
         files: ['sass/*.scss'],
