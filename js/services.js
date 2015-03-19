@@ -1,33 +1,22 @@
 // js/services/todos.js
 angular.module('demoServices', [])
-
-    // super simple service
-    // each function returns a promise object 
-    .factory('Users', function($http) {
-        return {
-            get : function(baseurl) {
-                console.log(baseurl);
-                return $http.get(baseurl+'/api/users');
+        .factory('CommonData', function(){
+        var data = "";
+        return{
+            getData : function(){
+                return data;
             },
-            post : function(baseurl, task) {
-                return $http.post(baseurl+'/api/users', user);
-            },
-            delete : function(baseurl, id) {
-                return $http.delete(baseurl+'/api/users/' + id);
+            setData : function(newData){
+                data = newData;                
             }
         }
     })
-    .factory('CommonData', function(){
-        var baseUrl = "";
-        return{
-            getUrl : function(){
-                return baseUrl;
-            },
-            setUrl : function(url){
-                baseUrl = url;
-                 console.log("url set to "+ baseUrl);
-                
-
+    .factory('Llamas', function($http, $window) {      
+        return {
+            get : function() {
+                var baseUrl = $window.sessionStorage.baseurl;
+                return $http.get(baseUrl+'/api/llamas');
             }
         }
-    });
+    })
+    ;

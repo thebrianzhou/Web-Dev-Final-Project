@@ -1,24 +1,46 @@
 var demoControllers = angular.module('demoControllers', []);
 
-demoControllers.controller('UserListController', ['$scope', '$http', 'Users', 'CommonData', '$window' , function($scope, $http,  Users, CommonData, $window) {
-  
-  var baseUrl = $window.sessionStorage.baseurl;
+demoControllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
 
-  Users.get(baseUrl).success(function(data){
-    $scope.users = data;
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+
+demoControllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
+  $scope.data = "";
+
+  $scope.getData = function(){
+    $scope.data = CommonData.getData();
+
+  };
+
+}]);
+
+
+demoControllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
+
+  Llamas.get().success(function(data){
+    $scope.llamas = data;
   });
 
 
 }]);
 
-demoControllers.controller('SettingsController', ['$scope', 'CommonData' , '$window' , function($scope, CommonData, $window) {
+demoControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
   $scope.url = $window.sessionStorage.baseurl;
 
   $scope.setUrl = function(){
-    //CommonData.setUrl($scope.url);
     $window.sessionStorage.baseurl = $scope.url; 
-    $scope.displayText = "URL set"
+    $scope.displayText = "URL set";
 
   };
 
 }]);
+
+
