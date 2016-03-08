@@ -13,10 +13,10 @@ module.exports = function(grunt) {
           mangle: false
         },
         files: {
-          'public/js/script.js': ['js/script.js'],
-          'public/js/controllers.js': ['js/controllers.js'],
-          'public/js/app.js': ['js/app.js'],
-          'public/js/services.js': ['js/services.js']
+          'public/js/script.js': ['source_js/script.js'],
+          'public/js/app.js': ['source_js/app.js'],
+          'public/js/controllers.js': ['source_js/controllers.js'],
+          'public/js/services.js': ['source_js/services.js'],
         } //files
       } //my_target
     }, //uglify
@@ -46,20 +46,28 @@ module.exports = function(grunt) {
     watch: {
       options: { livereload: true },
       scripts: {
-        files: ['js/*.js'],
-        //tasks: ['clean','uglify'],
-        tasks: ['copy']
+        files: ['source_js/*.js'],
+        tasks: ['clean','uglify'],
+        //tasks: ['copy']
       }, //script
       sass: {
-        files: ['sass/*.scss'],
+        files: ['source_sass/*.scss'],
         tasks: ['compass:dev','compass:foundation']
       }, //sass
       sass_foundation: {
-        files: ['public/foundation/scss/foundation.scss','public/foundation/scss/foundation/*.scss','public/foundation/scss/foundation/components/*.scss'],
-        tasks: ['compass:foundation']
+        files: ['public/foundation6_lib/scss/foundation.scss',
+                'public/foundation6_lib/scss/*.scss',
+                'public/foundation6_lib/scss/components/*.scss',
+                'public/foundation6_lib/scss/forms/*.scss',
+                'public/foundation6_lib/scss/grid/*.scss',
+                'public/foundation6_lib/scss/settings/*.scss',
+                'public/foundation6_lib/scss/typography/*.scss',
+                'public/foundation6_lib/scss/util/*.scss',
+        ],
+        tasks: ['compass:dev', 'compass:foundation']
       }, //sass_foundation
       html: {
-        files: ['public/*.html', 'public/partials/*.html']
+        files: ['public/*.html']
       }
     }, //watch
     express: {
@@ -73,5 +81,5 @@ module.exports = function(grunt) {
       }
   }
   }) //initConfig
-  grunt.registerTask('default', ['express:dev', 'watch']);
+  grunt.registerTask('default', ['express:dev', 'watch', 'uglify']);
 } //exports
