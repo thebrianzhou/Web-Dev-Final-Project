@@ -7,8 +7,7 @@ git clone https://github.com/uiuc-web-programming/mp4_client_starter.git
 cd mp4_client_starter
 npm install
 bower install
-grunt compass:dev
-grunt compass:foundation
+grunt compass
 grunt uglify
 grunt
 ```
