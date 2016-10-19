@@ -55,16 +55,8 @@ module.exports = function(grunt) {
         tasks: ['compass:dev','compass:foundation']
       }, //sass
       sass_foundation: {
-        files: ['public/foundation6_lib/scss/foundation.scss',
-                'public/foundation6_lib/scss/*.scss',
-                'public/foundation6_lib/scss/components/*.scss',
-                'public/foundation6_lib/scss/forms/*.scss',
-                'public/foundation6_lib/scss/grid/*.scss',
-                'public/foundation6_lib/scss/settings/*.scss',
-                'public/foundation6_lib/scss/typography/*.scss',
-                'public/foundation6_lib/scss/util/*.scss',
-        ],
-        tasks: ['compass:dev', 'compass:foundation']
+        files: ['source_sass/*.scss', 'source_sass/foundation/*.scss'],
+        tasks: ['compass:dev']
       }, //sass_foundation
       html: {
         files: ['public/*.html']
@@ -81,5 +73,5 @@ module.exports = function(grunt) {
       }
   }
   }) //initConfig
-  grunt.registerTask('default', ['express:dev', 'watch', 'uglify']);
+  grunt.registerTask('default', ['uglify', 'compass:dev', 'express:dev', 'watch']);
 } //exports
