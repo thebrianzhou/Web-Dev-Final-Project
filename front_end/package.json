@@ -16,7 +16,6 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-copy": "^0.1.0",
     "grunt-express-server": "^0.4.19",
-    "matchdep": "~0.1.2",
-    "material-design-lite": "^1.2.1"
+    "matchdep": "~0.1.2"
   }
 }
