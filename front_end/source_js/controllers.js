@@ -1,6 +1,8 @@
 var mp4Controllers = angular.module('mp4Controllers', []);
 
-mp4Controllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+
+//Brian
+mp4Controllers.controller('LoginController', ['$scope', 'CommonData'  , function($scope, CommonData) {
   $scope.data = "";
    $scope.displayText = ""
 
@@ -11,7 +13,79 @@ mp4Controllers.controller('FirstController', ['$scope', 'CommonData'  , function
   };
 
 }]);
+//Brian
+mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
 
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+//Sree
+mp4Controllers.controller('ChefGridController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
+
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+//Sergey
+mp4Controllers.controller('EditUserController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
+
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+//Sergey
+mp4Controllers.controller('EditChefController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
+
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+//Sergey
+mp4Controllers.controller('UserRequestsController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
+
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+//Sergey
+mp4Controllers.controller('ChefRequestsController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+  $scope.data = "";
+   $scope.displayText = ""
+
+  $scope.setData = function(){
+    CommonData.setData($scope.data);
+    $scope.displayText = "Data set"
+
+  };
+
+}]);
+/*
 mp4Controllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
   $scope.data = "";
 
@@ -41,4 +115,4 @@ mp4Controllers.controller('SettingsController', ['$scope' , '$window' , function
 
   };
 
-}]);
+}]);*/

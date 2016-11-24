@@ -19,7 +19,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'EditUserController'
   }).
   when('/editchef/:id', {//Sergey
-    templateUrl: 'partials/editchef.html',
+    templateUrl: 'partials/edituser.html',
     controller: 'EditChefController'
   }).
   when('/userrequests/:id', {//Sergey
