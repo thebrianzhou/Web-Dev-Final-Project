@@ -3,6 +3,12 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
+var secrets = require('./config/secrets');
+
+var mongoose = require('mongoose');
+
+mongoose.connect(secrets.mongo_connection);
+
 // Create our Express application
 var app = express();
 

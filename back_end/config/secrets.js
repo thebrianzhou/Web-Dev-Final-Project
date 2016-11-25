@@ -3,5 +3,5 @@
  */
 module.exports = {
     token : "secret-llama",
-    mongo_connection : "mongodb://localhost/mp4"
+    mongo_connection : "mongodb://Prahlad:password@ds163397.mlab.com:63397/my_chef"
 };
