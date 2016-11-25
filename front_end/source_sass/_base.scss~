@@ -1,5 +1,8 @@
-/* line 5, ../../source_sass/_base.scss */
-.buttondemoBasicUsage section {
+// Add any custom Sass & CSS here
+
+
+
+/*.buttondemoBasicUsage section {
   background: #f7f7f7;
   border-radius: 3px;
   text-align: center;
@@ -7,24 +10,18 @@
   position: relative !important;
   padding-bottom: 10px; }
 
-/* line 13, ../../source_sass/_base.scss */
 .buttondemoBasicUsage md-content {
   margin-right: 7px; }
 
-/* line 16, ../../source_sass/_base.scss */
 .buttondemoBasicUsage section .md-button {
   margin-top: 16px;
   margin-bottom: 16px; }
 
-/* line 20, ../../source_sass/_base.scss */
 .buttondemoBasicUsage .label {
   position: absolute;
   bottom: 5px;
   left: 7px;
   font-size: 14px;
   opacity: 0.54; }
-
-/*
-  NOTE: Do not touch this file. Write the bulk of your custom styles
-  in _base.scss
 */
+
