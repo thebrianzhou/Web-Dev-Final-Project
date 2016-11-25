@@ -8,14 +8,12 @@ module.exports = function(router) {
   
   requestidRoute.get(function(req, res) {
     var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
   		return;
   	}
   	Request.findById(id, function(err, request){
-  	 	console.log(request);
   	 	if(request)
   	 		res.json({"message" : "got request", "data": request});
   	 	else
@@ -25,7 +23,6 @@ module.exports = function(router) {
 
   requestidRoute.put(function(req, res){
   	var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
@@ -35,7 +32,6 @@ module.exports = function(router) {
     var options = {};
     options.new = true;
   	Request.findByIdAndUpdate(id,{$set:req.body}, options, function(err, request){
-        console.log(request);
   	 	if(request)
   	 		res.json({"message" : "updated request information", "data": request});
   	 	else
@@ -46,14 +42,12 @@ module.exports = function(router) {
 
   requestidRoute.delete(function(req, res){
 	var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
   		return;
   	}
   	Request.findByIdAndRemove(id, function(err, request){
-  	 	console.log(request);
   	 	if(request)
   	 		res.json({"message" : "deleted request", "data": request});
   	 	else

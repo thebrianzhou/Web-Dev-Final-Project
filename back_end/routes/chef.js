@@ -9,7 +9,6 @@ module.exports = function(router) {
     var where = {};
       if("where" in req.query)
       	where = eval("("+req.query.where+")");
-      console.log(where);
       var select = {};
       if("select" in req.query)
       	select = eval("("+req.query.select+")");
@@ -20,7 +19,6 @@ module.exports = function(router) {
       	options.skip = eval("("+parseInt(req.query.skip)+")");;
       if("limit" in req.query)
       	options.limit = eval("("+parseInt(req.query.limit)+")");
-      console.log(options);
       Chef.find(where, select, options, function(err, results){
       	if(err)
       	{
@@ -34,7 +32,6 @@ module.exports = function(router) {
     		res.json({"message" : "amount of results", "data": results.length});
     		return;
       	}
-      	console.log(results);
         res.json({"message" : "results of get", "data": results});
       });
   });

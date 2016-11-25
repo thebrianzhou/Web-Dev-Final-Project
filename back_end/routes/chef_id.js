@@ -8,14 +8,12 @@ module.exports = function(router) {
   
   chefidRoute.get(function(req, res) {
     var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
   		return;
   	}
   	Chef.findById(id, function(err, chef){
-  	 	console.log(chef);
   	 	if(chef)
   	 		res.json({"message" : "got chef", "data": chef});
   	 	else
@@ -25,7 +23,6 @@ module.exports = function(router) {
 
   chefidRoute.put(function(req, res){
   	var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
@@ -35,7 +32,6 @@ module.exports = function(router) {
     var options = {};
     options.new = true;
   	Chef.findByIdAndUpdate(id,{$set:req.body}, options, function(err, chef){
-        console.log(chef);
   	 	if(chef)
   	 		res.json({"message" : "updated chef information", "data": chef});
   	 	else
@@ -46,14 +42,12 @@ module.exports = function(router) {
 
   chefidRoute.delete(function(req, res){
 	var id = req.params.id;
-  	console.log(id);
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
   		return;
   	}
   	Chef.findByIdAndRemove(id, function(err, chef){
-  	 	console.log(chef);
   	 	if(chef)
   	 		res.json({"message" : "deleted chef", "data": chef});
   	 	else
