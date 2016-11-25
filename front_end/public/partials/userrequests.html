@@ -1,12 +1,8 @@
-<div class="list">
-  Second Controller
-  <form>
-
-    <div class="text-center">
-      <button ng-click="getData()" class="button tiny info">Get Data</button>
-    </div>
-
-    {{data}}
-
-  </form>
+<div class="list-item" ng-repeat="request in requests">
+    <div>{{request.chef.name}}</div>
+    <div>{{request.chef.email}}</div>
+    <div>{{request.budget}}</div>
+    <div>{{request.payment}}</div>
+    <div>{{request.cuisine}}</div>
+    <div>{{request.description}}</div>
 </div>

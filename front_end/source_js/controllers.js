@@ -38,81 +38,49 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'CommonData'  , funct
 
 }]);
 //Sergey
-mp4Controllers.controller('EditUserController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
+mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', function($scope, $routeParams) {
+    $scope.userID = $routeParams.id;
 }]);
 //Sergey
-mp4Controllers.controller('EditChefController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
+mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', function($scope, $routeParams) {
+    $scope.chefID = $routeParams.id;
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', function($scope, $routeParams, Requests, Chefs) {
+    $scope.userID = $routeParams.id;
+    
+    var addChefToRequest = function(request) {
+        Chefs.getByID(request.assignedChef).success(function(data) {
+            request.chef = data.data; 
+        });
+    };
+    
+    Requests.getForUser($scope.userID).success(function(data) {
+        $scope.requests = data.data; 
+        
+        for (var i = 0; i < $scope.requests.length; i++)
+        {
+            addChefToRequest($scope.requests[i]);   
+        }
+    });
+    
 }]);
 //Sergey
-mp4Controllers.controller('ChefRequestsController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
+mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', function($scope, $routeParams, Requests, Users) {
+    $scope.chefID = $routeParams.id;
+    
+    var addUserToRequest = function(request) {
+        Users.getByID(request.assignedUser).success(function(data) {
+            request.user = data.data; 
+        });
+    };
+    
+    Requests.getForChef($scope.chefID).success(function(data) {
+        $scope.requests = data.data; 
+        
+        for (var i = 0; i < $scope.requests.length; i++)
+        {
+            addUserToRequest($scope.requests[i]);
+        }
+    });
 }]);
-/*
-mp4Controllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
-
-  $scope.getData = function(){
-    $scope.data = CommonData.getData();
-
-  };
-
-}]);
-
-
-mp4Controllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
-
-  Llamas.get().success(function(data){
-    $scope.llamas = data;
-  });
-
-
-}]);
-
-mp4Controllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
-  $scope.url = $window.sessionStorage.baseurl;
-
-  $scope.setUrl = function(){
-    $window.sessionStorage.baseurl = $scope.url;
-    $scope.displayText = "URL set";
-
-  };
-
-}]);*/
