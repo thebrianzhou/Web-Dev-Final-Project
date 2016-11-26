@@ -1,7 +1,6 @@
-<div class="list">
-	<ul>
-		<li ng-repeat="llama in llamas">
-			<h3>{{llama.name}}</h3>
-		</li>
-	</ul>
-</div>
+<form class="row">
+    <label>Name: <input ng-model="chef.name" type="text" placeholder="Name" required></label>
+    <label>Email: <input ng-model="chef.email" type="text" placeholder="Email" required></label>
+    <label>Profile Picture URL: <input ng-model="chef.profile_pic" type="text" placeholder="Profile Picture URL" required></label>
+    <button ng-click="submit()" class="button">Submit</button>
+</form>

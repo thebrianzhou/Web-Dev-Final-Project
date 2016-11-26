@@ -1,17 +1,6 @@
-<div class="list">
-  First Controller
-	<form>
-	  <div class="row">
-          <div class="small-12 columns">
-            <input ng-model="data" type="text" placeholder="data">
-          </div>
-      </div>
-
-    <div class="text-center">
-      <button ng-click="setData()" class="button tiny info">Set Data</button>
-    </div>
-
-    {{displayText}}
-
-  </form>
-</div>
+<form class="row">
+    <label>Name: <input ng-model="user.name" type="text" placeholder="Name" required></label>
+    <label>Email: <input ng-model="user.email" type="text" placeholder="Email" required></label>
+    <label>Profile Picture URL: <input ng-model="user.profile_pic" type="text" placeholder="Profile Picture URL" required></label>
+    <button ng-click="submit()" class="button">Submit</button>
+</form>

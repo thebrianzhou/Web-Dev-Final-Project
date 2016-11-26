@@ -54,12 +54,32 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     });
 }]);
 //Sergey
-mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', function($scope, $routeParams) {
+mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
     $scope.userID = $routeParams.id;
+    
+    Users.getByID($scope.userID).success(function(data) {
+        $scope.user = data.data; 
+    });
+    
+    $scope.submit = function() {
+        Users.put($scope.user, $scope.userID).success(function(data) {
+            console.log(data.data); 
+        });
+    };
 }]);
 //Sergey
-mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', function($scope, $routeParams) {
+mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', function($scope, $routeParams, Chefs) {
     $scope.chefID = $routeParams.id;
+    
+    Chefs.getByID($scope.chefID).success(function(data) {
+        $scope.chef = data.data; 
+    });
+    
+    $scope.submit = function() {
+        Chefs.put($scope.chef, $scope.chefID).success(function(data) {
+            console.log(data.data); 
+        });
+    };
 }]);
 //Sergey
 mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', function($scope, $routeParams, Requests, Chefs) {

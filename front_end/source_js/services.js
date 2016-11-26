@@ -8,6 +8,9 @@ mp4Services.factory('Users', function($http, $window) {
         },
         getByID : function(id) {
             return $http.get(baseUrl+'/api/users/' + id)
+        },
+        put : function(data, id) {
+            return $http.put(baseUrl+'/api/users/' + id, data);
         }
     }
 });
@@ -19,6 +22,9 @@ mp4Services.factory('Chefs', function($http, $window) {
         },
         getByID : function(id) {
             return $http.get(baseUrl+'/api/chefs/' + id)
+        },
+        put : function(data, id) {
+            return $http.put(baseUrl+'/api/chefs/' + id, data);
         }
     }
 });
