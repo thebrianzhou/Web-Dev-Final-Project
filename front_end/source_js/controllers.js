@@ -38,6 +38,22 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'CommonData'  , funct
 
 }]);
 //Sergey
+mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
+    $scope.userID = $routeParams.id;
+    
+    Users.getByID($scope.userID).success(function(data) {
+        $scope.user = data.data; 
+    });
+}]);
+//Sergey
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', function($scope, $routeParams, Chefs) {
+    $scope.chefID = $routeParams.id;
+    
+    Chefs.getByID($scope.chefID).success(function(data) {
+        $scope.chef = data.data; 
+    });
+}]);
+//Sergey
 mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', function($scope, $routeParams) {
     $scope.userID = $routeParams.id;
 }]);

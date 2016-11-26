@@ -15,6 +15,14 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/chefgrid.html',
     controller: 'ChefGridController'
   }).
+  when('/userprofile/:id', {//Sergey
+    templateUrl: 'partials/userprofile.html',
+    controller: 'UserProfileController'
+  }).
+  when('/chefprofile/:id', {//Sergey
+    templateUrl: 'partials/chefprofile.html',
+    controller: 'ChefProfileController'
+  }).
   when('/edituser/:id', {//Sergey
     templateUrl: 'partials/edituser.html',
     controller: 'EditUserController'
