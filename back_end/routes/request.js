@@ -43,16 +43,18 @@ module.exports = function(router) {
   	  	  budget: 0,
   	  	  payment: 0,
   	  	  cuisine: "",
+          date: new Date(),
   	  	  description: ""
   	  });
   	  
   	  if(("assignedUser" in req.body) && ("assignedChef" in req.body) && ("budget" in req.body)
-  	  	 && ("payment" in req.body) && ("cuisine" in req.body)){
+  	  	 && ("payment" in req.body) && ("cuisine" in req.body) && ("date" in req.body)){
   	  	newRequest.assignedUser= req.body.assignedUser;
 	  	newRequest.assignedChef = req.body.assignedChef;
 	  	newRequest.budget = req.body.budget;
 	  	newRequest.payment = req.body.payment;
 	  	newRequest.cuisine = req.body.cuisine;
+        newRequest.date = req.body.date;
 	  	if("description" in req.body)
 	  	  	newRequest.description = req.body.description;
 
@@ -67,7 +69,7 @@ module.exports = function(router) {
   	  else
   	  {
   	  	//print out some error here to indicate email not provided
-  	  	res.status(500).json({"message" : "assignedUser, assignedChef, budget, payment, or cuisine not provided", "data" : ""});
+  	  	res.status(500).json({"message" : "assignedUser, assignedChef, budget, payment, date, or cuisine not provided", "data" : ""});
   	  }
   });
 
