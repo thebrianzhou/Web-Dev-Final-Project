@@ -55,8 +55,8 @@ def getChefs(conn):
 def main(argv):
 
     # Server Base URL and port
-    baseurl = "www.uiucwp.com"
-    port = 4000
+    baseurl = "127.0.0.1"
+    port = 8000
 
     try:
         opts, args = getopt.getopt(argv,"hu:p:",["url=","port="])
