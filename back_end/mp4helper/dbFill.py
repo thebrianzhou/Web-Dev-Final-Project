@@ -14,13 +14,14 @@ import getopt
 import httplib
 import urllib
 import json
+import random
 from random import randint
 from random import choice
 from datetime import date
 from time import mktime
 
 def usage():
-    print 'dbFill.py -u <baseurl> -p <port> -n <numUsers> -c <numChefs>'
+    print 'dbFill.py -u <baseurl> -p <port> -n <numUsers> -c <numChefs> -r <numRequests>'
 
 def getUsers(conn):
     # Retrieve the list of users
@@ -34,6 +35,16 @@ def getUsers(conn):
 
     return users
 
+def getChefs(conn):
+    conn.request("GET","""/api/chefs?filter={"_id":1}""")
+    response = conn.getresponse()
+    data = response.read()
+    d = json.loads(data);
+    
+    chefs = [str(d['data'][x]['_id']) for x in xrange(len(d['data']))]
+
+    return chefs
+
 def main(argv):
 
     # Server Base URL and port
@@ -43,7 +54,7 @@ def main(argv):
     # Number of POSTs that will be made to the server
     userCount = 100
     chefCount = 100
-
+    requestCount = 30
     try:
         opts, args = getopt.getopt(argv,"hu:p:n:c:",["url=","port=","users=","tasks="])
     except getopt.GetoptError:
@@ -61,6 +72,8 @@ def main(argv):
              userCount = int(arg)
         elif opt in ("-c", "--chefs"):
              chefCount = int(arg)
+        elif opt in ("-r", "--requests"):
+             requestCount = int(art)
 
     # Python array containing common first names and last names
     firstNames = ["james","john","robert","michael","william","david","richard","charles","joseph","thomas","christopher","daniel","paul","mark","donald","george","kenneth","steven","edward","brian","ronald","anthony","kevin","jason","matthew","gary","timothy","jose","larry","jeffrey","frank","scott","eric","stephen","andrew","raymond","gregory","joshua","jerry","dennis","walter","patrick","peter","harold","douglas","henry","carl","arthur","ryan","roger","joe","juan","jack","albert","jonathan","justin","terry","gerald","keith","samuel","willie","ralph","lawrence","nicholas","roy","benjamin","bruce","brandon","adam","harry","fred","wayne","billy","steve","louis","jeremy","aaron","randy","howard","eugene","carlos","russell","bobby","victor","martin","ernest","phillip","todd","jesse","craig","alan","shawn","clarence","sean","philip","chris","johnny","earl","jimmy","antonio","danny","bryan","tony","luis","mike","stanley","leonard","nathan","dale","manuel","rodney","curtis","norman","allen","marvin","vincent","glenn","jeffery","travis","jeff","chad","jacob","lee","melvin","alfred","kyle","francis","bradley","jesus","herbert","frederick","ray","joel","edwin","don","eddie","ricky","troy","randall","barry","alexander","bernard","mario","leroy","francisco","marcus","micheal","theodore","clifford","miguel","oscar","jay","jim","tom","calvin","alex","jon","ronnie","bill","lloyd","tommy","leon","derek","warren","darrell","jerome","floyd","leo","alvin","tim","wesley","gordon","dean","greg","jorge","dustin","pedro","derrick","dan","lewis","zachary","corey","herman","maurice","vernon","roberto","clyde","glen","hector","shane","ricardo","sam","rick","lester","brent","ramon","charlie","tyler","gilbert","gene"]
@@ -75,9 +88,6 @@ def main(argv):
 
     # Array of user IDs
     userIDs = []
-    userNames = []
-    userEmails = []
-    userLocations = []
     # Loop 'userCount' number of times
     for i in xrange(userCount):
 
@@ -95,21 +105,11 @@ def main(argv):
         d = json.loads(data)
 
         # Store the users id
-        userIDs.append(str(d['data']['_id']))
-        userNames.append(str(d['data']['name']))
-        userEmails.append(str(d['data']['email']))
-        userLocations.append(str(d['data']['location']))
 
     cuisines = ["american", "british", "caribbean", "chinese", "french", "greek", "indian", "italian", "japanese", "mediterranean", "mexican", "moroccan", "spanish", "thai", "turkish", "vietnamese"]
 
      # Array of user IDs
     chefIDs = []
-    chefNames = []
-    chefEmails = []
-    chefCuisines = []
-    chefProfilePics = [];
-    chefDescriptions = [];
-    chefLocations = []
     for i in xrange(chefCount):
         # Pick a random first name and last name
         x = randint(0,99)
@@ -126,14 +126,29 @@ def main(argv):
         d = json.loads(data)
 
         # Store the users id
-        chefIDs.append(str(d['data']['_id']))
-        chefNames.append(str(d['data']['name']))
-        chefEmails.append(str(d['data']['email']))
-        chefCuisines.append(str(d['data']['cuisines']))
-        chefProfilePics.append(str(d['data']['profile_pic']))
-        chefDescriptions.append(str(d['data']['description']))
-        chefLocations.append(str(d['data']['location']))
 
+    budget = [20, 30, 40, 50, 60, 70, 80, 90]
+    payment = [20, 30, 40, 50, 60, 70, 80, 90]
+
+    users = getUsers(conn);
+    chefs = getChefs(conn);
+    for i in xrange(requestCount):
+
+        # Randomly generate task parameters
+        assignedUser = random.choice(users)
+        assignedChef = random.choice(chefs)
+        d = (mktime(date.today().timetuple()) + randint(86400,864000)) * 1000
+        description = "sample_description"
+        b = randint(0,7)
+        p = randint(0,7)
+        c = randint(0,15)
+        params = urllib.urlencode({'assignedUser': assignedUser, 'assignedChef': assignedChef, 'budget': budget[b], 'payment': payment[p], 'cuisine': cuisines[c], 'date': d, 'description': description})
+
+        # POST the task
+        conn.request("POST", "/api/requests", params, headers)
+        response = conn.getresponse()
+        data = response.read()
+        d = json.loads(data)
     # Exit gracefully
     conn.close()
     print str(userCount)+" users and " + str(chefCount) + " chefs added at "+baseurl+":"+str(port)
