@@ -26,10 +26,10 @@ mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , fun
 
 }]);
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs'  , function($scope, CommonData) {
   $scope.data = "";
-   $scope.displayText = ""
-
+   $scope.displayText = "";
+   $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John', 'Luis', 'Kate', 'Max'];
   $scope.setData = function(){
     CommonData.setData($scope.data);
     $scope.displayText = "Data set"

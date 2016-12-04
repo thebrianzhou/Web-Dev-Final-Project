@@ -1,6 +1,13 @@
-var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services']);
 
 
+var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngMatTheme','ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services']);
+
+angular.module('ngMatTheme', ['ngMaterial'])
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('orange')
+    .accentPalette('red');
+});
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
     when('/login', {//Brian
@@ -43,3 +50,5 @@ app.config(['$routeProvider', function($routeProvider) {
     redirectTo: '/login'
   });
 }]);
+
+
