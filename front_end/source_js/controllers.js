@@ -1,5 +1,10 @@
 var mp4Controllers = angular.module('mp4Controllers', []);
-
+const months = [
+  "January", "February", "March",
+  "April", "May", "June", "July",
+  "August", "September", "October",
+  "November", "December"
+];
 
 //Brian
 mp4Controllers.controller('LoginController', ['$scope', 'CommonData'  , function($scope, CommonData) {
@@ -96,7 +101,9 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         
         for (var i = 0; i < $scope.requests.length; i++)
         {
-            addChefToRequest($scope.requests[i]);   
+            addChefToRequest($scope.requests[i]);  
+            var date = new Date($scope.requests[i].date);
+            $scope.requests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         }
     });
     
@@ -117,6 +124,8 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
         for (var i = 0; i < $scope.requests.length; i++)
         {
             addUserToRequest($scope.requests[i]);
+            var date = new Date($scope.requests[i].date);
+            $scope.requests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         }
     });
 }]);

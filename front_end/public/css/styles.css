@@ -1,25 +1,25 @@
-/* line 5, ../../source_sass/_base.scss */
-.buttondemoBasicUsage section {
+/* line 1, ../../source_sass/_base.scss */
+section {
   border-radius: 3px;
   text-align: center;
   margin: 1em;
   position: relative !important;
   padding-bottom: 10px; }
 
-/* line 13, ../../source_sass/_base.scss */
-.buttondemoBasicUsage section .md-button {
+/* line 9, ../../source_sass/_base.scss */
+section .md-button {
   margin-top: 16px;
   margin-bottom: 16px; }
 
-/* line 17, ../../source_sass/_base.scss */
-.buttondemoBasicUsage .label {
+/* line 13, ../../source_sass/_base.scss */
+.label {
   position: absolute;
   bottom: 5px;
   left: 7px;
   font-size: 14px;
   opacity: 0.54; }
 
-/* line 25, ../../source_sass/_base.scss */
+/* line 21, ../../source_sass/_base.scss */
 #search_filter {
   background: rgba(250, 250, 250, 0.16);
   border: white solid 0px;
@@ -31,11 +31,11 @@
   padding-right: 40px;
   transition: 0.1s linear all; }
 
-/* line 37, ../../source_sass/_base.scss */
+/* line 33, ../../source_sass/_base.scss */
 #search_filter:focus {
   background: rgba(250, 250, 250, 0.9); }
 
-/* line 41, ../../source_sass/_base.scss */
+/* line 37, ../../source_sass/_base.scss */
 #search_label {
   left: 50px;
   color: rgba(0, 0, 0, 0.32);
@@ -44,7 +44,7 @@
   transition: 0.1s linear all;
   transform: translateY(-50%); }
 
-/* line 50, ../../source_sass/_base.scss */
+/* line 46, ../../source_sass/_base.scss */
 #search_close {
   right: 20px;
   border-radius: 50%;
@@ -54,15 +54,22 @@
   transition: 0.1s linear all;
   transform: translateY(-50%); }
 
-/* line 60, ../../source_sass/_base.scss */
+/* line 56, ../../source_sass/_base.scss */
 #search_close:hover {
   cursor: pointer; }
 
-/* line 64, ../../source_sass/_base.scss */
+/* line 60, ../../source_sass/_base.scss */
 #search_container {
   padding-left: 40px;
   padding-right: 10px;
   position: relative; }
+
+/* line 66, ../../source_sass/_base.scss */
+.md-card-image {
+  display: block;
+  width: auto;
+  margin: auto;
+  height: 200px; }
 
 /*
   NOTE: Do not touch this file. Write the bulk of your custom styles

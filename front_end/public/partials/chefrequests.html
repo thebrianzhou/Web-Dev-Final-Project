@@ -1,8 +1,18 @@
-<div class="list-item" ng-repeat="request in requests">
-    <div>{{request.user.name}}</div>
-    <div>{{request.user.email}}</div>
-    <div>{{request.budget}}</div>
-    <div>{{request.payment}}</div>
-    <div>{{request.cuisine}}</div>
-    <div>{{request.description}}</div>
+<div class='md-padding' layout="row" layout-wrap>
+    <md-card style="width: 300px;" ng-repeat="request in requests">
+        <img src="{{request.user.profile_pic}}" class="md-card-image" alt="user avatar">
+        <md-card-content>
+            <h4>Requested By: {{request.user.name}}</h4>
+            <h4>Email: {{request.user.email}}</h4>
+            <div>Budget: ${{request.budget}}</div>
+            <div>Payment: ${{request.payment}}</div>
+            <div>Cuisine: {{request.cuisine}}</div>
+            <div>Date: {{request.dateString}}</div>
+            <div>Description: {{request.description}}</div>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button>Accept</md-button>
+            <md-button>Reject</md-button>
+        </div>
+    </md-card>
 </div>

@@ -1,5 +1,14 @@
-<div class="user-profile">
-    <div>{{user.name}}</div>
-    <div>{{user.email}}</div>
-    <div>{{user.profile_pic}}</div>
+<div class='md-padding' layout="row" layout-wrap>
+    <md-card style="width: 300px;">
+        <img src="{{user.profile_pic}}" class="md-card-image" alt="user avatar">
+        <md-card-content>
+            <h4>Name: {{user.name}}</h4>
+            <h4>Email: {{user.email}}</h4>
+            <h4>Locations:
+                <span ng-repeat="zip in user.location">
+                    <div>{{zip}} </div>
+                </span>
+            </h4>
+        </md-card-content>
+    </md-card>
 </div>

@@ -1,6 +1,7 @@
 <form class="row">
     <label>Name: <input ng-model="user.name" type="text" placeholder="Name" required></label>
     <label>Email: <input ng-model="user.email" type="text" placeholder="Email" required></label>
-    <label>Profile Picture URL: <input ng-model="user.profile_pic" type="text" placeholder="Profile Picture URL" required></label>
+    <label>Locations (comma separated zip codes): <input ng-model="user.location" ng-list="," type="text" placeholder="Locations" required></label>
+    <label>Profile Picture URL: <input ng-model="user.profile_pic" type="text" placeholder="Profile Picture URL"></label>
     <button ng-click="submit()" class="button">Submit</button>
 </form>
