@@ -96,7 +96,7 @@ def main(argv):
         y = randint(0,99)
         #pick a random zipcode
         z = randint(0,32)
-        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'location': zipcodes[z]})
+        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'location': zipcodes[z], 'hashed_password': "sample_password"})
         
         # POST the user
         conn.request("POST", "/api/users", params, headers)
@@ -117,7 +117,7 @@ def main(argv):
         #pick a random zipcode
         z = randint(0,32)
         c = randint(0,15)
-        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'profile_pic' : "sample_pic", "cuisines" : cuisines[c], "description": "sample_description", 'location': zipcodes[z]})
+        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'profile_pic' : "sample_pic", "cuisines" : cuisines[c], "description": "sample_description", 'location': zipcodes[z], 'hashed_password': "sample_password"})
         
         # POST the user
         conn.request("POST", "/api/chefs", params, headers)
@@ -129,7 +129,7 @@ def main(argv):
 
     budget = [20, 30, 40, 50, 60, 70, 80, 90]
     payment = [20, 30, 40, 50, 60, 70, 80, 90]
-
+    status = ["accepted", "rejected", "completed", "pending"]
     users = getUsers(conn);
     chefs = getChefs(conn);
     for i in xrange(requestCount):
@@ -142,7 +142,8 @@ def main(argv):
         b = randint(0,7)
         p = randint(0,7)
         c = randint(0,15)
-        params = urllib.urlencode({'assignedUser': assignedUser, 'assignedChef': assignedChef, 'budget': budget[b], 'payment': payment[p], 'cuisine': cuisines[c], 'date': d, 'description': description})
+        s = randint(0,3)
+        params = urllib.urlencode({'assignedUser': assignedUser, 'assignedChef': assignedChef, 'budget': budget[b], 'payment': payment[p], 'cuisine': cuisines[c], 'date': d, 'status': status[s], 'description': description})
 
         # POST the task
         conn.request("POST", "/api/requests", params, headers)
@@ -151,7 +152,7 @@ def main(argv):
         d = json.loads(data)
     # Exit gracefully
     conn.close()
-    print str(userCount)+" users and " + str(chefCount) + " chefs added at "+baseurl+":"+str(port)
+    print str(userCount)+" users and " + str(chefCount) + " chefs and " + str(requestCount) + " requests added at "+baseurl+":" +str(port)
 
 
 if __name__ == "__main__":

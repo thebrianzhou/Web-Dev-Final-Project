@@ -45,16 +45,18 @@ module.exports = function(router) {
   	  	  description: "",
   	  	  carousel: [],
   	  	  location: [],
-  	  	  reviews: []
+  	  	  reviews: [],
+          hashed_password: ""
   	  });
   	  
   	  if(("name" in req.body) && ("email" in req.body) && ("profile_pic" in req.body) 
-  	  && ("cuisines" in req.body)	&& ("location" in req.body)){
+  	  && ("cuisines" in req.body)	&& ("location" in req.body) && ("hashed_password" in req.body)){
   	  	newChef.name = req.body.name;
 	  	newChef.email = req.body.email;
 	  	newChef.profile_pic = req.body.profile_pic;
 	  	newChef.cuisines = req.body.cuisines;
 	  	newChef.location = req.body.location;
+      newChef.hashed_password = req.body.hashed_password;
 	  	if("description" in req.body)
 	  	  	newChef.description = req.body.description;
 	  	if("carousel" in req.body)
