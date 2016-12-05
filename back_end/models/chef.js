@@ -11,7 +11,6 @@ var ChefSchema   = new mongoose.Schema({
   carousel: [String],
   location: {type: [Number], required: true},
   reviews: [{assignedUser: String, rating: Number, review: String}],
-  hashed_password: {type: String, required: true}
 });
 
 // Export the Mongoose model

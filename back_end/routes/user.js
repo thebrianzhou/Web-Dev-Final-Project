@@ -42,15 +42,13 @@ module.exports = function(router) {
   	  	  email: "",
   	  	  profile_pic: "",
   	  	  location: [],
-          hashed_password: ""
   	  });
   	  
-  	  if(("name" in req.body) && ("email" in req.body) && ("location" in req.body) && ("hashed_password" in req.body))
+  	  if(("name" in req.body) && ("email" in req.body) && ("location" in req.body))
   	  {
   	  	newUser.name = req.body.name;
 	  	newUser.email = req.body.email;
 	  	newUser.location = req.body.location;
-      newUser.hashed_password = req.body.hashed_password
 	  	if("profile_pic" in req.body)
 	  	  	newUser.profile_pic = req.body.profile_pic;
 
