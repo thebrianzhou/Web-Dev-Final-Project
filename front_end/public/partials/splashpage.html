@@ -1,3 +1,25 @@
-<h3> Splash Page </h3>
+<head>
+	<style>
+		body{
+		  background:  linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../media/cutting-board-background-login.jpg") no-repeat center center fixed; 
+		  -webkit-background-size: cover;
+		  -moz-background-size: cover;
+		  -o-background-size: cover;
+		  background-size: cover;
+		  position: relative;
+		  height:100%;
+		}
+	</style>
+</head>
+	    <div layout = column layout-align = "center center">
+			<div class = "vertical" layout = row layout-align="center center">
+				<div class='md-padding' id = "buttons" layout=column>
+					<md-button class="md-primary" ng-click="signup()"> Sign Up </md-button>
+					<md-button class="md-primary" ng-click="login()"> Login </md-button>
+				</div>
+				<div class='md-padding' id = "description" layout=column style="color:white; float:right">
+					Sample Description
+				</div>
+			</div>
+		</div>
 
-<img src = "./media/cutting-board-background-login.jpg"> </img>

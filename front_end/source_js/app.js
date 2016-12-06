@@ -50,9 +50,19 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/splashpage.html',
     controller: 'SplashPageController'
   }).
+  when('/signup',{
+    templateUrl: 'partials/signup.html',
+    controller: 'SignupController'
+  }).
   otherwise({
-    redirectTo: '/login'
+    redirectTo: '/splashpage'
   });
 }]);
 
-
+app.run(['$rootScope', '$location', 'authentication', run, function($rootScope, $location, authentication){
+  $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+      if ($location.path() === '/user' && !authentication.isLoggedIn()) {
+        $location.path('/splashpage');
+      }
+    });
+}]);

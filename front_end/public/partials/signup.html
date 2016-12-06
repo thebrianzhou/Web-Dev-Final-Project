@@ -1,0 +1,107 @@
+ 
+<md-toolbar flex="none">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Signup</span>
+        </h2>
+  	  <span flex>
+  	  </span>
+      </div>
+      <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
+        <md-tab label="User">
+	        <md-content layout = "column">
+	           <md-input-container>
+				  <label>Name</label>
+				  <input ng-model="name" required>
+				</md-input-container>
+
+				<md-input-container>
+				  <label>Email</label>
+				  <input ng-model="email" type="email" required>
+				</md-input-container>
+
+				<md-input-container>
+				  <label>Profile Pic (link)</label>
+				  <input ng-model="profile_pic">
+				</md-input-container>
+
+				<md-input-container>
+				  <label>Location (Zip Codes)</label>
+				  <input ng-list="," ng-model = location required>
+				</md-input-container>
+
+				<md-input-container>
+				  <label>Password</label>
+				  <input type = "password" ng-model = "password" required hidden>
+				</md-input-container>
+				<md-button class="md-accent md-raised" ng-click = "submitUser()"> Submit </md-button>
+			</md-content>
+		</md-tab>
+        <md-tab label="Chef">
+          <md-content>
+               <div layout = "column">
+               		<div layout = "row">
+	               		<md-input-container flex = "40">
+						  <label>Name</label>
+						  <input ng-model="name" required>
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Email</label>
+						  <input ng-model="email" type="email" required>
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+	               		<md-input-container flex = "40">
+						  <label>Profile Pic (link)</label>
+						  <input ng-model="profile_pic" required>
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Profile Pic (link)</label>
+						  <input ng-model="profile_pic" required>
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Cusines</label>
+						  <input ng-list="," ng-model = "cuisines" required>
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Description</label>
+						  <input ng-model = "description">
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Food Examples(image links)</label>
+						  <input ng-model = "carousel" ng-list=",">
+						</md-input-container>
+               		</div>
+               		<div layout = "row">
+               			<md-input-container flex = "40">
+						  <label>Location (Zip Codes)</label>
+						  <input ng-list="," ng-model = location required>
+						</md-input-container>
+               		</div>
+
+               		<div layout = "row">
+						<md-input-container flex = "40">
+						  <label>Password</label>
+						  <input type = "password" ng-model = "password" required>
+						</md-input-container>
+					</div>
+
+					<md-button class="md-accent md-raised" ng-click = "submitChef()"> Submit </md-button>
+				</div>
+			</md-content>
+        </md-tab>
+      </md-tabs>
+    </md-toolbar>
+
+
+
