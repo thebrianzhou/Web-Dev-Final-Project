@@ -5,32 +5,20 @@
         <h2>
           <span>Local Chefs</span>
         </h2>
-        <div id="search_container" ng-show="searching"flex>
+        <div id="search_container" ng-show="searching" flex>
           <md-icon id="search_label">search</md-icon>
           <input id="search_filter" ng-model="lastName2">
         </div>
-        <span flex ng-hide="searching">
+        <span flex ng-hide="searching" style="height: 50px;">
         </span>
-        <md-button class="md-icon-button" aria-label="More" ng-hide="searching" ng-click="searching = !searching; ">
-          <md-icon >search</md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="More" ng-show="searching" ng-click="searching = !searching; inp.focus();">
-          <md-icon >close</md-icon>
-        </md-button>        
+        <md-button class="md-icon-button" aria-label="More" ng-click="searching = !searching; ">
+          <md-icon ng-hide="searching" >search</md-icon>
+          <md-icon ng-show="searching" >close</md-icon>
+        </md-button>       
       </div>
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="one">
-          <md-content>
-            <md-input-container>
-              <label>Last Name</label>
-              <input name="lastName" ng-model="lastName">
-              <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
-                <div ng-message="required">This is required!</div>
-                <div ng-message="md-maxlength">That's too long!</div>
-                <div ng-message="minlength">That's too short!</div>
-              </div>
-            </md-input-container>
-          </md-content>
+          
         </md-tab>
         <md-tab label="two" md-colors="{background: 'green-800'}">
           <md-content class="md-padding">
@@ -40,6 +28,33 @@
         </md-tab>
       </md-tabs>
     </md-toolbar>
+
+
+<div layout="row" layout-wrap layout-align="center">
+<!-- style="width: calc(100% / 4 - 30px); margin: 15px;" -->
+      <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="40" flex-lg="33" ng-repeat="user in users">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{user}}</span>
+              <span class="md-subhead">{{['Cuisine1', 'Cuisine2'].join(", ")}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+              <div class="md-media-lg card-media"></div>
+            </md-card-title-media>
+          </md-card-title>
+          <md-card-content>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-icon-button" ng-click="showAdvanced($event,$index)">
+              <md-icon>open_in_new</md-icon>
+            </md-button>
+          </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+  
 
   <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px" style="margin: 8px;margin-right:0">
     <md-grid-tile>
@@ -202,3 +217,18 @@
   <br>
   <br>
 </div>
+<div style="visibility: hidden">
+        <div class="md-dialog-container" id="myDialog">
+          <md-dialog layout-padding>
+            <h2>{{yo}}</h2>
+            <p>
+              This is a pre-rendered dialog, which means that <code>$mdDialog</code> doesn't compile its
+              template on each opening.
+              <br/><br/>
+              The Dialog Element is a static element in the DOM, which is just visually hidden.<br/>
+              Once the dialog opens, we just fetch the element from the DOM into our dialog and upon close
+              we restore the element back into its old DOM position.
+            </p>
+          </md-dialog>
+        </div>
+      </div>

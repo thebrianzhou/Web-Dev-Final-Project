@@ -26,15 +26,79 @@ mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , fun
 
 }]);
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs'  , function($scope, CommonData) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog', function($scope, CommonData, $mdDialog) {
   $scope.data = "";
    $scope.displayText = "";
+   $scope.users = ['Fabio', 'Leonardo', 'Thomas'];//, 'Gabriele', 'Fabrizio', 'John', 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
   $scope.setData = function(){
     CommonData.setData($scope.data);
     $scope.displayText = "Data set"
 
   };
+  /*$scope.showDialog = function(ev,ind) {
+    console.log(ind);
+    $mdDialog.show({
+      controller: ['$scope','$mdDialog','user',function ($scope2, $mdDialog, user) {
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.user = user;
+        $scope.yo="hi";
+        console.log(user);
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
 
+        $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+        };
+      }],
+      contentElement: '#myDialog',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        user: "hi"
+      },
+      clickOutsideToClose: true
+    });
+    
+    
+  };*/
+  
+  $scope.showAdvanced = function(ev,ind) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '../../partials/trial.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        user: $scope.users[ind]
+      },
+      clickOutsideToClose:true,
+      fullscreen: true // Only for -xs, -sm breakpoints.
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+    
+    function DialogController($scope, $mdDialog,user) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.user = user;
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+      };
+    }
+  };
+  
+  
 }]);
 //Sergey
 mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
