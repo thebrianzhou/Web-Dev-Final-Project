@@ -59,7 +59,7 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-app.run(['$rootScope', '$location', 'authentication', run, function($rootScope, $location, authentication){
+app.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
   $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
       if ($location.path() === '/user' && !authentication.isLoggedIn()) {
         $location.path('/splashpage');

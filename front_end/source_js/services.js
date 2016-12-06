@@ -1,5 +1,5 @@
 var mp4Services = angular.module('mp4Services', []);
-var baseUrl = "http://localhost:8000";
+var baseUrl = "http://fa16-cs498rk-085.cs.illinois.edu:8000";
 
 mp4Services.factory('Users', function($http, $window) {
     return {
@@ -7,12 +7,21 @@ mp4Services.factory('Users', function($http, $window) {
             return $http.get(baseUrl+'/api/users');
         },
         getByID : function(id) {
-            return $http.get(baseUrl+'/api/users/' + id)
+            return $http.get(baseUrl+'/api/chefs/' + id,{
+                headers:{
+                    Authorization: 'Bearer '+ authentication.getToken()
+                }
+            });
         },
-        put : function(data, id) {
-            return $http.put(baseUrl+'/api/users/' + id, data);
-        }
+        post : function(user){
+           return $http.post('/api/register', user).success(function(data){
+            saveToken(data.token);
+        });
+       },
+       put : function(data, id) {
+        return $http.put(baseUrl+'/api/users/' + id, data);
     }
+}
 });
 
 mp4Services.factory('Chefs', function($http, $window) {
@@ -21,7 +30,11 @@ mp4Services.factory('Chefs', function($http, $window) {
             return $http.get(baseUrl+'/api/chefs');
         },
         getByID : function(id) {
-            return $http.get(baseUrl+'/api/chefs/' + id)
+            return $http.get(baseUrl+'/api/chefs/' + id,{
+                headers:{
+                    Authorization: 'Bearer '+ authentication.getToken()
+                }
+            });
         },
         put : function(data, id) {
             return $http.put(baseUrl+'/api/chefs/' + id, data);
@@ -57,3 +70,4 @@ mp4Services.factory('Requests', function($http, $window) {
         }
     }
 });
+
