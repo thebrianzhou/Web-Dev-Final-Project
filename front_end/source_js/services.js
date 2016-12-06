@@ -41,10 +41,73 @@ mp4Services.factory('Chefs', function($http, $window, authentication) {
             authentication.saveToken(data.token);
         });
        },
-        put : function(data, id) {
-            return $http.put(baseUrl+'/api/chefs/' + id, data);
-        }
+       put : function(data, id) {
+        return $http.put(baseUrl+'/api/chefs/' + id, data);
     }
+}
+});
+
+mp4Services.factory('authentication', function($http, $window){
+        var saveToken = function (token) {
+          $window.localStorage['mean-token'] = token;
+      };
+
+      var getToken = function () {
+          return $window.localStorage['mean-token'];
+      };
+
+      var isLoggedIn = function() {
+          var token = getToken();
+          var payload;
+
+          if(token){
+            payload = token.split('.')[1];
+            payload = $window.atob(payload);
+            payload = JSON.parse(payload);
+
+            return payload.exp > Date.now() / 1000;
+        } else {
+            return false;
+        }
+    };
+
+    var currentUser = function() {
+      if(isLoggedIn()){
+        var token = getToken();
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+        return {
+          email : payload.email,
+          name : payload.name,
+          _id : payload._id
+      };
+    }
+    };
+    var cheflogin = function(chef) {
+        return $http.post('/api/cheflogin', chef).success(function(data) {
+            saveToken(data.token);
+        });
+    };
+    var userlogin = function(user) {
+        return $http.post('/api/userlogin', user).success(function(data) {
+            saveToken(data.token);
+        });
+    };
+
+    logout = function() {
+        $window.localStorage.removeItem('mean-token');
+    };
+
+    return {
+        currentUser : currentUser,
+        saveToken : saveToken,
+        getToken : getToken,
+        isLoggedIn : isLoggedIn,
+        userlogin : userlogin,
+        cheflogin : cheflogin,
+        logout : logout
+    };
 });
 
 mp4Services.factory('Requests', function($http, $window) {

@@ -64,5 +64,5 @@ app.config(['$routeProvider', function($routeProvider) {
       if (!authentication.isLoggedIn()) {
         $location.path('/splashpage');
       }
-    });*/
-}]);
+    });
+}]);*/
