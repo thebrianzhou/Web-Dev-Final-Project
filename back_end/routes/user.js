@@ -1,5 +1,10 @@
 var secrets = require('../config/secrets');
 var User = require('../models/user');
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
 
 module.exports = function(router) {
 
@@ -44,26 +49,30 @@ module.exports = function(router) {
   	  	  location: [],
   	  });
   	  
-  	  if(("name" in req.body) && ("email" in req.body) && ("location" in req.body))
+  	  if(("name" in req.body) && ("email" in req.body) && ("location" in req.body) && ("password" in req.body))
   	  {
   	  	newUser.name = req.body.name;
 	  	newUser.email = req.body.email;
 	  	newUser.location = req.body.location;
+      newUser.setPassword(req.body.password);
 	  	if("profile_pic" in req.body)
 	  	  	newUser.profile_pic = req.body.profile_pic;
 
 	  	newUser.save(function (err, result) {
 			if (err) 
 			    res.status(500).json({"message" : "user could not be added", "data": err});
-			else
-		  	  	res.status(201).json({"message" : "user added to database", "data": result});
+			else{
+            var token;
+            token = newUser.generateJwt();
+		  	  	res.status(201).json({"message" : "user added to database", "data": result, "token" : token});
+          }
   	  	});
   	  	
   	  }
   	  else
   	  {
   	  	//print out some error here to indicate email not provided
-  	  	res.status(500).json({"message" : "name, email, or location not provided", "data" : ""});
+  	  	res.status(500).json({"message" : "name, email, location, or password not provided", "data" : ""});
   	  }
   });
 

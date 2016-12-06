@@ -1,5 +1,10 @@
 var secrets = require('../config/secrets');
 var Chef = require('../models/chef');
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
 
 module.exports = function(router) {
 
@@ -49,12 +54,14 @@ module.exports = function(router) {
   	  });
   	  
   	  if(("name" in req.body) && ("email" in req.body) && ("profile_pic" in req.body) 
-  	  && ("cuisines" in req.body)	&& ("location" in req.body)){
+  	  && ("cuisines" in req.body)	&& ("location" in req.body) && ("password" in req.body)){
   	  	newChef.name = req.body.name;
 	  	newChef.email = req.body.email;
 	  	newChef.profile_pic = req.body.profile_pic;
 	  	newChef.cuisines = req.body.cuisines;
-	  	newChef.location = req.body.location;
+	  	newChef.location = req.body.location;  
+      newChef.setPassword(req.body.password);
+
 	  	if("description" in req.body)
 	  	  	newChef.description = req.body.description;
 	  	if("carousel" in req.body)
@@ -65,8 +72,11 @@ module.exports = function(router) {
 	  	newChef.save(function (err, result) {
 			if (err) 
 			    res.status(500).json({"message" : "chef could not be added", "data": err});
-			else
-		  	  	res.status(201).json({"message" : "chef added to database", "data": result});
+			else{
+            var token;
+            token = newChef.generateJwt();
+		  	  	res.status(201).json({"message" : "chef added to database", "data": result, "token":token});
+          }
   	  	});
   	  	
   	  }
