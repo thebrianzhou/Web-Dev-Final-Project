@@ -1,1 +1,88 @@
-{{displayText}}
+ 
+<md-toolbar flex="none">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Signup</span>
+        </h2>
+        <div id="search_container" ng-show="searching" flex>
+          <md-icon id="search_label">search</md-icon>
+          <input id="search_filter" ng-model="lastName2">
+        </div>
+        <span flex ng-hide="searching" style="height: 50px;">
+        </span>
+        <md-button class="md-icon-button" aria-label="More" ng-click="searching = !searching; ">
+          <md-icon ng-hide="searching" >search</md-icon>
+          <md-icon ng-show="searching" >close</md-icon>
+        </md-button>       
+      </div>
+      <md-tabs md-dynamic-height>
+        <md-tab label="User">
+	        <md-content layout = "column">
+	           <md-input-container layout = "row">
+				  <label>Name</label>
+				  <input ng-model="name" required>
+				</md-input-container>
+
+				<md-input-container layout = "row">
+				  <label>Email</label>
+				  <input ng-model="email" type="email" required>
+				</md-input-container>
+
+				<md-input-container layout = "row">
+				  <label>Profile Pic (link)</label>
+				  <input ng-model="profile_pic">
+				</md-input-container>
+
+				<md-input-container layout = "row">
+				  <label>Location (Zip Codes)</label>
+				  <input ng-list="," ng-model = location required>
+				</md-input-container>
+				<md-button class="md-accent md-raised" ng-click = "submitUser()" layout = "row"> Submit </md-button>
+			</md-content>
+		</md-tab>
+        <md-tab label="Chef">
+          <md-content>
+               <div layout = "column">
+		           <md-input-container layout = "row">
+					  <label>Name</label>
+					  <input ng-model="name" required>
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Email</label>
+					  <input ng-model="email" type="email" required>
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Profile Pic (link)</label>
+					  <input ng-model="profile_pic" required>
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Cusines</label>
+					  <input ng-list="," ng-model = "cuisines" required>
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Description</label>
+					  <input ng-model = "description">
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Food Examples(image links)</label>
+					  <input ng-model = "carousel" ng-list=",">
+					</md-input-container>
+
+					<md-input-container layout = "row">
+					  <label>Location (Zip Codes)</label>
+					  <input ng-list="," ng-model = location required>
+					</md-input-container>
+					<md-button class="md-accent md-raised" ng-click = "submitChef()" layout = "row"> Submit </md-button>
+				</div>
+			</md-content>
+        </md-tab>
+      </md-tabs>
+    </md-toolbar>
+
+
+
