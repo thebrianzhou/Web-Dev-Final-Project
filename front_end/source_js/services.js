@@ -1,7 +1,7 @@
 var mp4Services = angular.module('mp4Services', []);
 var baseUrl = "http://fa16-cs498rk-085.cs.illinois.edu:8000";
 
-mp4Services.factory('Users', function($http, $window) {
+mp4Services.factory('Users', function($http, $window, authentication) {
     return {
         get : function() {
             return $http.get(baseUrl+'/api/users');
@@ -14,7 +14,7 @@ mp4Services.factory('Users', function($http, $window) {
             });
         },
         post : function(user){
-           return $http.post('/api/register', user).success(function(data){
+           return $http.post('/api/userlogin', user).success(function(data){
             saveToken(data.token);
         });
        },
