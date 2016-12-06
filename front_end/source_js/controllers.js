@@ -94,17 +94,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
     });
     
     function DialogController($scope, $mdDialog,user) {
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
       $scope.user = user;
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-
-      $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-      };
     }
   };
   

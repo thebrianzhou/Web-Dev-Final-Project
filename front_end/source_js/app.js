@@ -1,6 +1,6 @@
 
 
-var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngMatTheme','ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services']);
+var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngMatTheme','ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services', 'angular-input-stars']);
 
 angular.module('ngMatTheme', ['ngMaterial'])
 .config(function($mdThemingProvider) {

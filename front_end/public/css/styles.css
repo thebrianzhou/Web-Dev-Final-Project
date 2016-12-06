@@ -72,11 +72,11 @@ section .md-button {
 
 /* line 74, ../../source_sass/_base.scss */
 #search_container.ng-hide-remove {
-  opacity: 1; }
+  opacity: 0; }
 
 /* line 78, ../../source_sass/_base.scss */
 #search_container.ng-hide-remove-active {
-  opacity: 0; }
+  opacity: 1; }
 
 /* line 82, ../../source_sass/_base.scss */
 .card-media {

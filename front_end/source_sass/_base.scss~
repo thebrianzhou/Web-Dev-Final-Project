@@ -63,21 +63,20 @@ section .md-button {
   position: relative;
 }
 
-<<<<<<< HEAD
 #search_container {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -webkit-transition:all linear 1.5s;
+  -moz-transition:all linear 1.5s;
+  -o-transition:all linear 1.5s;
+  transition:all linear 1.5s;
 }
 
 
 #search_container.ng-hide-remove{
-  opacity: 1;
+  opacity: 0;
 }
 
 #search_container.ng-hide-remove-active{
-  opacity: 0;
+  opacity: 1;
 }
 
 .card-media {
@@ -94,11 +93,10 @@ md-card-title-media {
     }
 
 
-=======
 .md-card-image {
     display: block;
     width: auto;
     margin: auto;
     height: 200px;
 }
->>>>>>> 29c3662d7d75937f5c4df1dbfed5db972f947133
+
