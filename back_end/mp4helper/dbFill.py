@@ -54,7 +54,7 @@ def main(argv):
     # Number of POSTs that will be made to the server
     userCount = 100
     chefCount = 100
-    requestCount = 30
+    requestCount = 1000
     try:
         opts, args = getopt.getopt(argv,"hu:p:n:c:",["url=","port=","users=","tasks="])
     except getopt.GetoptError:
@@ -129,7 +129,7 @@ def main(argv):
 
     budget = [20, 30, 40, 50, 60, 70, 80, 90]
     payment = [20, 30, 40, 50, 60, 70, 80, 90]
-    status = ["pending", "accepted", "rejected", "completed"]
+    status = ["pending", "accepted", "completed"]
     users = getUsers(conn);
     chefs = getChefs(conn);
     for i in xrange(requestCount):
@@ -142,7 +142,7 @@ def main(argv):
         b = randint(0,7)
         p = randint(0,7)
         c = randint(0,15)
-        s = randint(0,3)
+        s = randint(0,2)
         params = urllib.urlencode({'assignedUser': assignedUser, 'assignedChef': assignedChef, 'budget': budget[b], 'payment': payment[p], 'cuisine': cuisines[c], 'date': d, 'status': status[s], 'description': description})
 
         # POST the task
