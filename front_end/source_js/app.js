@@ -22,27 +22,27 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/chefgrid.html',
     controller: 'ChefGridController'
   }).
-  when('/userprofile/:id', {//Sergey
+  when('/userprofile/', {//Sergey
     templateUrl: 'partials/userprofile.html',
     controller: 'UserProfileController'
   }).
-  when('/chefprofile/:id', {//Sergey
+  when('/chefprofile/', {//Sergey
     templateUrl: 'partials/chefprofile.html',
     controller: 'ChefProfileController'
   }).
-  when('/edituser/:id', {//Sergey
+  when('/edituser/', {//Sergey
     templateUrl: 'partials/edituser.html',
     controller: 'EditUserController'
   }).
-  when('/editchef/:id', {//Sergey
+  when('/editchef/', {//Sergey
     templateUrl: 'partials/editchef.html',
     controller: 'EditChefController'
   }).
-  when('/userrequests/:id', {//Sergey
+  when('/userrequests/', {//Sergey
     templateUrl: 'partials/userrequests.html',
     controller: 'UserRequestsController'
   }).
-  when('/chefrequests/:id', {//Sergey
+  when('/chefrequests/', {//Sergey
     templateUrl: 'partials/chefrequests.html',
     controller: 'ChefRequestsController'
   }).
