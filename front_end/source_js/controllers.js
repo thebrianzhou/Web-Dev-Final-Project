@@ -38,11 +38,13 @@ mp4Controllers.controller('SignupController', ['$scope', function($scope){
     $scope.cuisines = [];
     $scope.description = "";
     $scope.carousel = [];
+    $scope.password = "";
     $scope.submitUser = function()
     {
         if(typeof $scope.name === 'undefined' || $scope.name==""
         || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0)
+        || typeof $scope.location === 'undefined' || $scope.location.length==0
+        || typeof $scope.password === 'undefined' || $scope.password =="")
                 return;
         console.log("inside submit user");
         console.log($scope.name);
@@ -59,7 +61,8 @@ mp4Controllers.controller('SignupController', ['$scope', function($scope){
         || typeof $scope.email === 'undefined' || $scope.email==""
         || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic==""
         || typeof $scope.cuisines === 'undefined' || $scope.cuisines.length==0
-        || typeof $scope.location === 'undefined' || $scope.location.length==0)
+        || typeof $scope.location === 'undefined' || $scope.location.length==0
+        || typeof $scope.password === 'undefined' || $scope.password =="")
                 return;
         console.log("inside submit chef")
         console.log($scope.name);
@@ -73,6 +76,8 @@ mp4Controllers.controller('SignupController', ['$scope', function($scope){
         /*BRIAN DOES INSERT CODE HERE FOR CHEFS*/
     }
 }]);
+
+
 //Brian
 mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
   $scope.data = "";
