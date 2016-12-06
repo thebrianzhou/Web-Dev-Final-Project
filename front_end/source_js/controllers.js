@@ -213,6 +213,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     $scope.addReview = function(ev, userID, chef) {
     $mdDialog.show({
       controller: DialogController,
+      controllerAs: 'DialogCont',
       templateUrl: '../../partials/addreview.html',
       parent: angular.element(document.body),
       targetEvent: ev,
@@ -234,8 +235,10 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         $mdDialog.cancel();
       };
         
+        $scope.DialogCont.rating = 3;
+        
         $scope.submit = function() {
-            var newReview = {assignedUser: $scope.userID, rating: $scope.rating, review: $scope.review};
+            var newReview = {assignedUser: $scope.userID, rating: $scope.DialogCont.rating, review: $scope.review};
             $scope.chef.reviews.push(newReview);
             Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
                 $scope.hide(); 
