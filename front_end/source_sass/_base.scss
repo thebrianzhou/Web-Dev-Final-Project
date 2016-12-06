@@ -1,8 +1,4 @@
-// Add any custom Sass & CSS here
-
-
-
-.buttondemoBasicUsage section {
+section {
   border-radius: 3px;
   text-align: center;
   margin: 1em;
@@ -10,11 +6,11 @@
   padding-bottom: 10px; }
 
 
-.buttondemoBasicUsage section .md-button {
+section .md-button {
   margin-top: 16px;
   margin-bottom: 16px; }
 
-.buttondemoBasicUsage .label {
+.label {
   position: absolute;
   bottom: 5px;
   left: 7px;
@@ -96,4 +92,11 @@ md-card-title-media {
       }
     }
 
+
+.md-card-image {
+    display: block;
+    width: auto;
+    margin: auto;
+    height: 200px;
+}
 

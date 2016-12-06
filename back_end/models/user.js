@@ -6,7 +6,7 @@ var UserSchema   = new mongoose.Schema({
   name: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   profile_pic: String,
-  location: {type: [Number], required: true}
+  location: {type: [Number], required: true},
 });
 
 // Export the Mongoose model

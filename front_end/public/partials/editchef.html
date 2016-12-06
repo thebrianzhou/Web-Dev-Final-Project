@@ -1,6 +1,10 @@
 <form class="row">
     <label>Name: <input ng-model="chef.name" type="text" placeholder="Name" required></label>
     <label>Email: <input ng-model="chef.email" type="text" placeholder="Email" required></label>
+    <label>Locations (comma separated zip codes): <input ng-model="chef.location" ng-list="," type="text" placeholder="Locations" required></label>
     <label>Profile Picture URL: <input ng-model="chef.profile_pic" type="text" placeholder="Profile Picture URL" required></label>
+    <label>Carousel Image URLs (comma separated): <input ng-model="chef.carousel" ng-list="," type="text" placeholder="Carousel Images"></label>
+    <label>Cuisines (comma separated): <input ng-model="chef.cuisines" ng-list="," type="text" placeholder="Cuisines"></label>
+    <label>Description: <input ng-model="chef.description" type="text" placeholder="Description"></label>
     <button ng-click="submit()" class="button">Submit</button>
 </form>

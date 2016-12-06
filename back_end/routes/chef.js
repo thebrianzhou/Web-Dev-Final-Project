@@ -45,7 +45,7 @@ module.exports = function(router) {
   	  	  description: "",
   	  	  carousel: [],
   	  	  location: [],
-  	  	  reviews: []
+  	  	  reviews: [],
   	  });
   	  
   	  if(("name" in req.body) && ("email" in req.body) && ("profile_pic" in req.body) 

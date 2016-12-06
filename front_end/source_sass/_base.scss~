@@ -1,8 +1,4 @@
-// Add any custom Sass & CSS here
-
-
-
-.buttondemoBasicUsage section {
+section {
   border-radius: 3px;
   text-align: center;
   margin: 1em;
@@ -10,11 +6,11 @@
   padding-bottom: 10px; }
 
 
-.buttondemoBasicUsage section .md-button {
+section .md-button {
   margin-top: 16px;
   margin-bottom: 16px; }
 
-.buttondemoBasicUsage .label {
+.label {
   position: absolute;
   bottom: 5px;
   left: 7px;
@@ -67,6 +63,7 @@
   position: relative;
 }
 
+<<<<<<< HEAD
 #search_container {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
   -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
@@ -91,9 +88,17 @@ $card-padding: 16px !default;
 md-card-title-media {
       margin-top: - $card-padding / 2;
       .md-media-modal-xl {
-        height: 196px;
-        width: 196px;
+        height: 288px;
+        width: 288px;
       }
     }
 
 
+=======
+.md-card-image {
+    display: block;
+    width: auto;
+    margin: auto;
+    height: 200px;
+}
+>>>>>>> 29c3662d7d75937f5c4df1dbfed5db972f947133

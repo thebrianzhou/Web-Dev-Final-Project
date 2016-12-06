@@ -37,11 +37,23 @@ mp4Services.factory('Requests', function($http, $window) {
         getByID : function(id) {
             return $http.get(baseUrl+'/api/requests/' + id)
         },
-        getForUser : function(userID) {
-            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '"}');
+        getFutureForUser : function(userID) {
+            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": {$ne: "completed"}}');
         },
-        getForChef : function(chefID) {
-            return $http.get(baseUrl+'/api/requests?where={"assignedChef": "'+ chefID + '"}');
+        getCompletedForUser : function(userID) {
+            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": "completed"}');
+        },
+        getPendingForChef : function(chefID) {
+            return $http.get(baseUrl+'/api/requests?where={"assignedChef": "'+ chefID + '", "status": "pending"}');
+        },
+        getAcceptedForChef : function(chefID) {
+            return $http.get(baseUrl+'/api/requests?where={"assignedChef": "'+ chefID + '", "status": "accepted"}');
+        },
+        put : function(data, id) {
+            return $http.put(baseUrl+'/api/requests/' + id, data);
+        },
+        delete : function(id) {
+            return $http.delete(baseUrl+'/api/requests/' + id);
         }
     }
 });

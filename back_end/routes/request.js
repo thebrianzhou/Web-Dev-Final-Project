@@ -44,6 +44,7 @@ module.exports = function(router) {
   	  	  payment: 0,
   	  	  cuisine: "",
           date: new Date(),
+          status: "",
   	  	  description: ""
   	  });
   	  
@@ -57,6 +58,9 @@ module.exports = function(router) {
         newRequest.date = req.body.date;
 	  	if("description" in req.body)
 	  	  	newRequest.description = req.body.description;
+
+      if("status" in req.body)
+          newRequest.status = req.body.status;
 
 	  	newRequest.save(function (err, result) {
 			if (err) 

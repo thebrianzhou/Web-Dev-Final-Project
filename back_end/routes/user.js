@@ -41,7 +41,7 @@ module.exports = function(router) {
   	  	  name: "",
   	  	  email: "",
   	  	  profile_pic: "",
-  	  	  location: []
+  	  	  location: [],
   	  });
   	  
   	  if(("name" in req.body) && ("email" in req.body) && ("location" in req.body))

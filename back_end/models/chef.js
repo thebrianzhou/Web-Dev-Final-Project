@@ -10,7 +10,7 @@ var ChefSchema   = new mongoose.Schema({
   description: String,
   carousel: [String],
   location: {type: [Number], required: true},
-  reviews: [{assignedUser: String, rating: Number, review: String}]
+  reviews: [{assignedUser: String, rating: Number, review: String}],
 });
 
 // Export the Mongoose model

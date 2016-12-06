@@ -9,6 +9,7 @@ var RequestSchema   = new mongoose.Schema({
   payment: {type: Number, required: true},
   cuisine: {type: String, required: true},
   date: {type: Date, required: true},
+  status: String,
   description: String
 });
 
