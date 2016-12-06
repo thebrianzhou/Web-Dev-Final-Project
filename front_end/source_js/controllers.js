@@ -6,22 +6,30 @@ const months = [
   "November", "December"
 ];
 
-mp4Controllers.controller('SplashPageController', ['$scope', function($scope)
+mp4Controllers.controller('SplashPageController', ['$scope', '$location', function($scope, $location)
 {
   $scope.displayText = "Hello World";
+  $scope.login = function()
+  {
+    console.log("login function");
+    var path = '/login';
+    $location.path(path);
+  }
+  $scope.signup = function()
+  {
+    console.log("signup function");
+    var path = '/signup';
+    $location.path(path);
+  }
 }])
 
 //Brian
-mp4Controllers.controller('LoginController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
+mp4Controllers.controller('LoginController', ['$scope', function($scope) {
+     $scope.displayText = "Hello World";
+}]);
 
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
+mp4Controllers.controller('SignupController', ['$scope', function($scope){
+    $scope.displayText = "Hello World";
 }]);
 //Brian
 mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {

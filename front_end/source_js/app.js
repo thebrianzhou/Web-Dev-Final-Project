@@ -50,8 +50,12 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/splashpage.html',
     controller: 'SplashPageController'
   }).
+  when('/signup',{
+    templateUrl: 'partials/signup.html',
+    controller: 'SignupController'
+  }).
   otherwise({
-    redirectTo: '/login'
+    redirectTo: '/splashpage'
   });
 }]);
 

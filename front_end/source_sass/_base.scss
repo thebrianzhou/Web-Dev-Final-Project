@@ -69,3 +69,25 @@ section .md-button {
     margin: auto;
     height: 200px;
 }
+
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height:200px;
+}
+
+#buttons {
+  border-right:thick double black;
+  padding: 70px 70px 70px 0px;
+  float:left;
+  .md-button
+  {
+    font-size:20px;
+  }
+}
+
+#description{
+  font-size:20px;
+  padding:30px;
+}
