@@ -12,3 +12,9 @@ back_end/npm-debug.log
 back_end/public/css/
 back_end/public/js/
 back_end/public/lib/
+
+front_end/public/*~
+front_end/public/partials/*~
+front_end/source_js/*~
+front_end/source_sass/*~
+front_end/*~

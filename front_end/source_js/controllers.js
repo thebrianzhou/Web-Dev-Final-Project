@@ -44,16 +44,69 @@ mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , fun
 
 }]);
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs'  , function($scope, CommonData) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog', function($scope, CommonData, $mdDialog) {
   $scope.data = "";
    $scope.displayText = "";
-   $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John', 'Luis', 'Kate', 'Max'];
+   $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
   $scope.setData = function(){
     CommonData.setData($scope.data);
     $scope.displayText = "Data set"
 
   };
+  /*$scope.showDialog = function(ev,ind) {
+    console.log(ind);
+    $mdDialog.show({
+      controller: ['$scope','$mdDialog','user',function ($scope2, $mdDialog, user) {
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.user = user;
+        $scope.yo="hi";
+        console.log(user);
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
 
+        $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+        };
+      }],
+      contentElement: '#myDialog',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        user: "hi"
+      },
+      clickOutsideToClose: true
+    });
+    
+    
+  };*/
+  
+  $scope.showAdvanced = function(ev,ind) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '../../partials/trial.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        user: $scope.users[ind]
+      },
+      clickOutsideToClose:true,
+      fullscreen: true // Only for -xs, -sm breakpoints.
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+    
+    function DialogController($scope, $mdDialog,user) {
+      $scope.user = user;
+    }
+  };
+  
+  
 }]);
 //Sergey
 mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
@@ -108,7 +161,7 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     };
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', function($scope, $routeParams, Requests, Chefs, $location) {
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog) {
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
@@ -165,9 +218,42 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.addReview = function(chefID) {
+    $scope.addReview = function(ev, userID, chef) {
+    $mdDialog.show({
+      controller: DialogController,
+      controllerAs: 'DialogCont',
+      templateUrl: '../../partials/addreview.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        userID: userID,
+        chef: chef
+      },
+      clickOutsideToClose:true,
+      fullscreen: true // Only for -xs, -sm breakpoints.
+    })
+    
+    function DialogController($scope, $mdDialog, userID, chef, Chefs) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.userID = userID;
+      $scope.chef = chef;
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
         
+        $scope.DialogCont.rating = 3;
+        
+        $scope.submit = function() {
+            var newReview = {assignedUser: $scope.userID, rating: $scope.DialogCont.rating, review: $scope.review};
+            $scope.chef.reviews.push(newReview);
+            Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
+                $scope.hide(); 
+            });
+        }
     }
+  };
 }]);
 //Sergey
 mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', function($scope, $routeParams, Requests, Users) {
