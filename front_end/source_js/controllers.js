@@ -26,6 +26,16 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
 //Brian
 mp4Controllers.controller('LoginController', ['$scope', function($scope) {
      $scope.displayText = "Hello World";
+     $scope.email = "";
+     $scope.password = "";
+     $scope.login = function()
+     {
+        if(typeof $scope.email === 'undefined' || $scope.email == ""
+        || typeof $scope.password === 'undefined' || $scope.password == "")
+            return;
+        console.log("inside login function");
+        console.log($scope.email);
+     }
 
 }]);
 
