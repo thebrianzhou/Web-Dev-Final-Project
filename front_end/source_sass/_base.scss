@@ -1,3 +1,5 @@
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+
 section {
   border-radius: 3px;
   text-align: center;
@@ -30,6 +32,7 @@ section .md-button {
   transition: 0.1s linear all;
 }
 
+
 #search_filter:focus{
   background: rgba(250,250,250,0.9);
 }
@@ -44,7 +47,6 @@ section .md-button {
 }
 
 #search_close{
-  right: 20px;
   border-radius: 50%;
   color: rgba(0,0,0,0.32);
   position: absolute;
@@ -63,9 +65,62 @@ section .md-button {
   position: relative;
 }
 
+#search_container {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+}
+
+
+#search_container.ng-hide-remove{
+  opacity: 0;
+}
+
+#search_container.ng-hide-remove-active{
+  opacity: 1;
+}
+
+.card-media {
+  background-color: #999999; }
+
+$card-padding: 16px !default;
+
+md-card-title-media {
+      margin-top: - $card-padding / 2;
+      .md-media-modal-xl {
+        height: 288px;
+        width: 288px;
+      }
+    }
+
+
 .md-card-image {
     display: block;
     width: auto;
     margin: auto;
     height: 200px;
 }
+
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height:200px;
+}
+
+#buttons {
+  border-right:thick double black;
+  padding: 70px 70px 70px 0px;
+  float:left;
+  .md-button
+  {
+    font-size:20px;
+  }
+}
+
+#description{
+  font-size:20px;
+  padding:30px;
+}
+

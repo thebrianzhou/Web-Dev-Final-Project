@@ -1,6 +1,6 @@
 
 
-var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngMatTheme','ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services']);
+var app = angular.module('mp4', ['ngRoute', 'ngMaterial', 'ngMatTheme','ngAria', 'ngMessages', 'ngAnimate', 'mp4Controllers', 'mp4Services', 'angular-input-stars']);
 
 angular.module('ngMatTheme', ['ngMaterial'])
 .config(function($mdThemingProvider) {
@@ -46,8 +46,16 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/chefrequests.html',
     controller: 'ChefRequestsController'
   }).
+  when('/splashpage',{
+    templateUrl: 'partials/splashpage.html',
+    controller: 'SplashPageController'
+  }).
+  when('/signup',{
+    templateUrl: 'partials/signup.html',
+    controller: 'SignupController'
+  }).
   otherwise({
-    redirectTo: '/login'
+    redirectTo: '/splashpage'
   });
 }]);
 
