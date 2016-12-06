@@ -9,7 +9,7 @@ const months = [
 mp4Controllers.controller('SplashPageController', ['$scope', '$location', function($scope, $location)
 {
   $scope.displayText = "Hello World";
-  $scope.login = function()
+  $scope.userlogin = function()
   {
     console.log("login function");
     var path = '/login';
@@ -24,7 +24,7 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
 }])
 
 //Brian
-mp4Controllers.controller('LoginController', ['$scope', function($scope) {
+mp4Controllers.controller('LoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication) {
      $scope.displayText = "Hello World";
      $scope.email = "";
      $scope.password = "";
@@ -35,6 +35,14 @@ mp4Controllers.controller('LoginController', ['$scope', function($scope) {
             return;
         console.log("inside login function");
         console.log($scope.email);
+        authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
+            authentication.saveToken(data.token);
+            console.log(data);
+            console.log("success!");
+            $location.path('/chefgrid/' + authentication.currentUser()._id);
+        }).error(function(err){
+            console.log(err);
+        });
      }
 
 }]);

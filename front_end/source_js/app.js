@@ -59,10 +59,11 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-/*app.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
+app.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
   $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if (!authentication.isLoggedIn()) {
+      if (($location.path() !== '/login' && $location.path() !== '/signup' && $location.path() !== '/splashpage') && !authentication.isLoggedIn()) {
+        console.log("hey i'm walking here");
         $location.path('/splashpage');
       }
     });
-}]);*/
+}]);

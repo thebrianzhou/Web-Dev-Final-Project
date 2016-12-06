@@ -37,7 +37,7 @@ mp4Services.factory('Chefs', function($http, $window, authentication) {
             });
         },
         post : function(chef){
-           return $http.post('/api/userlogin', chef).success(function(data){
+           return $http.post('/api/chefs', chef).success(function(data){
             authentication.saveToken(data.token);
         });
        },
@@ -85,17 +85,15 @@ mp4Services.factory('authentication', function($http, $window){
     }
     };
     var cheflogin = function(chef) {
-        return $http.post('/api/cheflogin', chef).success(function(data) {
+        return $http.post(baseUrl + '/api/cheflogin', chef).success(function(data) {
             saveToken(data.token);
         });
     };
     var userlogin = function(user) {
-        return $http.post('/api/userlogin', user).success(function(data) {
-            saveToken(data.token);
-        });
+        return $http.post(baseUrl + '/api/userlogin', user);
     };
 
-    logout = function() {
+    var logout = function() {
         $window.localStorage.removeItem('mean-token');
     };
 
