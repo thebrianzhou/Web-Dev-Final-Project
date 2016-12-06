@@ -6,6 +6,11 @@ const months = [
   "November", "December"
 ];
 
+mp4Controllers.controller('SplashPageController', ['$scope', function($scope)
+{
+  $scope.displayText = "Hello World";
+}])
+
 //Brian
 mp4Controllers.controller('LoginController', ['$scope', 'CommonData'  , function($scope, CommonData) {
   $scope.data = "";

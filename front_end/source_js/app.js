@@ -46,6 +46,10 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/chefrequests.html',
     controller: 'ChefRequestsController'
   }).
+  when('/splashpage',{
+    templateUrl: 'partials/splashpage.html',
+    controller: 'SplashPageController'
+  }).
   otherwise({
     redirectTo: '/login'
   });
