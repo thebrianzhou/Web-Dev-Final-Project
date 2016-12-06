@@ -48,6 +48,10 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data; 
+                    
+        $(".md-card-image").error(function () { 
+            $(this).hide(); 
+        });
     });
 }]);
 //Sergey
@@ -56,6 +60,10 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
+                    
+        $(".md-card-image").error(function () { 
+            $(this).hide(); 
+        });
     });
 }]);
 //Sergey
@@ -87,45 +95,123 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     };
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', function($scope, $routeParams, Requests, Chefs) {
-    $scope.userID = $routeParams.id;
-    
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', function($scope, $routeParams, Requests, Chefs, $location) {
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
+                        
+            $(".md-card-image").error(function () { 
+                $(this).hide(); 
+            });
         });
     };
     
-    Requests.getForUser($scope.userID).success(function(data) {
-        $scope.requests = data.data; 
+    var reloadRequests = function() {
+        Requests.getFutureForUser($scope.userID).success(function(data) {
+            $scope.futureRequests = data.data; 
         
-        for (var i = 0; i < $scope.requests.length; i++)
-        {
-            addChefToRequest($scope.requests[i]);  
-            var date = new Date($scope.requests[i].date);
-            $scope.requests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-        }
-    });
+            for (var i = 0; i < $scope.futureRequests.length; i++)
+            {
+                addChefToRequest($scope.futureRequests[i]);  
+                var date = new Date($scope.futureRequests[i].date);
+                $scope.futureRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
+        Requests.getCompletedForUser($scope.userID).success(function(data) {
+            $scope.completedRequests = data.data; 
+        
+            for (var i = 0; i < $scope.completedRequests.length; i++)
+            {
+                addChefToRequest($scope.completedRequests[i]);  
+                var date = new Date($scope.completedRequests[i].date);
+                $scope.completedRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
+    }
     
+    $scope.userID = $routeParams.id;
+    reloadRequests();
+    
+    $scope.cancelRequest = function(request) {
+        Requests.delete(request._id).success(function(data) {
+           reloadRequests();                                  
+        });
+    }
+    
+    $scope.markCompleted = function(request) {
+        request.status = 'completed';
+        Requests.put(request, request._id).success(function(data) { 
+            reloadRequests();
+        });
+    }
+    
+    $scope.markPending = function(request) {
+        request.status = 'pending';
+        Requests.put(request, request._id).success(function(data) { 
+            reloadRequests();
+        });
+    }
+    
+    $scope.addReview = function(chefID) {
+        
+    }
 }]);
 //Sergey
 mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', function($scope, $routeParams, Requests, Users) {
-    $scope.chefID = $routeParams.id;
-    
     var addUserToRequest = function(request) {
         Users.getByID(request.assignedUser).success(function(data) {
             request.user = data.data; 
+            
+            $(".md-card-image").error(function () { 
+                $(this).hide(); 
+            });
         });
     };
     
-    Requests.getForChef($scope.chefID).success(function(data) {
-        $scope.requests = data.data; 
+    var reloadRequests = function() {
+        Requests.getPendingForChef($scope.chefID).success(function(data) {
+            $scope.pendingRequests = data.data; 
         
-        for (var i = 0; i < $scope.requests.length; i++)
-        {
-            addUserToRequest($scope.requests[i]);
-            var date = new Date($scope.requests[i].date);
-            $scope.requests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-        }
-    });
+            for (var i = 0; i < $scope.pendingRequests.length; i++)
+            {
+                addUserToRequest($scope.pendingRequests[i]);
+                var date = new Date($scope.pendingRequests[i].date);
+                $scope.pendingRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
+    
+        Requests.getAcceptedForChef($scope.chefID).success(function(data) {
+            $scope.acceptedRequests = data.data; 
+        
+            for (var i = 0; i < $scope.acceptedRequests.length; i++)
+            {
+                addUserToRequest($scope.acceptedRequests[i]);
+                var date = new Date($scope.acceptedRequests[i].date);
+                $scope.acceptedRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
+    }
+    
+    $scope.chefID = $routeParams.id;
+    reloadRequests();
+    
+    $scope.acceptRequest = function(request) {
+        request.status = 'accepted';
+        Requests.put(request, request._id).success(function(data) { 
+            reloadRequests();
+        });
+    }
+    
+    $scope.rejectRequest = function(request) {
+        Requests.delete(request._id).success(function(data) { 
+            reloadRequests();
+        });
+    }
+    
+    $scope.markPending = function(request) {
+        request.status = 'pending';
+        Requests.put(request, request._id).success(function(data) { 
+            reloadRequests();
+        });
+    }
 }]);
