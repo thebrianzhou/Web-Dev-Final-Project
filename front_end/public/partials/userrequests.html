@@ -1,5 +1,6 @@
+<h1>Upcoming Requests</h1>
 <div class='md-padding' layout="row" layout-wrap>
-    <md-card style="width: 300px;" ng-repeat="request in requests">
+    <md-card style="width: 400px;" ng-repeat="request in futureRequests">
         <img src="{{request.chef.profile_pic}}" class="md-card-image" alt="user avatar">
         <md-card-content>
             <h4>Chef: {{request.chef.name}}</h4>
@@ -11,7 +12,28 @@
             <div>Description: {{request.description}}</div>
         </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
-            <md-button>Cancel Request</md-button>
+            <md-button ng-click="cancelRequest(request);">Cancel Request</md-button>
+            <md-button ng-click="markCompleted(request);">Mark as Completed</md-button>
+        </div>
+    </md-card>
+</div>
+<h1>Completed Requests</h1>
+<div class='md-padding' layout="row" layout-wrap>
+    <md-card style="width: 400px;" ng-repeat="request in completedRequests">
+        <img src="{{request.chef.profile_pic}}" class="md-card-image" alt="user avatar">
+        <md-card-content>
+            <h4>Chef: {{request.chef.name}}</h4>
+            <h4>Email: {{request.chef.email}}</h4>
+            <div>Budget: ${{request.budget}}</div>
+            <div>Payment: ${{request.payment}}</div>
+            <div>Cuisine: {{request.cuisine}}</div>
+            <div>Date: {{request.dateString}}</div>
+            <div>Description: {{request.description}}</div>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button ng-click="addReview(request.chef._id);">Add a Review</md-button>
+            <md-button ng-click="markPending(request);">Mark as Pending</md-button>
+            <md-button ng-click="cancelRequest(request);">Remove</md-button>
         </div>
     </md-card>
 </div>
