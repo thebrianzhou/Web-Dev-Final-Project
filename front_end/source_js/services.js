@@ -15,7 +15,7 @@ mp4Services.factory('Users', function($http, $window, authentication) {
         },
         post : function(user){
            return $http.post('/api/userlogin', user).success(function(data){
-            saveToken(data.token);
+            authentication.saveToken(data.token);
         });
        },
        put : function(data, id) {
@@ -24,7 +24,7 @@ mp4Services.factory('Users', function($http, $window, authentication) {
 }
 });
 
-mp4Services.factory('Chefs', function($http, $window) {
+mp4Services.factory('Chefs', function($http, $window, authentication) {
     return {
         get : function() {
             return $http.get(baseUrl+'/api/chefs');
@@ -36,6 +36,10 @@ mp4Services.factory('Chefs', function($http, $window) {
                 }
             });
         },
+        post : function(chef){
+           return $http.post('/api/userlogin', chef).success(function(data){
+            authentication.saveToken(data.token);
+        });
         put : function(data, id) {
             return $http.put(baseUrl+'/api/chefs/' + id, data);
         }
