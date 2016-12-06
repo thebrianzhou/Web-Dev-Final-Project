@@ -7,7 +7,7 @@ mp4Services.factory('Users', function($http, $window) {
             return $http.get(baseUrl+'/api/users');
         },
         getByID : function(id) {
-            return $http.get(baseUrl+'/api/chefs/' + id,{
+            return $http.get(baseUrl+'/api/users/' + id,{
                 headers:{
                     Authorization: 'Bearer '+ authentication.getToken()
                 }
