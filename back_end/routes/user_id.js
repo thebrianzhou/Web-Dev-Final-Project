@@ -7,7 +7,13 @@ module.exports = function(router) {
   var useridRoute = router.route('/users/:id');
   
   useridRoute.get(function(req, res) {
+    if (!req.payload._id) {
+    res.status(401).json({
+      "message" : "UnauthorizedError: private profile", "data":""
+    });
+  } else {
     var id = req.params.id;
+
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
@@ -19,6 +25,7 @@ module.exports = function(router) {
   	 	else
   	 		res.status(404).json({"message" : "user not in database", "data": user});
   	});
+  }
   });
 
   useridRoute.put(function(req, res){
