@@ -58,7 +58,8 @@ module.exports.userlogin = function(req, res) {
       token = user.generateJwt();
       res.status(200);
       res.json({
-        "token" : token
+        "token" : token,
+        "user" : user.name
       });
     } else {
       // If user is not found

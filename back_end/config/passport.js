@@ -26,7 +26,7 @@ passport.use('User', new LocalStrategy({
       return done(null, user);
     });
   }
-));
+));	
 
 passport.use('Chef', new LocalStrategy({
     usernameField: 'email'

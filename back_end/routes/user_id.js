@@ -1,18 +1,24 @@
 var secrets = require('../config/secrets');
 var User = require('../models/user');
 var mongoose = require('mongoose');
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
+var ctrlAuth = require('./auth');
 
 module.exports = function(router) {
 
   var useridRoute = router.route('/users/:id');
   
-  useridRoute.get(function(req, res) {
+  useridRoute.get(auth, function(req, res) {
     if (!req.payload._id) {
     res.status(401).json({
       "message" : "UnauthorizedError: private profile", "data":""
     });
   } else {
-    var id = req.params.id;
+    var id = req.payload._id;
 
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{

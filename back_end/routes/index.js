@@ -2,13 +2,14 @@
  * Connect all of your endpoints together here.
  */
 
-
-var express = require('express');
-var router = express.Router();
-
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
+var ctrlAuth = require('./auth');
 
 //var ctrlProfile = require('../controllers/profile');
-var ctrlAuth = require('./auth');
 
 module.exports = function (app, router) {
   app.use('/api', require('./home.js')(router));
@@ -21,6 +22,7 @@ module.exports = function (app, router) {
 // router.get('/api/profile', auth, ctrlProfile.profileRead); //integrate into user/chef get
 
 // authentication
-  router.post('/api/userlogin', ctrlAuth.userlogin);
-  router.post('/api/cheflogin', ctrlAuth.cheflogin);
+  app.use('/api', require('./userlogin.js')(router));
+  app.use('/api', require('./cheflogin.js')(router));
+
 };
