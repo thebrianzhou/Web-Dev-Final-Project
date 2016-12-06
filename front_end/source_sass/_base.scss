@@ -94,12 +94,15 @@ md-card-title-media {
       }
     }
 
-
 .md-card-image {
     display: block;
     width: auto;
     margin: auto;
     height: 200px;
+}
+
+.angular-input-stars, textarea {
+    width: 100%;
 }
 
 .vertical {
