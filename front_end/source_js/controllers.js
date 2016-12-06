@@ -26,10 +26,52 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
 //Brian
 mp4Controllers.controller('LoginController', ['$scope', function($scope) {
      $scope.displayText = "Hello World";
+
 }]);
 
 mp4Controllers.controller('SignupController', ['$scope', function($scope){
     $scope.displayText = "Hello World";
+    $scope.name = "";
+    $scope.email = "";
+    $scope.profile_pic = "";
+    $scope.location = [];
+    $scope.cuisines = [];
+    $scope.description = "";
+    $scope.carousel = [];
+    $scope.submitUser = function()
+    {
+        if(typeof $scope.name === 'undefined' || $scope.name==""
+        || typeof $scope.email === 'undefined' || $scope.email==""
+        || typeof $scope.location === 'undefined' || $scope.location.length==0)
+                return;
+        console.log("inside submit user");
+        console.log($scope.name);
+        console.log($scope.email);
+        console.log($scope.profile_pic);
+        console.log($scope.location);
+
+        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
+    }
+    $scope.submitChef = function()
+    {
+
+         if(typeof $scope.name === 'undefined' || $scope.name==""
+        || typeof $scope.email === 'undefined' || $scope.email==""
+        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic==""
+        || typeof $scope.cuisines === 'undefined' || $scope.cuisines.length==0
+        || typeof $scope.location === 'undefined' || $scope.location.length==0)
+                return;
+        console.log("inside submit chef")
+        console.log($scope.name);
+        console.log($scope.email);
+        console.log($scope.profile_pic);
+        console.log($scope.description);
+        console.log($scope.cuisines);
+        console.log($scope.carousel);
+        console.log($scope.location);
+
+        /*BRIAN DOES INSERT CODE HERE FOR CHEFS*/
+    }
 }]);
 //Brian
 mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
