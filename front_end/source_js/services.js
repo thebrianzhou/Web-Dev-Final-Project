@@ -40,6 +40,7 @@ mp4Services.factory('Chefs', function($http, $window, authentication) {
            return $http.post('/api/userlogin', chef).success(function(data){
             authentication.saveToken(data.token);
         });
+       },
         put : function(data, id) {
             return $http.put(baseUrl+'/api/chefs/' + id, data);
         }
