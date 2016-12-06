@@ -1,10 +1,7 @@
 var secrets = require('../config/secrets');
 var Chef = require('../models/chef');
-var jwt = require('express-jwt');
-var auth = jwt({
-  secret: 'MY_SECRET',
-  userProperty: 'payload'
-});
+var mongoose = require('mongoose');
+
 
 module.exports = function(router) {
 

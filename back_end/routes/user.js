@@ -1,16 +1,14 @@
 var secrets = require('../config/secrets');
 var User = require('../models/user');
-var jwt = require('express-jwt');
-var auth = jwt({
-  secret: 'MY_SECRET',
-  userProperty: 'payload'
-});
+var mongoose = require('mongoose');
+
 
 module.exports = function(router) {
 
   var userRoute = router.route('/users');
   
   userRoute.get(function(req, res) {
+    
     var where = {};
       if("where" in req.query)
       	where = eval("("+req.query.where+")");
