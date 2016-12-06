@@ -94,7 +94,6 @@ md-card-title-media {
       }
     }
 
-
 .md-card-image {
     display: block;
     width: auto;
@@ -102,3 +101,6 @@ md-card-title-media {
     height: 200px;
 }
 
+.angular-input-stars, textarea {
+    width: 100%;
+}

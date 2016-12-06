@@ -236,6 +236,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
       };
         
         $scope.DialogCont.rating = 3;
+        $scope.review = "";
         
         $scope.submit = function() {
             var newReview = {assignedUser: $scope.userID, rating: $scope.DialogCont.rating, review: $scope.review};
