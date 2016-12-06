@@ -163,7 +163,7 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     };
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', function($scope, $routeParams, Requests, Chefs, $location) {
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog) {
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
@@ -220,9 +220,39 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.addReview = function(chefID) {
+    $scope.addReview = function(ev, userID, chef) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '../../partials/addreview.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        userID: userID,
+        chef: chef
+      },
+      clickOutsideToClose:true,
+      fullscreen: true // Only for -xs, -sm breakpoints.
+    })
+    
+    function DialogController($scope, $mdDialog, userID, chef, Chefs) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.userID = userID;
+      $scope.chef = chef;
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
         
+        $scope.submit = function() {
+            var newReview = {assignedUser: $scope.userID, rating: $scope.rating, review: $scope.review};
+            $scope.chef.reviews.push(newReview);
+            Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
+                $scope.hide(); 
+            });
+        }
     }
+  };
 }]);
 //Sergey
 mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', function($scope, $routeParams, Requests, Users) {
