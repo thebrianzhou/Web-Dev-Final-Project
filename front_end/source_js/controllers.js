@@ -135,6 +135,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     }).error(function(err){
       console.log(err);
     });
+    
     $scope.submit = function() {
         var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description};
         console.log(newRequest);
@@ -148,16 +149,34 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
             console.log(err);
         });
     };
+    
+    $scope.goToChefs = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
+    }
 }]);
 
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdMedia', function($scope, Chefs, $mdDialog, $mdMedia) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$mdDialog','$mdMedia', function($scope, Chefs, Users, $mdDialog, $mdMedia) {
   $scope.data = "";
   $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
    Chefs.get().success(function(data){
     $scope.chefs = data.data;
-    console.log($scope.chefs);
+    //console.log($scope.chefs[0]);
+    //console.log($scope.chefs[0].reviews);
     })
    .error(function(err){
       console.log('Error' + err);
@@ -191,7 +210,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
       parent: angular.element(document.body),
       targetEvent: ev,
       locals: {
-        user: $scope.users[ind]
+        chef: $scope.chefs[ind]
     },
     clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
@@ -200,10 +219,21 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
       $("#sliding-carousel").slick('unslick');
   });
 
-    function DialogController($scope, $mdDialog,user) {
-      $scope.user = user;
-      $scope.rating = 4;
+    function DialogController($scope, $mdDialog,chef) {
+      $scope.chef = chef;
+      //console.log(chef.reviews[0]);
+     
       $scope.fruits = ["orange","quince","plum","apple","peach","banana","apricot","grapes","pomegranate","blueberries"];
+      
+      
+      $scope.getTotalRating = function(){
+        var inc = 0;
+        for(var ctr = 0 ;ctr < $scope.chef.reviews.length; ctr++){
+          inc+=$scope.chef.reviews[ctr].rating;
+        }
+        return inc/$scope.chef.reviews.length;
+      };
+      $scope.rating = $scope.getTotalRating();
       $scope.initSlick = function () {
          jQuery("#sliding-carousel").slick({
             slidesToShow: 1,
@@ -217,12 +247,28 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
         });
           //jQuery("#sliding-carousel").css('opacity',"1");
       };
-
+      $scope.usernames = {};
+      $scope.getUserName = function(_id,index){
+          console.log("HIIII " + _id);
+         Users.getByID(_id).success(function(data) {
+            console.log(data.data);
+            $scope.usernames[index]= data.data.name;
+          })
+          .error(function(err){
+            console.log(err);
+          });
+          
+      }
+      console.log($scope.chef.reviews[0].assignedUser);
+      for(var ctr =0;ctr < $scope.chef.reviews.length; ctr++){
+        $scope.getUserName($scope.chef.reviews[ctr].assignedUser,ctr);
+      }
+     
       
       $scope.slick_init = function(){
-        console.log("initializing");
+        //console.log("initializing");
         setTimeout($scope.initSlick,100);
-                console.log("initialized");
+                //console.log("initialized");
       }; 
       
       $scope.closeDialog = function(){
@@ -235,7 +281,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
 
 }]);
 //Sergey
-mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
+mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', '$window', function($scope, $routeParams, Users, authentication, $location, $window) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -254,6 +300,13 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
@@ -278,7 +331,7 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     }
 }]);
 //Sergey
-mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', '$window', function($scope, $routeParams, Chefs, authentication, $location, $window) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
@@ -295,6 +348,13 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
@@ -315,7 +375,7 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     }
 }]);
 //Sergey
-mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
+mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', '$window', function($scope, $routeParams, Users, authentication, $location, $window) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -328,6 +388,13 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.submit = function() {
@@ -354,7 +421,7 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     }
 }]);
 //Sergey
-mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
+mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', '$window', function($scope, $routeParams, Chefs, authentication, $location, $window) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
@@ -367,6 +434,13 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.submit = function() {
@@ -389,7 +463,7 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     }
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', 'authentication', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog, authentication) {
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', 'authentication', '$window', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog, authentication, $window) {
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
@@ -425,7 +499,6 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.curPage = "requests";
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -433,6 +506,14 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+        $scope.curPage = "requests";
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.cancelRequest = function(request) {
@@ -511,7 +592,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     }
 }]);
 //Sergey
-mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', '$location', function($scope, $routeParams, Requests, Users, authentication, $location) {
+mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', '$location', '$window', function($scope, $routeParams, Requests, Users, authentication, $location, $window) {
     var addUserToRequest = function(request) {
         Users.getByID(request.assignedUser).success(function(data) {
             request.user = data.data; 
@@ -550,6 +631,13 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.curUser = authentication.currentUser();

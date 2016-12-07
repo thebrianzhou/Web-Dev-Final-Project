@@ -7,36 +7,31 @@
         </h2>
         <span flex>
         </span> 
-        <md-button class="md-icon-button" aria-label="More">
-          <md-icon >search</md-icon>
-        </md-button> 
         <md-button> Requests </md-button>
         <md-button> Edit Profile </md-button>
       </div>
     </md-toolbar>
     
+  <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
+    <span class="md-display-3" flex>Local Stuff</span>
+  </div>
 
-<p>
-  <input type="button" value="set" ng-click="myCssVar='css-class'">
-  <input type="button" value="clear" ng-click="myCssVar=''">
-  <br>
-  <span ng-class="myCssVar">CSS-Animated Text</span>
-</p>
-                <input-stars max="5" icon-base="fa fa-fw" icon-empty="fa-circle-o" icon-hover="hover" icon-full="fa-circle" ng-model="YourCtrl.property"></input-stars>
-                <br>
-{{breakpoint}}
+  <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
+    <input type="text" id="search-filter">
+  </div>
+
   <div layout="row" layout-align="center">
     <div layout="row" layout-wrap flex="100">
   <!-- style="width: calc(100% / 4 - 30px); margin: 15px; " -->
-        <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="user in users">
+        <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="chef in chefs">
           <md-card>
             <md-card-title>
               <md-card-title-media>
                 <div class="md-media-lg card-media"></div>
               </md-card-title-media>
               <md-card-title-text style="margin-left:10px;">
-                <span class="md-headline">{{user}}</span>
-                <span class="md-subhead">{{['Cuisine1', 'Cuisine2'].join(", ")}}</span>
+                <span class="md-headline">{{chef.name}}</span>
+                <span class="md-subhead">{{chef.cuisines.join(", ")}}</span>
               </md-card-title-text>
               
             </md-card-title>
@@ -51,182 +46,6 @@
         </md-card>
       </div>
     </div>
-  </div>
-  
-
-  <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px" style="margin: 8px;margin-right:0">
-    <md-grid-tile>
-      <md-card md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Large</span>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
-        </md-card-actions>
-      </md-card>
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}" >
-      2
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      3
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      4
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      5
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      6
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      7
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      8
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      9
-    </md-grid-tile>
-    <md-grid-tile md-colors="{background: 'red-800'}">
-      10
-    </md-grid-tile>
-  </md-grid-list>
-  
-  <br>
-  <br>
-  <br>
-
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button>{{title1}}</md-button>
-      <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
-      <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
-      <md-button class="md-warn">{{title4}}</md-button>
-      <div class="label">Flat</div>
-    </section>
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button class="md-raised">Button</md-button>
-      <md-button class="md-raised md-primary">Primary</md-button>
-      <md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
-      <md-button class="md-raised md-warn">Warn</md-button>
-      <div class="label">Raised</div>
-    </section>
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button class="md-fab" aria-label="Eat cake">
-            <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
-        </md-button>
-
-        <md-button class="md-fab md-primary" aria-label="Use Android">
-          <md-icon md-svg-src="img/icons/android.svg"></md-icon>
-        </md-button>
-
-        <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
-            <md-icon md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
-        </md-button>
-
-        <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
-            <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
-        </md-button>
-
-        <md-button class="md-fab md-mini" aria-label="Eat cake">
-            <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
-        </md-button>
-
-        <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
-          <md-icon md-svg-src="img/icons/android.svg" style="color: greenyellow;"></md-icon>
-        </md-button>
-      <div class="label">FAB</div>
-    </section>
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button ng-href="{{googleUrl}}" target="_blank">Default Link</md-button>
-        <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">Primary Link</md-button>
-
-        <md-button>Default Button</md-button>
-      <div class="label">Link vs. Button</div>
-    </section>
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button class="md-primary md-hue-1">Primary Hue 1</md-button>
-      <md-button class="md-warn md-raised md-hue-2">Warn Hue 2</md-button>
-      <md-button class="md-accent">Accent</md-button>
-      <md-button class="md-accent md-raised md-hue-1">Accent Hue 1</md-button>
-      <div class="label">Themed</div>
-    </section>
-
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button class="md-icon-button md-primary" aria-label="Settings">
-        <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-      </md-button>
-      <md-button class="md-icon-button md-accent" aria-label="Favorite">
-        <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-      </md-button>
-      <md-button class="md-icon-button" aria-label="More">
-        <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-      </md-button>
-      <md-button href="http://google.com"
-                 title="Launch Google.com in new window"
-                 target="_blank"
-                 ng-disabled="true"
-                 aria-label="Google.com"
-                 class="md-icon-button launch" >
-        <md-icon md-svg-icon="img/icons/launch.svg"></md-icon>
-      </md-button>
-      <div class="label">Icon Button</div>
-    </section>
-  </md-content>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br><br>
-  <br>
-  <br>
+  </div>  
 </div>
-<div style="visibility: hidden">
-        <div class="md-dialog-container" id="myDialog">
-          <md-dialog layout-padding>
-            <h2>{{yo}}</h2>
-            <p>
-              This is a pre-rendered dialog, which means that <code>$mdDialog</code> doesn't compile its
-              template on each opening.
-              <br/><br/>
-              The Dialog Element is a static element in the DOM, which is just visually hidden.<br/>
-              Once the dialog opens, we just fetch the element from the DOM into our dialog and upon close
-              we restore the element back into its old DOM position.
-            </p>
-          </md-dialog>
-        </div>
-      </div>
+
