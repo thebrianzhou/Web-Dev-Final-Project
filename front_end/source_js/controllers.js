@@ -269,10 +269,12 @@ $scope.initSlick = function () {
   
 }]);
 //Sergey
-mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
+mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
+    
+    $scope.curPage = "profile";
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data;
@@ -283,9 +285,25 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     }).error(function(data) {
         $("md-card").hide();
     });
+    
+    $scope.editProfile = function() {
+        $location.path("/edituser/");
+    }
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
-mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
@@ -299,6 +317,10 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     }).error(function(data) {
         $("md-card").hide();
     });
+    
+    $scope.editProfile = function() {
+        $location.path("/editchef/");
+    }
 }]);
 //Sergey
 mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
@@ -317,6 +339,18 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
             $location.path('/userprofile/');
         });
     };
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
 mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
@@ -373,6 +407,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
+    $scope.curPage = "requests";
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -435,9 +470,21 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         }
     }
   };
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
-mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', function($scope, $routeParams, Requests, Users, authentication) {
+mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', '$location', function($scope, $routeParams, Requests, Users, authentication, $location) {
     var addUserToRequest = function(request) {
         Users.getByID(request.assignedUser).success(function(data) {
             request.user = data.data; 

@@ -1,14 +1,19 @@
-<div class='md-padding' layout="row" layout-wrap>
-    <md-card style="width: 300px;">
-        <img src="{{user.profile_pic}}" class="md-card-image" alt="user avatar">
-        <md-card-content>
-            <h4>Name: {{user.name}}</h4>
-            <h4>Email: {{user.email}}</h4>
-            <h4>Locations:
-                <span ng-repeat="zip in user.location">
-                    <div>{{zip}} </div>
-                </span>
-            </h4>
-        </md-card-content>
-    </md-card>
-</div>
+<md-nav-bar md-selected-nav-item="curPage">
+    <span flex></span>
+    <md-nav-item md-nav-click="goToChefs()" name="chefs">Chefs</md-nav-item>
+    <md-nav-item md-nav-click="goToRequests()" name="requests">Requests</md-nav-item>
+    <md-nav-item md-nav-click="goToProfile()" name="profile">Profile</md-nav-item>
+</md-nav-bar>
+<md-button class="md-raised" ng-click="editProfile()">Edit Profile</md-button>
+<md-card style="width: 300px;">
+    <img src="{{user.profile_pic}}" class="md-card-image" alt="user avatar">
+    <md-card-content>
+        <h4>Name: {{user.name}}</h4>
+        <h4>Email: {{user.email}}</h4>
+        <h4>Locations:
+            <span ng-repeat="zip in user.location">
+                <div>{{zip}} </div>
+            </span>
+        </h4>
+    </md-card-content>
+</md-card>
