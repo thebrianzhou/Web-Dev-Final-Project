@@ -174,20 +174,18 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
 
 //Sree
 mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$mdDialog','$mdMedia', '$location', 'authentication',function($scope, Chefs, Users, $mdDialog, $mdMedia, $location, authentication) {
-  $scope.data = "";
-  $scope.displayText = "";
-   $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
+
    $scope.getChefs = function(){
      Chefs.get().success(function(data){
       $scope.chefs = data.data;
-      //console.log($scope.chefs[0]);
-      //console.log($scope.chefs[0].reviews);
       })
      .error(function(err){
         console.log('Error' + err);
      })
    };
    $scope.getChefs();
+   
+   
    $scope.$watch(function() { return $mdMedia('xs'); }, function() {
     if($mdMedia('xs') == true)
       $scope.breakpoint = 0;
@@ -208,7 +206,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
     if($mdMedia('xl') == true)
       $scope.breakpoint = 4;
     });
-    $scope.count = 0;
+
     Users.getByID(authentication.currentUser()._id).success(function(data) {
       console.log(data);
       $scope.user = data.data;
@@ -238,35 +236,28 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
       targetEvent: ev,
       locals: {
         chef: chef
-    },
-    clickOutsideToClose:true,
+      },
+      clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
-  }).then(function(url){
+    }).then(function(url){
       $("#sliding-carousel").slick('unslick');
       $location.path(url);
-  },
-  function() {
+    },
+    function() {
       $("#sliding-carousel").slick('unslick');
-      console.log("closed");
-  });
+    });
 
     function DialogController($scope, $mdDialog,chef) {
       $scope.chef = chef;
-      console.log(chef);
-     
-      $scope.fruits = ["orange","quince","plum","apple","peach","banana","apricot","grapes","pomegranate","blueberries"];
-      
-      
+
       $scope.getTotalRating = function(){
         if($scope.chef.reviews.length === 0){
           return 0;
         }
         var inc = 0;
         for(var ctr = 0 ;ctr < $scope.chef.reviews.length; ctr++){
-          console.log($scope.chef.reviews[ctr].rating);
           inc+=$scope.chef.reviews[ctr].rating;
         }
-              console.log(inc);
         return inc/$scope.chef.reviews.length;
       };
 
@@ -282,7 +273,6 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
             fade: true,
             cssEase: 'linear'
         });
-          //jQuery("#sliding-carousel").css('opacity',"1");
       };
       $scope.usernames = {};
       $scope.getUserName = function(_id,index){
@@ -304,11 +294,8 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
       }
       
       $scope.slick_init = function(){
-        //console.log("initializing");
         setTimeout($scope.initSlick,100);
-                //console.log("initialized");
       }; 
-      
       $scope.closeDialog = function(){
         $mdDialog.hide();
       }
