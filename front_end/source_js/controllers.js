@@ -136,7 +136,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
         var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
         console.log(newRequest);
         Requests.post(newRequest).success(function(data) {
-            console.log("added request!");
+            $location.path('/userrequests/');
         })
         .error(function(err){
             console.log(err);

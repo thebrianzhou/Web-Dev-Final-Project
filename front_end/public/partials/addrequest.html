@@ -1,43 +1,55 @@
-<md-toolbar flex="none">
-  <div class="md-toolbar-tools">
-    <h2>
-      <span>Add Request</span>
-    </h2>
-  </div>
-  <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
-  <md-tab label="Add Request">
-    <div class='md-padding' layout="row" layout-wrap>
+<md-nav-bar md-selected-nav-item="curPage">
+    <span flex></span>
+    <md-nav-item md-nav-click="goToChefs()" name="chefs">Chefs</md-nav-item>
+    <md-nav-item md-nav-click="goToRequests()" name="requests">Requests</md-nav-item>
+    <md-nav-item md-nav-click="goToProfile()" name="profile">Profile</md-nav-item>
+    <md-nav-item md-nav-click="logOut()" name="log_out">Log Out</md-nav-item>
+    <span class="flex-size"></span>
+</md-nav-bar>
+<div class="content md-padding">
+    <form name="form" ng-submit="submit()">
       <md-card class = "login-card">
         <md-card-content layout = "column">
           <md-input-container>
             <label>Chef</label>
-            <input ng-model="chefname" ng-readonly="true" required>
+            <input ng-model="chefname" name="name" ng-readonly="true" required="">
+            <div ng-messages="form.name.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
           <md-input-container>
             <label>Budget</label>
-            <input ng-model="budget" type="number" required>
+            <input ng-model="budget" name="budget" type="number" required="">
+            <div ng-messages="form.budget.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
           <md-input-container >
             <label>Payment</label>
-            <input ng-model="payment" type="number" required>
+            <input ng-model="payment" name="payment" type="number" required="">
+            <div ng-messages="form.payment.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
           <md-input-container >
             <label>Cuisine</label>
-            <md-select ng-model="cuisine" required>
+            <md-select ng-model="cuisine" name="cuisine" required="">
               <md-option><em>None</em></md-option>
               <md-option ng-repeat="cuisine in cuisines" ng-value="cuisine" ng-disabled="$index === -1">
                 {{cuisine}}
               </md-option>
             </md-select>
           </md-input-container>
-          <div flex-gt-sm class="date-picker-row" style="margin-top: 30px;">
-            <label for="email" translate>Date</label>
-            <md-datepicker ng-model="date" md-placeholder="Enter date" required></md-datepicker>
-          </div>
+          <md-input-container style="margin-top: 30px;">
+            <label>Date</label>
+            <md-datepicker ng-model="date" name="date" md-placeholder="Enter date" required=""></md-datepicker>
+            <div ng-messages="form.date.$error">
+                <div ng-message="required">This is required.</div>
+                <div ng-message="valid">You must enter a valid date.</div>
+            </div>
+          </md-input-container>
           <md-button class="md-accent md-raised" ng-click = "submit()" >Submit Request!</md-button>
         </md-card-content>
       </md-card>
-    </div>
-  </md-tab>
-</md-tabs>
-</md-toolbar>
+    </form>
+</div>
