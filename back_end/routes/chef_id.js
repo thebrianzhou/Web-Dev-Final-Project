@@ -17,7 +17,7 @@ module.exports = function(router) {
       "message" : "UnauthorizedError: private profile", "data" : ""
     });
   } else {
-    var id = req.payload._id;
+    var id = req.params.id;
     
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
