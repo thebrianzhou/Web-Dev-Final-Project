@@ -113,6 +113,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.payment = 0;
     $scope.date = new Date();
     $scope.cuisine = "";
+    console.log("hi");
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -124,6 +125,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     });
     $scope.chefid = $routeParams.id;
     Chefs.getByID($scope.chefid).success(function(data){
+      console.log(data);
       $scope.chef = data.data;
       $scope.chefname = $scope.chef.name;
       $scope.cuisines = $scope.chef.cuisines;
@@ -157,23 +159,23 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
 
    $scope.$watch(function() { return $mdMedia('xs'); }, function() {
     if($mdMedia('xs') == true)
-      $scope.breakpoint = "xs"
+      $scope.breakpoint = "xs";
     });
    $scope.$watch(function() { return $mdMedia('sm'); }, function() {
     if($mdMedia('sm') == true)
-      $scope.breakpoint = "sm"
+      $scope.breakpoint = "sm";
     });
    $scope.$watch(function() { return $mdMedia('md'); }, function() {
     if($mdMedia('md') == true)
-      $scope.breakpoint = "md"
+      $scope.breakpoint = "md";
     });
    $scope.$watch(function() { return $mdMedia('lg'); }, function() {
     if($mdMedia('lg') == true)
-      $scope.breakpoint = "lg"
+      $scope.breakpoint = "lg";
     });
    $scope.$watch(function() { return $mdMedia('xl'); }, function() {
     if($mdMedia('xl') == true)
-      $scope.breakpoint = "xl"
+      $scope.breakpoint = "xl";
     });
 
    $scope.showDialog = function(ev,ind) {
@@ -213,14 +215,16 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
       
       $scope.slick_init = function(){
         console.log("initializing");
-        setTimeout($scope.initSlick,500);
-        console.log("initialized");
+        setTimeout($scope.initSlick,100);
+                console.log("initialized");
+      }; 
+      
+      $scope.closeDialog = function(){
+        $mdDialog.hide();
+      }
     }; 
-    $scope.clic = function(){
-        console.log("3 "+angular.element(document).find("md-card-title").css("color"));
-    }
-}
-};
+    
+  }
 
 
 }]);

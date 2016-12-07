@@ -132,6 +132,12 @@ $acct_icn_holder_size: 60px;
   color: black;
 }
 
+.modal-buttons{
+  position: absolute;
+  top:10px;
+  right: 10px;
+}
+
 .modal-total-rating{
   margin-top: 0;
   margin-bottom: 0;
@@ -208,9 +214,8 @@ $acct_icn_holder_size: 60px;
 }
 
 #buttons {
-  border-right:thick double black;
-  padding: 70px 70px 70px 0px;
-  float:left;
+  border-right:thin solid white;
+  margin-left:10%;
   .md-button
   {
     font-size:20px;
@@ -220,6 +225,7 @@ $acct_icn_holder_size: 60px;
 #description{
   font-size:20px;
   padding:30px;
+  max-wdith:500px;
 }
 
 md-input-container {
