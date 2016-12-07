@@ -26,7 +26,6 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
 
 //Brian
 mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authentication', 'Users', function($scope, $location, authentication, Users) {
-    $scope.displayText = "Hello World";
     $scope.email = "";
     $scope.password = "";
     $scope.name = "";
@@ -37,22 +36,10 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
     $scope.incorrectS = false;
     $scope.userlogin = function()
     {
-        //console.log("inside login function");
-        if(typeof $scope.email === 'undefined' || $scope.email == ""
-        || typeof $scope.password === 'undefined' || $scope.password == "")
-        {
-            $scope.incorrectL = true;
-            $scope.incorrectLogin = "Email or Password not provided";
-            return;
-        }
-        //console.log($scope.email);
         authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-            //console.log(data);
-            //console.log("success!");
             $location.path('/chefgrid/' + authentication.currentUser()._id);
         }).error(function(err){
-            //console.log(err);
             $scope.password = "";
             $scope.incorrectLogin = "Incorrect Email or Password";
             $scope.incorrectL = true;
@@ -62,20 +49,6 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
 
     $scope.submituser = function()
     {
-        console.log("inside submit user");
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.password === 'undefined' || $scope.password =="")
-        {
-            $scope.incorrectS = true;
-            $scope.incorrectSignup = "Name, Email, Location, or Password not provided";
-            return;
-        }
-        /*console.log($scope.name);
-        console.log($scope.email);
-        console.log($scope.profile_pic);
-        console.log($scope.location);*/
         var newUser = {name: $scope.name, email: $scope.email, profile_pic: $scope.profile_pic, location: $scope.location, password: $scope.password};
         console.log(newUser);
         Users.post(newUser).success(function(data){
@@ -92,7 +65,6 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
 }]);
 
 mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authentication', 'Chefs', function($scope, $location, authentication, Chefs){
-    $scope.displayText = "Hello World";
     $scope.email = "";
     $scope.password = "";
     $scope.name = "";
@@ -104,22 +76,10 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
     $scope.incorrectS = false;
     $scope.cheflogin = function()
     {
-        //console.log("inside cheflogin function");
-        if(typeof $scope.email === 'undefined' || $scope.email == ""
-        || typeof $scope.password === 'undefined' || $scope.password == "")
-        {
-            $scope.incorrectL = true;
-            $scope.incorrectLogin = "Email or Password not provided";
-            return;
-        }
-        //console.log($scope.email);
         authentication.cheflogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-           // console.log(data);
-           // console.log("success!");
             $location.path('/chefrequests/');
         }).error(function(err){
-            //console.log(err);
             $scope.password = "";
             $scope.incorrectLogin = "Incorrect Email or Password";
             $scope.incorrectL = true;
@@ -129,33 +89,13 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
 
     $scope.submitchef = function()
     {
-        console.log("inside submit chef");
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.cuisines === 'undefined' || $scope.cusisines==""
-        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic==""
-        || typeof $scope.password === 'undefined' || $scope.password =="")
-        {
-            $scope.incorrectS = true;
-            $scope.incorrectSignup = "Name, Email, Location, Profile Pic, Cuisines or Password not provided";
-            return;
-        }
-        console.log($scope.name);
-        console.log($scope.email);
-        console.log($scope.profile_pic);
-        console.log($scope.location);
-
-        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
         var newChef = {name: $scope.name, email: $scope.email, profile_pic: $scope.profile_pic, cuisines: $scope.cuisines, description: $scope.description, carousel: $scope.carousel, location: $scope.location, password: $scope.password};
-        console.log(newChef);
         Chefs.post(newChef).success(function(data){
             $location.path('/chefrequests/');
         })
         .error(function(err) {
           $scope.incorrectS = true;
           $scope.incorrectSignup = "Error:" + err;
-          console.log(err);
        });
     }
 }]);
@@ -375,20 +315,8 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     });
     
     $scope.submit = function() {
-        if(typeof $scope.user.name === 'undefined' || $scope.user.name==""
-        || typeof $scope.user.email === 'undefined' || $scope.user.email==""
-        || typeof $scope.user.location === 'undefined' || $scope.user.location.length==0)
-        {
-            $scope.incorrect = true;
-            $scope.displayText = "Name, Email, or Location not provided";
-            return;
-        }
-        
         Users.put($scope.user, $scope.userID).success(function(data) {
             $location.path('/userprofile/');
-        }).error(function(data) {
-            $scope.incorrect = true;
-            $scope.displayText = "Error: " + data;
         });
     };
 }]);
@@ -405,22 +333,8 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     });
     
     $scope.submit = function() {
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.cuisines === 'undefined' || $scope.cusisines==""
-        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic=="")
-        {
-            $scope.incorrect = true;
-            $scope.displayText = "Name, Email, Location, Cuisines, or Profile Pic not provided";
-            return;
-        }
-        
         Chefs.put($scope.chef, $scope.chefID).success(function(data) {
             $location.path('/chefprofile/');
-        }).error(function(data) {
-            $scope.incorrect = true;
-            $scope.displayText = "Error: " + data;
         });
     };
 }]);

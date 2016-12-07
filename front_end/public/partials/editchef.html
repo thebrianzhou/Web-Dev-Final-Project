@@ -1,4 +1,4 @@
-<form>
+<form ng-submit="submit()">
     <md-card class="login-card">
         <md-card-content layout="column">
             <md-input-container>
@@ -29,10 +29,7 @@
                 <label>Description</label>
                 <input ng-model="chef.description" type="text">
             </md-input-container>
-            <md-button class="md-accent md-raised" ng-click="submit()">Submit</md-button>
+            <md-button class="md-accent md-raised" type="submit">Submit</md-button>
         </md-card-content>
-        <div class = "error" ng-if="incorrect">
-            {{displayText}}
-        </div>
     </md-card>
 </form>
