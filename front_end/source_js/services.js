@@ -80,7 +80,8 @@ mp4Services.factory('authentication', function($http, $window){
         return {
           email : payload.email,
           name : payload.name,
-          _id : payload._id
+          _id : payload._id,
+          type : payload.type
       };
     }
     };
