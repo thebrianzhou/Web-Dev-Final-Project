@@ -16,8 +16,7 @@
             <h4>Name: {{user.name}}</h4>
             <h4>Email: {{user.email}}</h4>
             <h4>Locations:
-                <span ng-repeat="zip in user.location">
-                    <div>{{zip}} </div>
+                <span ng-repeat="g in user.location">{{g}}<span ng-show="!$last">, </span>
                 </span>
             </h4>
             <md-button class="md-raised edit-button" ng-click="editProfile()">Edit Profile</md-button>
