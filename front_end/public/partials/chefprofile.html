@@ -1,26 +1,35 @@
-<md-button class="md-raised" ng-click="editProfile()">Edit Profile</md-button>
-<md-card style="width: 300px;">
-    <img src="{{chef.profile_pic}}" class="md-card-image" alt="user avatar">
-    <md-card-content>
-        <h4>Name: {{chef.name}}</h4>
-        <h4>Email: {{chef.email}}</h4>
-        <h4>Description: {{chef.description}}</h4>
-        <h4>Locations:
-            <span ng-repeat="zip in chef.location">
-                <div>{{zip}} </div>
-            </span>
-        </h4>
-        <h4>Cuisines:
-            <span ng-repeat="cuisine in chef.cuisines">
-                <div>{{cuisine}} </div>
-            </span>
-        </h4>
-        <div ng-repeat="img in chef.carousel">
-            <div>{{img}}</div>
-        </div>
-        <div ng-repeat="review in chef.reviews">
-            <div>{{review.rating}}</div>
-            <div>{{review.reviewString}}</div>
-        </div>
-    </md-card-content>
-</md-card>
+<md-nav-bar md-selected-nav-item="curPage">
+    <span flex></span>
+    <md-nav-item md-nav-click="goToRequests()" name="requests">Requests</md-nav-item>
+    <md-nav-item md-nav-click="goToProfile()" name="profile">Profile</md-nav-item>
+    <md-nav-item md-nav-click="logOut()" name="log_out">Log Out</md-nav-item>
+    <span class="flex-size"></span>
+</md-nav-bar>
+<div class="content md-padding">
+    <md-card style="width: 300px;">
+        <img src="{{chef.profile_pic}}" class="md-card-image" alt="user avatar">
+        <md-card-content>
+            <h4>Name: {{chef.name}}</h4>
+            <h4>Email: {{chef.email}}</h4>
+            <h4>Description: {{chef.description}}</h4>
+            <h4>Locations:
+                <span ng-repeat="zip in chef.location">
+                    <div>{{zip}} </div>
+                </span>
+            </h4>
+            <h4>Cuisines:
+                <span ng-repeat="cuisine in chef.cuisines">
+                    <div>{{cuisine}} </div>
+                </span>
+            </h4>
+            <div ng-repeat="img in chef.carousel">
+                <div>{{img}}</div>
+            </div>
+            <div ng-repeat="review in chef.reviews">
+                <div>{{review.rating}}</div>
+                <div>{{review.reviewString}}</div>
+            </div>
+            <md-button class="md-raised edit-button" ng-click="editProfile()">Edit Profile</md-button>
+        </md-card-content>
+    </md-card>
+</div>

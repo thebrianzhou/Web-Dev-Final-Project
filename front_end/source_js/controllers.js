@@ -1,4 +1,10 @@
 var mp4Controllers = angular.module('mp4Controllers', []);
+
+var setFlexSize = function() {
+    var correctSize = Math.max(0, ($(window).width() - 1400) / 2);
+    $(".flex-size").css("width", correctSize);
+}
+
 const months = [
 "January", "February", "March",
 "April", "May", "June", "July",
@@ -126,16 +132,34 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     }).error(function(err){
       console.log(err);
     });
+    
     $scope.submit = function() {
         var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
         console.log(newRequest);
         Requests.post(newRequest).success(function(data) {
-            console.log("added request!");
+            $location.path('/userrequests/');
         })
         .error(function(err){
             console.log(err);
         });
     };
+    
+    $scope.goToChefs = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
+    }
 }]);
 
 //Sree
@@ -240,11 +264,15 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
         $("md-card").hide();
     });
     
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
+    
     $scope.editProfile = function() {
         $location.path("/edituser/");
     }
     
-    $scope.goToChef = function() {
+    $scope.goToChefs = function() {
         $location.path("/chefgrid/");
     }
     
@@ -254,6 +282,11 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     
     $scope.goToRequests = function() {
         $location.path("/userrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
     }
 }]);
 //Sergey
@@ -272,8 +305,25 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
         $("md-card").hide();
     });
     
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
+    
     $scope.editProfile = function() {
         $location.path("/editchef/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/chefprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/chefrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
     }
 }]);
 //Sergey
@@ -288,13 +338,17 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
         $("md-card").hide();
     });
     
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
+    
     $scope.submit = function() {
         Users.put($scope.user, $scope.userID).success(function(data) {
             $location.path('/userprofile/');
         });
     };
     
-    $scope.goToChef = function() {
+    $scope.goToChefs = function() {
         $location.path("/chefgrid/");
     }
     
@@ -304,6 +358,11 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     
     $scope.goToRequests = function() {
         $location.path("/userrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
     }
 }]);
 //Sergey
@@ -318,11 +377,28 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
         $("md-card").hide();
     });
     
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
+    
     $scope.submit = function() {
         Chefs.put($scope.chef, $scope.chefID).success(function(data) {
             $location.path('/chefprofile/');
         });
     };
+    
+    $scope.goToProfile = function() {
+        $location.path("/chefprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/chefrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
+    }
 }]);
 //Sergey
 mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', 'authentication', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog, authentication) {
@@ -366,6 +442,10 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
     reloadRequests();
+    
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
     
     $scope.cancelRequest = function(request) {
         Requests.delete(request._id).success(function(data) {
@@ -416,7 +496,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         $scope.review = "";
         
         $scope.submit = function() {
-            var newReview = {assignedUser: $scope.userID, rating: $scope.DialogCont.rating, review: $scope.review};
+            var newReview = {assignedUser: $scope.curUser.name, rating: $scope.DialogCont.rating, review: $scope.review};
             $scope.chef.reviews.push(newReview);
             Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
                 $scope.hide(); 
@@ -425,7 +505,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     }
   };
     
-    $scope.goToChef = function() {
+    $scope.goToChefs = function() {
         $location.path("/chefgrid/");
     }
     
@@ -435,6 +515,11 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     
     $scope.goToRequests = function() {
         $location.path("/userrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
     }
 }]);
 //Sergey
@@ -475,6 +560,10 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
         });
     }
     
+    $scope.$on('$viewContentLoaded', function(){
+        setFlexSize();
+    });
+    
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
@@ -498,5 +587,18 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
         Requests.put(request, request._id).success(function(data) { 
             reloadRequests();
         });
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/chefprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/chefrequests/");
+    }
+    
+    $scope.logOut = function() {
+        authentication.logout();
+        $location.path("/splashpage/");
     }
 }]);
