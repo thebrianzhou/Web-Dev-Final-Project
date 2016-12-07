@@ -354,7 +354,7 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     }
 }]);
 //Sergey
-mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', '$mdMedia', function($scope, $routeParams, Chefs, authentication, $location, $mdMedia) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
@@ -367,6 +367,27 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
         });
     }).error(function(data) {
         $("md-card").hide();
+    });
+    
+    $scope.$watch(function() { return $mdMedia('xs'); }, function() {
+    if($mdMedia('xs') == true)
+      $scope.breakpoint = 0;
+    });
+   $scope.$watch(function() { return $mdMedia('sm'); }, function() {
+    if($mdMedia('sm') == true)
+      $scope.breakpoint = 1;
+    });
+   $scope.$watch(function() { return $mdMedia('md'); }, function() {
+    if($mdMedia('md') == true)
+      $scope.breakpoint = 2;
+    });
+   $scope.$watch(function() { return $mdMedia('lg'); }, function() {
+    if($mdMedia('lg') == true)
+      $scope.breakpoint = 3;
+    });
+   $scope.$watch(function() { return $mdMedia('xl'); }, function() {
+    if($mdMedia('xl') == true)
+      $scope.breakpoint = 4;
     });
     
     $scope.$on('$viewContentLoaded', function(){

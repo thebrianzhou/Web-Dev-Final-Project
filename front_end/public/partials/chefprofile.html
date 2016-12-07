@@ -8,31 +8,66 @@
         <span class="flex-size"></span>
     </div>
 </md-toolbar>
-<div class="md-padding">
-    <md-card class="login-card">
-        <img src="{{chef.profile_pic}}" class="md-card-image" alt="user avatar">
-        <md-card-content>
-            <h4>Name: {{chef.name}}</h4>
-            <h4>Email: {{chef.email}}</h4>
-            <h4>Description: {{(chef.description.length > 0) ? chef.description : "None"}}</h4>
-            <h4>Locations:
-                <span ng-repeat="zip in chef.location">
-                    <div>{{zip}} </div>
-                </span>
-            </h4>
-            <h4>Cuisines:
-                <span ng-repeat="cuisine in chef.cuisines">
-                    <div>{{cuisine}} </div>
-                </span>
-            </h4>
-            <div ng-repeat="img in chef.carousel">
-                <div>{{img}}</div>
+<!DOCTYPE html>
+  <md-card class="chef-profile-card" ng-controller="ChefProfileController as dialogCtrl">
+          <md-card-title>
+            <md-card-title-media>
+              <div ng-class="{'md-media-modal-xl':breakpoint > 1 , 'md-media-md':breakpoint === 1,'md-media-sm' :breakpoint === 0}">
+                 <img ng-src="{{chef.profile_pic}}">
+              </div>
+            </md-card-title-media>
+            
+            <md-card-title-text style="margin-left: 10px">
+              
+              
+              <span ng-class="{'md-display-1':breakpoint > 1 , 'md-headline':breakpoint <= 1}" style="position: relative;">
+                  <span style="display: inline-block;">{{chef.name}}</span>
+                  <div style="display: inline-block;" hide-sm hide-xs>
+                    <input-stars class = "modal-total" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="rating" readonly hide-sm hide-xs></input-stars>
+                  </div>
+                  <md-button class="md-icon-button" ng-click="closeDialog();" style="float: right;">
+                    <md-icon>close</md-icon>
+                  </md-button> 
+              </span>
+              <input-stars max="5" ng-model="rating" readonly hide-gt-sm></input-stars>
+              <span class="md-subhead">{{chef.email}}</span>
+              <span class="md-subhead">{{chef.cuisines.join(", ")}}</span>
+              <p hide-sm hide-xs>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
+              
+            </md-card-title-text>
+
+            
+          </md-card-title>
+          <md-card-content>
+            <p hide-gt-sm>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
+            <div layout="row" layout-align="center">
+              <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-init="slick_init()" ng-cloak>
+                <div class="slick-slide" ng-repeat="slide in chef.carousel">
+                  <img ng-src="{{slide}}">
+                </div>
+              </div>
             </div>
-            <div ng-repeat="review in chef.reviews">
-                <div>{{review.rating}}</div>
-                <div>{{review.reviewString}}</div>
+            <br ng-hide="noreviews">
+            <div layout="row" ng-hide="noreviews">
+              <span ng-class="{'md-display-1':breakpoint > 1 , 'md-headline':breakpoint <= 1}" style="min-width: 100%;">Reviews</span>
             </div>
-            <md-button class="md-raised edit-button" ng-click="editProfile()">Edit Profile</md-button>
-        </md-card-content>
-    </md-card>
-</div>
+            <div layout="row" layout-align="center" ng-hide="noreviews">
+              <md-virtual-repeat-container id="vertical-container" style="min-width: 85%">
+                <div md-virtual-repeat="review in chef.reviews" class="repeated-item" flex>
+                  <div layout="row">
+                    <span ng-class="{'md-headline':breakpoint > 1 , 'md-subhead':breakpoint <= 1}" style="display: inline-block;">{{review.assignedUser}}</span>
+                    <div style="display: inline-block;">
+                      <input-stars class = "modal-user" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="review.rating" readonly hide-sm hide-xs></input-stars>
+                    </div>
+                    
+                  </div>
+                  <input-stars max="5" ng-model="rating" readonly hide-gt-sm></input-stars>
+                  <div layout="row">
+                    <p class="md-subhead">{{review.review}}</p>
+                  </div>
+                </div>
+              </md-virtual-repeat-container>
+            </div>
+            
+          </md-card-content>
+      </md-card>
