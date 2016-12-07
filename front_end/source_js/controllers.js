@@ -5,6 +5,11 @@ var setFlexSize = function() {
     $(".flex-size").css("width", correctSize);
 }
 
+var fixTabs = function() {
+    $("md-tabs-wrapper").wrap("<div class='content'></div>");
+    $(".content").wrap("<div class='full-width'></div>");
+}
+
 const months = [
 "January", "February", "March",
 "April", "May", "June", "July",
@@ -496,6 +501,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+        fixTabs();
     });
     
     $scope.cancelRequest = function(request) {
@@ -613,6 +619,7 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+        fixTabs();
     });
     
     $scope.curUser = authentication.currentUser();
