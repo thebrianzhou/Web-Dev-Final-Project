@@ -1,5 +1,6 @@
 <md-toolbar flex="none">
     <div class="md-toolbar-tools">
+        <i id="icon" class="fa fa-cutlery logo"></i>
         <span flex></span>
         <md-button class="md-accent md-raised" ng-click="goToRequests()">Requests</md-button>
         <md-button ng-click="goToProfile()">Profile</md-button>
@@ -7,49 +8,45 @@
         <span class="flex-size"></span>
     </div>
 </md-toolbar>
-<div class="content">
-    <md-toolbar flex="none">
-        <md-tabs md-dynamic-height md-border-bottom style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
-            <md-tab label="Future Requests">
-                <div class='md-padding' layout="row" layout-align="center none" layout-wrap>
-                    <md-card style="width: 400px;" ng-repeat="request in pendingRequests">
-                        <img src="{{request.user.profile_pic}}" class="md-card-image" alt="user avatar">
-                        <md-card-content>
-                            <h4>Requested By: {{request.user.name}}</h4>
-                            <h4>Email: {{request.user.email}}</h4>
-                            <div>Budget: ${{request.budget}}</div>
-                            <div>Payment: ${{request.payment}}</div>
-                            <div>Cuisine: {{request.cuisine}}</div>
-                            <div>Date: {{request.dateString}}</div>
-                            <div>Description: {{request.description}}</div>
-                        </md-card-content>
-                        <div class="md-actions" layout="row" layout-align="end center">
-                            <md-button ng-click="acceptRequest(request);">Accept</md-button>
-                            <md-button ng-click="rejectRequest(request);">Reject</md-button>
-                        </div>
-                    </md-card>
+<md-tabs md-dynamic-height md-border-bottom style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
+    <md-tab label="Future Requests">
+        <div class='md-padding' layout="row" layout-align="center none" layout-wrap>
+            <md-card style="width: 400px;" ng-repeat="request in pendingRequests">
+                <img src="{{request.user.profile_pic}}" class="md-card-image" alt="user avatar">
+                <md-card-content>
+                    <h4>Requested By: {{request.user.name}}</h4>
+                    <h4>Email: {{request.user.email}}</h4>
+                    <div>Budget: ${{request.budget}}</div>
+                    <div>Payment: ${{request.payment}}</div>
+                    <div>Cuisine: {{request.cuisine}}</div>
+                    <div>Date: {{request.dateString}}</div>
+                    <div>Description: {{request.description}}</div>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button ng-click="acceptRequest(request);">Accept</md-button>
+                    <md-button ng-click="rejectRequest(request);">Reject</md-button>
                 </div>
-            </md-tab>
-            <md-tab label="Accepted Requests">
-                <div class='md-padding' layout="row" layout-align="center none" layout-wrap>
-                    <md-card style="width: 400px;" ng-repeat="request in acceptedRequests">
-                        <img src="{{request.user.profile_pic}}" class="md-card-image" alt="user avatar">
-                        <md-card-content>
-                            <h4>Requested By: {{request.user.name}}</h4>
-                            <h4>Email: {{request.user.email}}</h4>
-                            <div>Budget: ${{request.budget}}</div>
-                            <div>Payment: ${{request.payment}}</div>
-                            <div>Cuisine: {{request.cuisine}}</div>
-                            <div>Date: {{request.dateString}}</div>
-                            <div>Description: {{request.description}}</div>
-                        </md-card-content>
-                        <div class="md-actions" layout="row" layout-align="end center">
-                            <md-button ng-click="markPending(request);">Mark as Pending</md-button>
-                            <md-button ng-click="rejectRequest(request);">Reject</md-button>
-                        </div>
-                    </md-card>
+            </md-card>
+        </div>
+    </md-tab>
+    <md-tab label="Accepted Requests">
+        <div class='md-padding' layout="row" layout-align="center none" layout-wrap>
+            <md-card style="width: 400px;" ng-repeat="request in acceptedRequests">
+                <img src="{{request.user.profile_pic}}" class="md-card-image" alt="user avatar">
+                <md-card-content>
+                    <h4>Requested By: {{request.user.name}}</h4>
+                    <h4>Email: {{request.user.email}}</h4>
+                    <div>Budget: ${{request.budget}}</div>
+                    <div>Payment: ${{request.payment}}</div>
+                    <div>Cuisine: {{request.cuisine}}</div>
+                    <div>Date: {{request.dateString}}</div>
+                    <div>Description: {{request.description}}</div>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button ng-click="markPending(request);">Mark as Pending</md-button>
+                    <md-button ng-click="rejectRequest(request);">Reject</md-button>
                 </div>
-            </md-tab>
-        </md-tabs>
-    </md-toolbar>
-</div>
+            </md-card>
+        </div>
+    </md-tab>
+</md-tabs>

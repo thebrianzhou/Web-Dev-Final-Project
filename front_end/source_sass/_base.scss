@@ -205,7 +205,25 @@ $acct_icn_holder_size: 60px;
     max-height: 200px;
 }
 
+md-card {
+    font-size: 20px;
+}
 
+.close-button {
+    position:absolute;
+    right: 0;
+}
+
+.full-width {
+    border-style: solid;
+    border-width: 0 0 1px;
+    border-color: rgba(0, 0, 0, 0.12);
+    width: 100%;
+}
+
+md-tabs-wrapper {
+    border-width: 0 !important;
+}
 
 .angular-input-stars, textarea {
 
@@ -232,7 +250,7 @@ $acct_icn_holder_size: 60px;
 }
 
 #buttons {
-  margin-left:13%;
+  margin-left:15%;
   padding-right: 4%;
   .md-button
   {
