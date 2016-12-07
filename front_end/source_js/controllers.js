@@ -107,6 +107,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.payment = 0;
     $scope.date = new Date();
     $scope.cuisine = "";
+    console.log("hi");
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -118,6 +119,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     });
     $scope.chefid = $routeParams.id;
     Chefs.getByID($scope.chefid).success(function(data){
+      console.log(data);
       $scope.chef = data.data;
       $scope.chefname = $scope.chef.name;
       $scope.cuisines = $scope.chef.cuisines;
@@ -136,17 +138,6 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     };
 }]);
 
-mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
-  $scope.data = "";
-  $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-};
-
-}]);
 //Sree
 mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdMedia', function($scope, Chefs, $mdDialog, $mdMedia) {
   $scope.data = "";
