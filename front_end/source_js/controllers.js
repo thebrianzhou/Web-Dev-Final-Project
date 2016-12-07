@@ -499,6 +499,16 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     };
     
     var reloadRequests = function() {
+        Requests.getPendingForUser($scope.userID).success(function(data) {
+            $scope.pendingRequests = data.data; 
+
+            for (var i = 0; i < $scope.pendingRequests.length; i++)
+            {
+                addChefToRequest($scope.pendingRequests[i]);  
+                var date = new Date($scope.pendingRequests[i].date);
+                $scope.pendingRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
         Requests.getFutureForUser($scope.userID).success(function(data) {
             $scope.futureRequests = data.data; 
 
