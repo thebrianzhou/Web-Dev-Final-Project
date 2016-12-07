@@ -243,9 +243,8 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
       };
       $scope.usernames = {};
       $scope.getUserName = function(_id,index){
-          console.log("HIIII " + _id);
          Users.getByID(_id).success(function(data) {
-            console.log(data.data);
+            console.log(data);
             $scope.usernames[index]= data.data.name;
           })
           .error(function(err){
@@ -253,7 +252,6 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
           });
           
       }
-      console.log($scope.chef.reviews[0].assignedUser);
       for(var ctr =0;ctr < $scope.chef.reviews.length; ctr++){
         $scope.getUserName($scope.chef.reviews[ctr].assignedUser,ctr);
       }
