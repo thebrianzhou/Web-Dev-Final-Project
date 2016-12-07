@@ -299,21 +299,6 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
-        $scope.curPage = "profile";
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "profile";
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
@@ -355,21 +340,6 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
-        $scope.curPage = "profile";
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "profile";
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
@@ -402,10 +372,6 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     });
     
     $scope.$on('$viewContentLoaded', function(){
-        setFlexSize();
-    });
-    
-    angular.element($window).bind('resize', function() {
         setFlexSize();
     });
     
@@ -445,10 +411,6 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     });
     
     $scope.$on('$viewContentLoaded', function(){
-        setFlexSize();
-    });
-    
-    angular.element($window).bind('resize', function() {
         setFlexSize();
     });
     
@@ -515,14 +477,6 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
-        $scope.curPage = "requests";
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.cancelRequest = function(request) {
@@ -640,13 +594,6 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
-    });
-    
-    angular.element($window).bind('resize', function() {
-        setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.curUser = authentication.currentUser();
