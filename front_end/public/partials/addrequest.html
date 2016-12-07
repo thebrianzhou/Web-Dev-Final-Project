@@ -11,30 +11,31 @@
       <md-card class = "login-card">
         <md-card-content layout = "column">
           <md-input-container>
-            <label>Name</label>
-            <input ng-model="name" required>
+            <label>Chef</label>
+            <input ng-model="chefname" ng-readonly="true" required>
           </md-input-container>
           <md-input-container>
-            <label>Email</label>
-            <input ng-model="email" type="email" required>
+            <label>Budget</label>
+            <input ng-model="budget" type="number" required>
           </md-input-container>
           <md-input-container >
-            <label>Profile Pic (link)</label>
-            <input ng-model="profile_pic" required>
+            <label>Payment</label>
+            <input ng-model="payment" type="number" required>
           </md-input-container>
           <md-input-container >
-            <label>List of Cuisines (ex. Chinese, Mexican)</label>
-            <input ng-list="," ng-model = "cuisines" required>
+            <label>Cuisine</label>
+            <md-select ng-model="cuisine">
+              <md-option><em>None</em></md-option>
+              <md-option ng-repeat="cuisine in cuisines" ng-value="cuisine" ng-disabled="$index === -1">
+                {{cuisine}}
+              </md-option>
+            </md-select>
           </md-input-container>
-          <md-input-container >
-            <label>List of ZIP codes (ex. 60089, 90210))</label>
-            <input ng-list="," ng-model = location required>
-          </md-input-container>
-          <md-input-container >
-            <label>Password</label>
-            <input type = "password" ng-model = "password" required>
-          </md-input-container>
-          <md-button class="md-accent md-raised" ng-click = "submitchef()" > Sign Up</md-button>
+          <div flex-gt-sm class="date-picker-row" style="margin-top: 30px;">
+            <label for="email" translate>Date</label>
+            <md-datepicker ng-model="date" md-placeholder="Enter date"></md-datepicker>
+          </div>
+          <md-button class="md-accent md-raised" ng-click = "submit()" >Submit Request!</md-button>
         </md-card-content>
       </md-card>
     </div>

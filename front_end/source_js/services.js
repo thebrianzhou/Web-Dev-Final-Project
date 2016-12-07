@@ -129,6 +129,9 @@ mp4Services.factory('Requests', function($http, $window) {
         getAcceptedForChef : function(chefID) {
             return $http.get(baseUrl+'/api/requests?where={"assignedChef": "'+ chefID + '", "status": "accepted"}');
         },
+        post : function(request){
+           return $http.post(baseUrl+'/api/requests', request);
+       },
         put : function(data, id) {
             return $http.put(baseUrl+'/api/requests/' + id, data);
         },
