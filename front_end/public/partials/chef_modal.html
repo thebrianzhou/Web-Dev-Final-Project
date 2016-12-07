@@ -8,7 +8,9 @@
           
           <md-card-title>
             <md-card-title-media>
-              <div class="md-media-modal-xl card-media"></div>
+              <div class="md-media-modal-xl">
+                 <img ng-src="{{chef.profile_pic}}">
+              </div>
             </md-card-title-media>
             
             <md-card-title-text style="margin-left: 10px">
@@ -35,7 +37,7 @@
             <div layout="row" layout-align="center">
               <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-init="slick_init()" ng-cloak>
                 <div class="slick-slide">
-                  <img src="http://placehold.it/350x150">
+                  <img ng-src="http://placehold.it/350x150">
                 </div>
                 <div class="slick-slide">
                   <img src="http://placehold.it/150x150">
@@ -55,7 +57,7 @@
               </div>
             </div>
             <div layout="row" layout-align="center">
-              <md-button md-colors="{background: 'default-primary'}" ng-href="" flex="75">
+              <md-button md-colors="{background: 'default-primary'}" ng-href="#/addrequest/{{chef._id}}" flex="75">
                 <span class="md-title">
                   Send a Request
                 </span>

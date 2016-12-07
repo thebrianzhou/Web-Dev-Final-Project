@@ -205,6 +205,15 @@ $acct_icn_holder_size: 60px;
     max-height: 200px;
 }
 
+md-card {
+    font-size: 20px;
+}
+
+.close-button {
+    position:absolute;
+    right: 0;
+}
+
 .full-width {
     border-style: solid;
     border-width: 0 0 1px;

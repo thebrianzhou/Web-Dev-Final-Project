@@ -174,7 +174,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
 }]);
 
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$mdDialog','$mdMedia', '$location', function($scope, Chefs, Users, $mdDialog, $mdMedia, $location) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$mdDialog','$mdMedia', '$location', 'authentication',function($scope, Chefs, Users, $mdDialog, $mdMedia, $location, authentication) {
   $scope.data = "";
   $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
@@ -207,15 +207,36 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
     if($mdMedia('xl') == true)
       $scope.breakpoint = "xl";
     });
+    $scope.count = 0;
+    Users.getByID(authentication.currentUser()._id).success(function(data) {
+      console.log(data);
+      $scope.user = data.data;
+      console.log($scope.user.location);
+    })
+    .error(function(err){
+      console.log(err);
+    });
+    
+    $scope.myFilter = function(chef){
+      for(var ctr=0;ctr<$scope.user.location.length; ctr++){
+        for(var ctr2=0;ctr2<chef.location.length; ctr2++){
+          if(chef.location[ctr2] === $scope.user.location[ctr]){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    
 
-   $scope.showDialog = function(ev,ind) {
+   $scope.showDialog = function(ev,ind,chef) {
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '../../partials/chef_modal.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       locals: {
-        chef: $scope.chefs[ind]
+        chef: chef
     },
     clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
@@ -226,7 +247,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
 
     function DialogController($scope, $mdDialog,chef) {
       $scope.chef = chef;
-      //console.log(chef.reviews[0]);
+      console.log(chef);
      
       $scope.fruits = ["orange","quince","plum","apple","peach","banana","apricot","grapes","pomegranate","blueberries"];
       
@@ -472,6 +493,16 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     };
     
     var reloadRequests = function() {
+        Requests.getPendingForUser($scope.userID).success(function(data) {
+            $scope.pendingRequests = data.data; 
+
+            for (var i = 0; i < $scope.pendingRequests.length; i++)
+            {
+                addChefToRequest($scope.pendingRequests[i]);  
+                var date = new Date($scope.pendingRequests[i].date);
+                $scope.pendingRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+        });
         Requests.getFutureForUser($scope.userID).success(function(data) {
             $scope.futureRequests = data.data; 
 
@@ -558,6 +589,10 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
             Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
                 $scope.hide(); 
             });
+        }
+        
+        $scope.closeDialog = function() {
+            $mdDialog.hide();
         }
     }
   };
