@@ -67,13 +67,6 @@ module.exports = function(router) {
   	 		res.status(404).json({"message" : "user was not in database", "data": user});
   	});
   });
-useridRoute.options(function(req, res){
-      res.writeHead(200);
-      res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-      res.end();
-  });
+
   return router;
 }
