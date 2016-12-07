@@ -102,15 +102,39 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
 
 
 //Brian
-mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
+mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'Chefs', 'Requests', 'authentication', '$location', function($scope, $routeParams, Users, Chefs, Requests, authentication, $location) {
+    $scope.budget = 0;
+    $scope.chefname = "";
+    $scope.payment = 0;
+    $scope.date = new Date();
+    $scope.cuisine = "";
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
+    
+    Users.getByID($scope.userID).success(function(data) {
+        $scope.user = data.data; 
+    }).error(function(data) {
+        $("md-card").hide();
+    });
+    $scope.chefid = $routeParams.id;
+    Chefs.getByID($scope.chefid).success(function(data){
+      $scope.chef = data.data;
+      $scope.chefname = $scope.chef.name;
+      $scope.cuisines = $scope.chef.cuisines;
+    }).error(function(err){
+      console.log(err);
+    });
+    $scope.submit = function() {
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
+        console.log(newRequest);
+        Requests.post(newRequest).success(function(data) {
+            console.log("added request!");
+        })
+        .error(function(err){
+            console.log(err);
+        });
+    };
 
 }]);
 //Sree
