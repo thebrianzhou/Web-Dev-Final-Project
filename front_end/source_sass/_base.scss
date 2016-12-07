@@ -242,9 +242,33 @@ md-input-container {
 .error
 {
   padding:15px;
-  background-color: #E8BEBE;
+  background-color: #E74C3C;
+  color: white;
   margin:10px auto;
   border-radius: 5px;
   text-align: center;
   font-size: 15px;
+}
+
+md-nav-bar
+{
+    margin-bottom: 0;
+}
+
+.date-picker-row {
+    margin-left: -15px;
+    position: relative;
+    min-height: 60px;
+}
+
+.date-picker-row label {
+    position: absolute;
+    top: -12px;
+    left: 50px;
+    color: rgba(0, 0, 0, 0.541176);
+    font-size: 16px;
+}
+
+.date-picker-row .md-datepicker-input-container {
+    margin-left: 0;
 }

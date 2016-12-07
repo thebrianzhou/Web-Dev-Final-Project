@@ -7,57 +7,82 @@
       <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
         <md-tab label="Log In">
 	        <div class='md-padding' layout="row" layout-wrap>
-				<md-card class = "login-card">
-					<md-card-content layout = "column">
-						<md-input-container>
-							<label>Email</label>
-							<input ng-model="email" required>
-						</md-input-container>
-						<md-input-container>
-							<label>Password</label>
-							<input type = "password" ng-model="password" type="email" required>
-						</md-input-container>
-						<md-button class="md-accent md-raised" ng-click = "cheflogin()"> Log In </md-button>
-					</md-card-content>
-
-					<div class = "error" ng-if="incorrectL">
-						{{displayText}}
-					</div>
-				</md-card>
-				
+                <md-card class = "login-card">
+                    <form name = "form" ng-submit="cheflogin()">
+                       <md-card-content layout = "column">
+                            <md-input-container>
+                                <label>Email</label>
+                                <input ng-model="email" name = "email" required="">
+                                <div ng-messages="form.email.$error">
+				                    <div ng-message="required">This is required.</div>
+				                    <div ng-message="email">You must enter a valid email.</div>
+				                </div>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Password</label>
+                                <input type = "password" name = "password" ng-model="password" required="">
+                                <div ng-messages="form.password.$error">
+				                    <div ng-message="required">This is required.</div>
+				                </div>
+                            </md-input-container>
+                            <md-button class="md-accent md-raised" type="submit"> Log In</md-button>
+                        </md-card-content> 
+				    </form>
+                    <div class = "error" ng-if="incorrectL">
+                        {{incorrectLogin}}
+                    </div>
+                </md-card>
 			</div>
 		</md-tab>
         <md-tab label="Sign Up">
 	        <div class='md-padding' layout="row" layout-wrap>
-	          <md-card class = "login-card">
-		          <md-card-content layout = "column">
-			               	<md-input-container>
-								<label>Name</label>
-								<input ng-model="name" required>
-							</md-input-container>
-		               		<md-input-container>
-								<label>Email</label>
-								<input ng-model="email" type="email" required>
-							</md-input-container>
-			               	<md-input-container >
-								<label>Profile Pic (link)</label>
-								<input ng-model="profile_pic" required>
-							</md-input-container>
-		               		<md-input-container >
-								<label>List of Cuisines (ex. Chinese, Mexican)</label>
-								<input ng-list="," ng-model = "cuisines" required>
-							</md-input-container>
-		               		<md-input-container >
-								<label>List of ZIP codes (ex. 60089, 90210))</label>
-								<input ng-list="," ng-model = location required>
-							</md-input-container>
-							<md-input-container >
-								<label>Password</label>
-								<input type = "password" ng-model = "password" required>
-							</md-input-container>
-							<md-button class="md-accent md-raised" ng-click = "submitchef()" > Sign Up</md-button>
-					</md-card-content>
-				</md-card>
+                <md-card class = "login-card">
+                    <form name = "form" ng-submit="submitchef()">
+                        <md-card-content layout = "column">
+                                <md-input-container>
+                                  <label>Name</label>
+                                  <input ng-model="name" name = "name" required="">
+                                  <div ng-messages="form.name.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
+                                </md-input-container>
+                                <md-input-container>
+                                  <label>Email</label>
+                                  <input ng-model="email" name = "email" type="email" required="">
+                                  <div ng-messages="form.email.$error">
+				                    <div ng-message="required">This is required.</div>
+				                    <div ng-message="email">You must enter a valid email.</div>
+				                  </div>
+                                </md-input-container>
+                                <md-input-container >
+                                    <label>Profile Picture Link</label>
+                                    <input ng-model="profile_pic" required>
+                                </md-input-container>
+                                <md-input-container >
+                                    <label>List of Cuisines (ex. Chinese, Mexican)</label>
+                                    <input ng-list="," ng-model = "cuisines" name = "cuisines" required="">
+                                     <div ng-messages="form.cuisines.$error">
+				                    	<div ng-message="required">This is required.</div>
+				                  	 </div>
+                                </md-input-container>
+                                 <md-input-container>
+                                  <label>List of ZIP codes (ex. 60089, 90210)</label>
+                                  <input ng-list="," ng-model = "location" name = "location" required="">
+                                  <div ng-messages="form.location.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
+                                </md-input-container>
+                               <md-input-container>
+                                  <label>Password</label>
+                                  <input type = "password" name = "password" ng-model = "password" required="">
+                                  <div ng-messages="form.password.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
+                                </md-input-container>
+                                <md-button class="md-accent md-raised" type="submit"> Sign Up</md-button>
+                        </md-card-content>
+                    </form>
+                </md-card>
 			</div>
         </md-tab>
       </md-tabs>

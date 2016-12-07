@@ -1,9 +1,9 @@
 var mp4Controllers = angular.module('mp4Controllers', []);
 const months = [
-  "January", "February", "March",
-  "April", "May", "June", "July",
-  "August", "September", "October",
-  "November", "December"
+"January", "February", "March",
+"April", "May", "June", "July",
+"August", "September", "October",
+"November", "December"
 ];
 
 mp4Controllers.controller('SplashPageController', ['$scope', '$location', function($scope, $location)
@@ -14,19 +14,18 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
     //console.log("chef login function");
     var path = '/cheflogin';
     $location.path(path);
-  };
+};
 
-  $scope.userlogin = function()
-  {
+$scope.userlogin = function()
+{
     //console.log("user login function");
     var path = '/userlogin';
     $location.path(path);
-  };
+};
 }])
 
 //Brian
 mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authentication', 'Users', function($scope, $location, authentication, Users) {
-    $scope.displayText = "Hello World";
     $scope.email = "";
     $scope.password = "";
     $scope.name = "";
@@ -37,62 +36,33 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
     $scope.incorrectS = false;
     $scope.userlogin = function()
     {
-        //console.log("inside login function");
-        if(typeof $scope.email === 'undefined' || $scope.email == ""
-        || typeof $scope.password === 'undefined' || $scope.password == "")
-        {
-            $scope.incorrectL = true;
-            $scope.incorrectLogin = "Email or Password not provided";
-            return;
-        }
-        //console.log($scope.email);
         authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-            //console.log(data);
-            //console.log("success!");
-            $location.path('/chefgrid/' + authentication.currentUser()._id);
+            $location.path('/chefgrid/');
         }).error(function(err){
-            //console.log(err);
             $scope.password = "";
             $scope.incorrectLogin = "Incorrect Email or Password";
             $scope.incorrectL = true;
-
         });
     }
 
     $scope.submituser = function()
     {
-        console.log("inside submit user");
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.password === 'undefined' || $scope.password =="")
-        {
-            $scope.incorrectS = true;
-            $scope.incorrectSignup = "Name, Email, Location, or Password not provided";
-            return;
-        }
-        /*console.log($scope.name);
-        console.log($scope.email);
-        console.log($scope.profile_pic);
-        console.log($scope.location);*/
         var newUser = {name: $scope.name, email: $scope.email, profile_pic: $scope.profile_pic, location: $scope.location, password: $scope.password};
         console.log(newUser);
         Users.post(newUser).success(function(data){
-            $location.path('/chefgrid/' + authentication.currentUser()._id); //change once sree gets his shit together
+            $location.path('/chefgrid/'); //change once sree gets his shit together
         })
         .error(function(err) {
           $scope.incorrectS = true;
           $scope.incorrectSignup = "Error:" + err;
           console.log(err);
-       });
-
+      });
     }
 
 }]);
 
 mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authentication', 'Chefs', function($scope, $location, authentication, Chefs){
-    $scope.displayText = "Hello World";
     $scope.email = "";
     $scope.password = "";
     $scope.name = "";
@@ -104,22 +74,10 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
     $scope.incorrectS = false;
     $scope.cheflogin = function()
     {
-        //console.log("inside cheflogin function");
-        if(typeof $scope.email === 'undefined' || $scope.email == ""
-        || typeof $scope.password === 'undefined' || $scope.password == "")
-        {
-            $scope.incorrectL = true;
-            $scope.incorrectLogin = "Email or Password not provided";
-            return;
-        }
-        //console.log($scope.email);
         authentication.cheflogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-           // console.log(data);
-           // console.log("success!");
             $location.path('/chefrequests/');
         }).error(function(err){
-            //console.log(err);
             $scope.password = "";
             $scope.incorrectLogin = "Incorrect Email or Password";
             $scope.incorrectL = true;
@@ -129,160 +87,101 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
 
     $scope.submitchef = function()
     {
-        console.log("inside submit chef");
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.cuisines === 'undefined' || $scope.cusisines==""
-        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic==""
-        || typeof $scope.password === 'undefined' || $scope.password =="")
-        {
-            $scope.incorrectS = true;
-            $scope.incorrectSignup = "Name, Email, Location, Profile Pic, Cuisines or Password not provided";
-            return;
-        }
-        console.log($scope.name);
-        console.log($scope.email);
-        console.log($scope.profile_pic);
-        console.log($scope.location);
-
-        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
         var newChef = {name: $scope.name, email: $scope.email, profile_pic: $scope.profile_pic, cuisines: $scope.cuisines, description: $scope.description, carousel: $scope.carousel, location: $scope.location, password: $scope.password};
-        console.log(newChef);
         Chefs.post(newChef).success(function(data){
             $location.path('/chefrequests/');
         })
         .error(function(err) {
           $scope.incorrectS = true;
           $scope.incorrectSignup = "Error:" + err;
-          console.log(err);
-       });
+      });
     }
 }]);
 
 
 //Brian
-mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+
+mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'Chefs', 'Requests', 'authentication', '$location', function($scope, $routeParams, Users, Chefs, Requests, authentication, $location) {
+    $scope.budget = 0;
+    $scope.chefname = "";
+    $scope.payment = 0;
+    $scope.date = new Date();
+    $scope.cuisine = "";
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
+    
+    Users.getByID($scope.userID).success(function(data) {
+        $scope.user = data.data; 
+    }).error(function(data) {
+        $("md-card").hide();
+    });
+    $scope.chefid = $routeParams.id;
+    Chefs.getByID($scope.chefid).success(function(data){
+      $scope.chef = data.data;
+      $scope.chefname = $scope.chef.name;
+      $scope.cuisines = $scope.chef.cuisines;
+    }).error(function(err){
+      console.log(err);
+    });
+    $scope.submit = function() {
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
+        console.log(newRequest);
+        Requests.post(newRequest).success(function(data) {
+            console.log("added request!");
+        })
+        .error(function(err){
+            console.log(err);
+        });
+    };
+}]);
+
+mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
   $scope.data = "";
-   $scope.displayText = ""
+  $scope.displayText = ""
 
   $scope.setData = function(){
     CommonData.setData($scope.data);
     $scope.displayText = "Data set"
 
-  };
+};
 
 }]);
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdPanel','$mdMedia', function($scope, CommonData, $mdDialog, $mdPanel, $mdMedia) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdMedia', function($scope, Chefs, $mdDialog, $mdMedia) {
   $scope.data = "";
-   $scope.displayText = "";
+  $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-  $scope.searching=true;
-  /*$scope.showDialog = function(ev,ind) {
-    console.log(ind);
-    $mdDialog.show({
-      controller: ['$scope','$mdDialog','user',function ($scope2, $mdDialog, user) {
-        $scope.hide = function() {
-          $mdDialog.hide();
-        };
-        $scope.user = user;
-        $scope.yo="hi";
-        console.log(user);
-        $scope.cancel = function() {
-          $mdDialog.cancel();
-        };
-
-        $scope.answer = function(answer) {
-          $mdDialog.hide(answer);
-        };
-      }],
-      contentElement: '#myDialog',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      locals: {
-        user: "hi"
-      },
-      clickOutsideToClose: true
-    });
-    
-    
-  };*/
-  $scope.carData = [
-  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
-  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
-  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
-  { src: 'http://lab.csschopper.com/placeholder/images/placeholder_image_logo.png' }
-];
-
-
-$scope.initSlick = function () {
-          $(function () {
-            // wait till load event fires so all resources are available
-              $(document).ready(function(){
-                console.log("got here!");
-                $(".sliding-carousel").slick({
-                  slidesToShow: 3,
-                  slidesToScroll: 1,
-                  arrows: true
-                });
-              });
-          });
-      };
-
-      //$scope.initSlick();
-
-  $scope.$watch(function() { return $mdMedia('xs'); }, function() {
-    if($mdMedia('xs') == true)
-      $scope.breakpoint = "xs"
-  });
-  $scope.$watch(function() { return $mdMedia('sm'); }, function() {
-    if($mdMedia('sm') == true)
-      $scope.breakpoint = "sm"
-  });
-  $scope.$watch(function() { return $mdMedia('md'); }, function() {
-    if($mdMedia('md') == true)
-      $scope.breakpoint = "md"
-  });
-  $scope.$watch(function() { return $mdMedia('lg'); }, function() {
-    if($mdMedia('lg') == true)
-      $scope.breakpoint = "lg"
-  });
-  $scope.$watch(function() { return $mdMedia('xl'); }, function() {
-    if($mdMedia('xl') == true)
-      $scope.breakpoint = "xl"
-  });
-  
-  
-/*  $scope.Panel = function(ev,ind) {
-    $mdPanel.show({
-      controller: DialogController,
-      templateUrl: '../../partials/trial.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      locals: {
-        user: $scope.users[ind]
-      },
-      clickOutsideToClose:true,
-      fullscreen: true // Only for -xs, -sm breakpoints.
+   Chefs.get().success(function(data){
+    $scope.chefs = data.data;
+    console.log($scope.chefs);
     })
-    .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
-    }, function() {
-      $scope.status = 'You cancelled the dialog.';
+   .error(function(err){
+      console.log('Error' + err);
+   })
+
+   $scope.$watch(function() { return $mdMedia('xs'); }, function() {
+    if($mdMedia('xs') == true)
+      $scope.breakpoint = "xs";
     });
-    
-    function DialogController($scope, $mdDialog,user) {
-      $scope.user = user;
-    }
-  };*/
-  
-  $scope.showDialog = function(ev,ind) {
+   $scope.$watch(function() { return $mdMedia('sm'); }, function() {
+    if($mdMedia('sm') == true)
+      $scope.breakpoint = "sm";
+    });
+   $scope.$watch(function() { return $mdMedia('md'); }, function() {
+    if($mdMedia('md') == true)
+      $scope.breakpoint = "md";
+    });
+   $scope.$watch(function() { return $mdMedia('lg'); }, function() {
+    if($mdMedia('lg') == true)
+      $scope.breakpoint = "lg";
+    });
+   $scope.$watch(function() { return $mdMedia('xl'); }, function() {
+    if($mdMedia('xl') == true)
+      $scope.breakpoint = "xl";
+    });
+
+   $scope.showDialog = function(ev,ind) {
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '../../partials/chef_modal.html',
@@ -290,14 +189,14 @@ $scope.initSlick = function () {
       targetEvent: ev,
       locals: {
         user: $scope.users[ind]
-      },
-      clickOutsideToClose:true,
+    },
+    clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
-    })
+  })
     .then(function() {
       $("#sliding-carousel").slick('unslick');
-    });
-    
+  });
+
     function DialogController($scope, $mdDialog,user) {
       $scope.user = user;
       $scope.rating = 4;
@@ -312,32 +211,33 @@ $scope.initSlick = function () {
             speed: 500,
             fade: true,
             cssEase: 'linear'
-          });
+        });
           //jQuery("#sliding-carousel").css('opacity',"1");
       };
 
       
       $scope.slick_init = function(){
         console.log("initializing");
-        setTimeout($scope.initSlick,500);
+        setTimeout($scope.initSlick,100);
                 console.log("initialized");
       }; 
-      $scope.clic = function(){
-                console.log("3 "+angular.element(document).find("md-card-title").css("color"));
-      }
+      
       $scope.closeDialog = function(){
         $mdDialog.hide();
       }
-    }
-  };
-  
-  
+    }; 
+    
+  }
+
+
 }]);
 //Sergey
-mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
+mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
+    
+    $scope.curPage = "profile";
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data;
@@ -348,22 +248,42 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     }).error(function(data) {
         $("md-card").hide();
     });
+    
+    $scope.editProfile = function() {
+        $location.path("/edituser/");
+    }
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
-mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
-                    
+
         $(".md-card-image").error(function () { 
             $(this).hide(); 
         });
     }).error(function(data) {
         $("md-card").hide();
     });
+    
+    $scope.editProfile = function() {
+        $location.path("/editchef/");
+    }
 }]);
 //Sergey
 mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
@@ -378,22 +298,22 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     });
     
     $scope.submit = function() {
-        if(typeof $scope.user.name === 'undefined' || $scope.user.name==""
-        || typeof $scope.user.email === 'undefined' || $scope.user.email==""
-        || typeof $scope.user.location === 'undefined' || $scope.user.location.length==0)
-        {
-            $scope.incorrect = true;
-            $scope.displayText = "Name, Email, or Location not provided";
-            return;
-        }
-        
         Users.put($scope.user, $scope.userID).success(function(data) {
             $location.path('/userprofile/');
-        }).error(function(data) {
-            $scope.incorrect = true;
-            $scope.displayText = "Error: " + data;
         });
     };
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
 mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
@@ -408,22 +328,8 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     });
     
     $scope.submit = function() {
-        if(typeof $scope.name === 'undefined' || $scope.name==""
-        || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.location === 'undefined' || $scope.location.length==0
-        || typeof $scope.cuisines === 'undefined' || $scope.cusisines==""
-        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic=="")
-        {
-            $scope.incorrect = true;
-            $scope.displayText = "Name, Email, Location, Cuisines, or Profile Pic not provided";
-            return;
-        }
-        
         Chefs.put($scope.chef, $scope.chefID).success(function(data) {
             $location.path('/chefprofile/');
-        }).error(function(data) {
-            $scope.incorrect = true;
-            $scope.displayText = "Error: " + data;
         });
     };
 }]);
@@ -432,7 +338,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
-                        
+
             $(".md-card-image").error(function () { 
                 $(this).hide(); 
             });
@@ -444,7 +350,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     var reloadRequests = function() {
         Requests.getFutureForUser($scope.userID).success(function(data) {
             $scope.futureRequests = data.data; 
-        
+
             for (var i = 0; i < $scope.futureRequests.length; i++)
             {
                 addChefToRequest($scope.futureRequests[i]);  
@@ -454,7 +360,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
         Requests.getCompletedForUser($scope.userID).success(function(data) {
             $scope.completedRequests = data.data; 
-        
+
             for (var i = 0; i < $scope.completedRequests.length; i++)
             {
                 addChefToRequest($scope.completedRequests[i]);  
@@ -464,6 +370,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
+    $scope.curPage = "requests";
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
@@ -472,7 +379,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     $scope.cancelRequest = function(request) {
         Requests.delete(request._id).success(function(data) {
            reloadRequests();                                  
-        });
+       });
     }
     
     $scope.markCompleted = function(request) {
@@ -490,29 +397,29 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     }
     
     $scope.addReview = function(ev, userID, chef) {
-    $mdDialog.show({
-      controller: DialogController,
-      controllerAs: 'DialogCont',
-      templateUrl: '../../partials/addreview.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      locals: {
-        userID: userID,
-        chef: chef
-      },
-      clickOutsideToClose:true,
+        $mdDialog.show({
+          controller: DialogController,
+          controllerAs: 'DialogCont',
+          templateUrl: '../../partials/addreview.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            userID: userID,
+            chef: chef
+        },
+        clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
-    })
-    
-    function DialogController($scope, $mdDialog, userID, chef, Chefs) {
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-      $scope.userID = userID;
-      $scope.chef = chef;
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
+  })
+
+        function DialogController($scope, $mdDialog, userID, chef, Chefs) {
+          $scope.hide = function() {
+            $mdDialog.hide();
+        };
+        $scope.userID = userID;
+        $scope.chef = chef;
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
         
         $scope.DialogCont.rating = 3;
         $scope.review = "";
@@ -526,9 +433,21 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         }
     }
   };
+    
+    $scope.goToChef = function() {
+        $location.path("/chefgrid/");
+    }
+    
+    $scope.goToProfile = function() {
+        $location.path("/userprofile/");
+    }
+    
+    $scope.goToRequests = function() {
+        $location.path("/userrequests/");
+    }
 }]);
 //Sergey
-mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', function($scope, $routeParams, Requests, Users, authentication) {
+mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', '$location', function($scope, $routeParams, Requests, Users, authentication, $location) {
     var addUserToRequest = function(request) {
         Users.getByID(request.assignedUser).success(function(data) {
             request.user = data.data; 
@@ -544,7 +463,7 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
     var reloadRequests = function() {
         Requests.getPendingForChef($scope.chefID).success(function(data) {
             $scope.pendingRequests = data.data; 
-        
+
             for (var i = 0; i < $scope.pendingRequests.length; i++)
             {
                 addUserToRequest($scope.pendingRequests[i]);
@@ -552,10 +471,10 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
                 $scope.pendingRequests[i].dateString = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
             }
         });
-    
+
         Requests.getAcceptedForChef($scope.chefID).success(function(data) {
             $scope.acceptedRequests = data.data; 
-        
+
             for (var i = 0; i < $scope.acceptedRequests.length; i++)
             {
                 addUserToRequest($scope.acceptedRequests[i]);

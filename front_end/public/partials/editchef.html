@@ -1,38 +1,51 @@
-<form>
-    <md-card class="login-card">
-        <md-card-content layout="column">
-            <md-input-container>
-                <label>Name</label>
-                <input ng-model="chef.name" type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <label>Email</label>
-                <input ng-model="chef.email" type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <label>List of ZIP Codes (ex. 60089, 90210)</label>
-                <input ng-model="chef.location" ng-list="," type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <label>Profile Picture Link</label>
-                <input ng-model="chef.profile_pic" type="text">
-            </md-input-container>
-            <md-input-container>
-                <label>Carousel Image Links</label>
-                <input ng-model="chef.carousel" ng-list="," type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <label>List of Cuisines (ex. Chinese, Mexican)</label>
-                <input ng-model="chef.cuisines" ng-list="," type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <label>Description</label>
-                <input ng-model="chef.description" type="text">
-            </md-input-container>
-            <md-button class="md-accent md-raised" ng-click="submit()">Submit</md-button>
-        </md-card-content>
-        <div class = "error" ng-if="incorrect">
-            {{displayText}}
-        </div>
-    </md-card>
+<form name="form" ng-submit="submit()">
+<md-card class="login-card">
+    <md-card-content layout="column">
+        <md-input-container>
+            <label>Name</label>
+            <input ng-model="chef.name" name="name" type="text" required="">
+            <div ng-messages="form.name.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Email</label>
+            <input ng-model="chef.email" name="email" type="email" required="">
+            <div ng-messages="form.email.$error">
+                <div ng-message="required">This is required.</div>
+                <div ng-message="email">You must enter a valid email.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>List of ZIP Codes (ex. 60089, 90210)</label>
+            <input ng-model="chef.location" name="location" ng-list="," type="text" required="">
+            <div ng-messages="form.location.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Profile Picture Link</label>
+            <input ng-model="chef.profile_pic" name="profile_pic" type="text" required="">
+            <div ng-messages="form.profile_pic.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Carousel Image Links</label>
+            <input ng-model="chef.carousel" ng-list="," type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>List of Cuisines (ex. Chinese, Mexican)</label>
+            <input ng-model="chef.cuisines" name="cuisines" ng-list="," type="text" required="">
+            <div ng-messages="form.cuisines.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Description</label>
+            <input ng-model="chef.description" type="text">
+        </md-input-container>
+        <md-button class="md-accent md-raised" type="submit">Submit</md-button>
+    </md-card-content>
+</md-card>
 </form>
