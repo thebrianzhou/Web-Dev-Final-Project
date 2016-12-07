@@ -9,31 +9,36 @@ const months = [
 mp4Controllers.controller('SplashPageController', ['$scope', '$location', function($scope, $location)
 {
   $scope.displayText = "Hello World";
+  $scope.cheflogin= function()
+  {
+    console.log("chef login function");
+    var path = '/cheflogin';
+    $location.path(path);
+  };
+
   $scope.userlogin = function()
   {
-    console.log("login function");
-    var path = '/login';
+    console.log("user login function");
+    var path = '/userlogin';
     $location.path(path);
-  }
-  $scope.signup = function()
-  {
-    console.log("signup function");
-    var path = '/signup';
-    $location.path(path);
-  }
+  };
 }])
 
 //Brian
-mp4Controllers.controller('LoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication) {
-     $scope.displayText = "Hello World";
-     $scope.email = "";
-     $scope.password = "";
-     $scope.userlogin = function()
-     {
+mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication) {
+    $scope.displayText = "Hello World";
+    $scope.email = "";
+    $scope.password = "";
+    $scope.name = "";
+    $scope.profile_pic = "";
+    $scope.location = [];
+    $scope.password = "";
+    $scope.userlogin = function()
+    {
+        console.log("inside login function");
         if(typeof $scope.email === 'undefined' || $scope.email == ""
         || typeof $scope.password === 'undefined' || $scope.password == "")
             return;
-        console.log("inside login function");
         console.log($scope.email);
         authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
@@ -43,28 +48,16 @@ mp4Controllers.controller('LoginController', ['$scope', '$location', 'authentica
         }).error(function(err){
             console.log(err);
         });
-     }
+    }
 
-}]);
-
-mp4Controllers.controller('SignupController', ['$scope', function($scope){
-    $scope.displayText = "Hello World";
-    $scope.name = "";
-    $scope.email = "";
-    $scope.profile_pic = "";
-    $scope.location = [];
-    $scope.cuisines = [];
-    $scope.description = "";
-    $scope.carousel = [];
-    $scope.password = "";
     $scope.submitUser = function()
     {
+        console.log("inside submit user");
         if(typeof $scope.name === 'undefined' || $scope.name==""
         || typeof $scope.email === 'undefined' || $scope.email==""
         || typeof $scope.location === 'undefined' || $scope.location.length==0
         || typeof $scope.password === 'undefined' || $scope.password =="")
                 return;
-        console.log("inside submit user");
         console.log($scope.name);
         console.log($scope.email);
         console.log($scope.profile_pic);
@@ -72,26 +65,51 @@ mp4Controllers.controller('SignupController', ['$scope', function($scope){
 
         /*BRIAN DOES INSERT CODE HERE FOR USERS*/
     }
-    $scope.submitChef = function()
-    {
 
-         if(typeof $scope.name === 'undefined' || $scope.name==""
+}]);
+
+mp4Controllers.controller('ChefLoginController', ['$scope', function($scope){
+    $scope.displayText = "Hello World";
+    $scope.email = "";
+    $scope.password = "";
+    $scope.name = "";
+    $scope.profile_pic = "";
+    $scope.location = [];
+    $scope.cuisines = [];
+    $scope.description = "";
+    $scope.carousel = [];
+    $scope.password = "";
+    $scope.cheflogin = function()
+    {
+        console.log("inside cheflogin function");
+        if(typeof $scope.email === 'undefined' || $scope.email == ""
+        || typeof $scope.password === 'undefined' || $scope.password == "")
+            return;
+        console.log($scope.email);
+        authentication.cheflogin({email : $scope.email, password : $scope.password}).success(function(data) {
+            authentication.saveToken(data.token);
+            console.log(data);
+            console.log("success!");
+            $location.path('/chefprofile/' + authentication.currentUser()._id);
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+
+    $scope.submitchef = function()
+    {
+        console.log("inside submit chef");
+        if(typeof $scope.name === 'undefined' || $scope.name==""
         || typeof $scope.email === 'undefined' || $scope.email==""
-        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic==""
-        || typeof $scope.cuisines === 'undefined' || $scope.cuisines.length==0
         || typeof $scope.location === 'undefined' || $scope.location.length==0
         || typeof $scope.password === 'undefined' || $scope.password =="")
                 return;
-        console.log("inside submit chef")
         console.log($scope.name);
         console.log($scope.email);
         console.log($scope.profile_pic);
-        console.log($scope.description);
-        console.log($scope.cuisines);
-        console.log($scope.carousel);
         console.log($scope.location);
 
-        /*BRIAN DOES INSERT CODE HERE FOR CHEFS*/
+        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
     }
 }]);
 
