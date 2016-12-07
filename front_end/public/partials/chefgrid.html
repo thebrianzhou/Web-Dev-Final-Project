@@ -8,6 +8,8 @@
         <span class="flex-size"></span>
     </div>
 </md-toolbar>
+
+
 <div class="content">
     <md-content>
       <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
@@ -15,17 +17,18 @@
       </div>
 
       <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
-        <input type="text" id="search-filter">
+        <input type="text" id="search-filter" ng-model="searcher">
       </div>
-
       <div layout="row" layout-align="center">
         <div layout="row" layout-wrap flex="100">
       <!-- style="width: calc(100% / 4 - 30px); margin: 15px; " -->
-            <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="chef in chefs">
+            <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="chef in chefs | filter : myFilter | filter : searcher">
               <md-card>
                 <md-card-title>
                   <md-card-title-media>
-                    <div class="md-media-lg card-media"></div>
+                    <div class="md-media-lg">
+                      <img ng-src="{{chef.profile_pic}}">
+                    </div>
                   </md-card-title-media>
                   <md-card-title-text style="margin-left:10px;">
                     <span class="md-headline">{{chef.name}}</span>
@@ -37,7 +40,7 @@
                   <p>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
-                  <md-button class="md-icon-button" ng-click="showDialog($event,$index);">
+                  <md-button class="md-icon-button" ng-click="showDialog($event,$index,chef);">
                     <md-icon>open_in_new</md-icon>
                   </md-button>
                 </md-card-actions>
