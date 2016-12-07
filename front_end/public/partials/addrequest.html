@@ -20,6 +20,7 @@
           <md-input-container>
             <label>Budget</label>
             <input ng-model="budget" name="budget" type="number" required="">
+            <div class="hint">Specify a budget for the chef to buy ingredients with!</div>
             <div ng-messages="form.budget.$error">
                 <div ng-message="required">This is required.</div>
             </div>
@@ -27,11 +28,14 @@
           <md-input-container >
             <label>Payment</label>
             <input ng-model="payment" name="payment" type="number" required="">
+            <div class="hint">Specify how much you want to pay for the chef's services!</div>
             <div ng-messages="form.payment.$error">
                 <div ng-message="required">This is required.</div>
             </div>
           </md-input-container>
-          <md-input-container >
+          <div layout-gt-xs="row">
+
+          <md-input-container class="md-block" flex-gt-xs="">
             <label>Cuisine</label>
             <md-select ng-model="cuisine" name="cuisine" required="">
               <md-option><em>None</em></md-option>
@@ -40,7 +44,7 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <md-input-container style="margin-top: 30px;">
+          <md-input-container>
             <label>Date</label>
             <md-datepicker ng-model="date" name="date" md-placeholder="Enter date" required=""></md-datepicker>
             <div ng-messages="form.date.$error">
@@ -48,7 +52,14 @@
                 <div ng-message="valid">You must enter a valid date.</div>
             </div>
           </md-input-container>
+          </div>
+
+          <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="description" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
+        </md-input-container>
           <md-button class="md-accent md-raised" ng-click = "submit()" >Submit Request!</md-button>
+          <div ng-show="err" role="alert" style="color:red;">{{errormessage}}</div>
         </md-card-content>
       </md-card>
     </form>

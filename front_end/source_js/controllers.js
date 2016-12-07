@@ -113,6 +113,9 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.payment = 0;
     $scope.date = new Date();
     $scope.cuisine = "";
+    $scope.description = "";
+    $scope.err=0;
+    $scope.errormessage="";
     console.log("hi");
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
@@ -134,12 +137,15 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     });
     
     $scope.submit = function() {
-        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description};
         console.log(newRequest);
         Requests.post(newRequest).success(function(data) {
+            $scope.err = 0;
             $location.path('/userrequests/');
         })
         .error(function(err){
+            $scope.err = 1;
+            $scope.errormessage = "Request could not be submitted!";
             console.log(err);
         });
     };
@@ -163,13 +169,14 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
 }]);
 
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdMedia', function($scope, Chefs, $mdDialog, $mdMedia) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$mdDialog','$mdMedia', function($scope, Chefs, Users, $mdDialog, $mdMedia) {
   $scope.data = "";
   $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
    Chefs.get().success(function(data){
     $scope.chefs = data.data;
-    console.log($scope.chefs);
+    //console.log($scope.chefs[0]);
+    //console.log($scope.chefs[0].reviews);
     })
    .error(function(err){
       console.log('Error' + err);
@@ -203,7 +210,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
       parent: angular.element(document.body),
       targetEvent: ev,
       locals: {
-        user: $scope.users[ind]
+        chef: $scope.chefs[ind]
     },
     clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
@@ -212,10 +219,21 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
       $("#sliding-carousel").slick('unslick');
   });
 
-    function DialogController($scope, $mdDialog,user) {
-      $scope.user = user;
-      $scope.rating = 4;
+    function DialogController($scope, $mdDialog,chef) {
+      $scope.chef = chef;
+      //console.log(chef.reviews[0]);
+     
       $scope.fruits = ["orange","quince","plum","apple","peach","banana","apricot","grapes","pomegranate","blueberries"];
+      
+      
+      $scope.getTotalRating = function(){
+        var inc = 0;
+        for(var ctr = 0 ;ctr < $scope.chef.reviews.length; ctr++){
+          inc+=$scope.chef.reviews[ctr].rating;
+        }
+        return inc/$scope.chef.reviews.length;
+      };
+      $scope.rating = $scope.getTotalRating();
       $scope.initSlick = function () {
          jQuery("#sliding-carousel").slick({
             slidesToShow: 1,
@@ -229,12 +247,28 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
         });
           //jQuery("#sliding-carousel").css('opacity',"1");
       };
-
+      $scope.usernames = {};
+      $scope.getUserName = function(_id,index){
+          console.log("HIIII " + _id);
+         Users.getByID(_id).success(function(data) {
+            console.log(data.data);
+            $scope.usernames[index]= data.data.name;
+          })
+          .error(function(err){
+            console.log(err);
+          });
+          
+      }
+      console.log($scope.chef.reviews[0].assignedUser);
+      for(var ctr =0;ctr < $scope.chef.reviews.length; ctr++){
+        $scope.getUserName($scope.chef.reviews[ctr].assignedUser,ctr);
+      }
+     
       
       $scope.slick_init = function(){
-        console.log("initializing");
+        //console.log("initializing");
         setTimeout($scope.initSlick,100);
-                console.log("initialized");
+                //console.log("initialized");
       }; 
       
       $scope.closeDialog = function(){
@@ -274,6 +308,13 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
         $scope.curPage = null;
         $scope.$apply();
         $scope.curPage = "profile";
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
@@ -323,6 +364,13 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
         $scope.curPage = null;
         $scope.$apply();
         $scope.curPage = "profile";
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "requests";
     });
     
     $scope.editProfile = function() {
