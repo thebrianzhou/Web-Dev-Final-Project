@@ -198,11 +198,13 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
         $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
-        $scope.user = data.data; 
-                    
+        $scope.user = data.data;
+
         $(".md-card-image").error(function () { 
             $(this).hide(); 
         });
+    }).error(function(data) {
+        $("md-card").hide();
     });
 }]);
 //Sergey
@@ -217,6 +219,8 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
         $(".md-card-image").error(function () { 
             $(this).hide(); 
         });
+    }).error(function(data) {
+        $("md-card").hide();
     });
 }]);
 //Sergey
