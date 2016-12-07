@@ -96,8 +96,15 @@ def main(argv):
         x = randint(0,99)
         y = randint(0,99)
         #pick a random zipcode
-        z = randint(0,32)
-        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'location': zipcodes[z], 'password':"qwerty"})
+        z1 = randint(0,32)
+        z2 = randint(0,32)
+        while(z2==z1)
+            z2 = randint(0,32);
+        z3 = randint(0,32)
+        while(z3==z2 || z3 == z1)
+            z3 = randint(0,4)
+        locations =[zipcodes[z1], zipcodes[z2], zipcodes[z3]]
+        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'location': locations, 'password':"qwerty"})
         
         # POST the user
         conn.request("POST", "/api/users", params, headers)
@@ -144,10 +151,21 @@ def main(argv):
         f3 = randint(0,4)
         while(f3==f2 || f3 == f1)
             f3 = randint(0,4)
+
+
+        z1 = randint(0,32)
+        z2 = randint(0,32)
+        while(z2==z1)
+            z2 = randint(0,32);
+        z3 = randint(0,32)
+        while(z3==z2 || z3 == z1)
+            z3 = randint(0,4)
+        locations =[zipcodes[z1], zipcodes[z2], zipcodes[z3]]
+
         reviews = [{"assignedUser":random.choice(users), "rating": randint(1,2), "review": "chef was bad"}, {"assignedUser":random.choice(users), "rating": randint(3,5), "review": "chef was good"}]
         carousel = [food[f1], food[f2], food[f3]]
 
-        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'profile_pic' : profile_pic[p], "cuisines" : cuisines[c], 'location': zipcodes[z], 'description': "I am a chef", 'carousel':carousel, 'reviews': reviews, 'password': "qwerty"})
+        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com", 'profile_pic' : profile_pic[p], "cuisines" : cuisines[c], 'location': locations, 'description': "I am a chef", 'carousel':carousel, 'reviews': reviews, 'password': "qwerty"})
         
         # POST the user
         conn.request("POST", "/api/chefs", params, headers)
