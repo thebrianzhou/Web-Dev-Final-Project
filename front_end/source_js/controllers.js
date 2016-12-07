@@ -191,23 +191,23 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
    $scope.getChefs();
    $scope.$watch(function() { return $mdMedia('xs'); }, function() {
     if($mdMedia('xs') == true)
-      $scope.breakpoint = "xs";
+      $scope.breakpoint = 0;
     });
    $scope.$watch(function() { return $mdMedia('sm'); }, function() {
     if($mdMedia('sm') == true)
-      $scope.breakpoint = "sm";
+      $scope.breakpoint = 1;
     });
    $scope.$watch(function() { return $mdMedia('md'); }, function() {
     if($mdMedia('md') == true)
-      $scope.breakpoint = "md";
+      $scope.breakpoint = 2;
     });
    $scope.$watch(function() { return $mdMedia('lg'); }, function() {
     if($mdMedia('lg') == true)
-      $scope.breakpoint = "lg";
+      $scope.breakpoint = 3;
     });
    $scope.$watch(function() { return $mdMedia('xl'); }, function() {
     if($mdMedia('xl') == true)
-      $scope.breakpoint = "xl";
+      $scope.breakpoint = 4;
     });
     $scope.count = 0;
     Users.getByID(authentication.currentUser()._id).success(function(data) {
