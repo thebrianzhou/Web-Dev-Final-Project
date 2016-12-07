@@ -9,15 +9,22 @@
         <md-tab label="Log In">
 	        <div class='md-padding' layout="row" layout-wrap>
                 <md-card class = "login-card">
-                    <form ng-submit="userlogin()">
+                    <form name = "form" ng-submit="userlogin()">
                         <md-card-content layout = "column">
                             <md-input-container>
                                 <label>Email</label>
-                                <input ng-model="email" required>
+                                <input ng-model="email" name = "email" required="">
+                                <div ng-messages="form.email.$error">
+				                    <div ng-message="required">This is required.</div>
+				                    <div ng-message="email">You must enter a valid email.</div>
+				                </div>
                             </md-input-container>
                             <md-input-container>
                                 <label>Password</label>
-                                <input type = "password" ng-model="password" type="email" required>
+                                <input type = "password" name = "password" ng-model="password" required="">
+                                <div ng-messages="form.password.$error">
+				                    <div ng-message="required">This is required.</div>
+				                </div>
                             </md-input-container>
                             <md-button class="md-accent md-raised" type="submit"> Log In</md-button>
                         </md-card-content>
@@ -31,27 +38,40 @@
         <md-tab label="Sign Up">
 	         <div class='md-padding' layout="row" layout-wrap>
                 <md-card class = "login-card">
-                    <form ng-submit="submituser()">
+                    <form name = "form" ng-submit="submituser()">
                         <md-card-content layout = "column">
                                 <md-input-container>
                                   <label>Name</label>
-                                  <input ng-model="name" required>
+                                  <input ng-model="name" name = "name" required="">
+                                  <div ng-messages="form.name.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
                                 </md-input-container>
                                 <md-input-container>
                                   <label>Email</label>
-                                  <input ng-model="email" type="email" required>
+                                  <input ng-model="email" name = "email" type="email" required="">
+                                  <div ng-messages="form.email.$error">
+				                    <div ng-message="required">This is required.</div>
+				                    <div ng-message="email">You must enter a valid email.</div>
+				                  </div>
                                 </md-input-container>
                                 <md-input-container>
                                   <label>Profile Picture Link</label>
-                                  <input ng-model="profile_pic">
+                                  <input ng-model="profile_pic" name = "profile_pic">
                                 </md-input-container>
                                 <md-input-container>
                                   <label>List of ZIP codes (ex. 60089, 90210)</label>
-                                  <input ng-list="," ng-model = location required>
+                                  <input ng-list="," ng-model = "location" name = "location" required="">
+                                  <div ng-messages="form.location.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
                                 </md-input-container>
                                 <md-input-container>
                                   <label>Password</label>
-                                  <input type = "password" ng-model = "password" required hidden>
+                                  <input type = "password" name = "password" ng-model = "password" required="">
+                                  <div ng-messages="form.password.$error">
+				                    <div ng-message="required">This is required.</div>
+				                  </div>
                                 </md-input-container>
                                 <md-button class="md-accent md-raised" type="submit"> Sign Up </md-button>
                         </md-card-content>
