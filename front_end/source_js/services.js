@@ -14,7 +14,7 @@ mp4Services.factory('Users', function($http, $window, authentication) {
             });
         },
         post : function(user){
-           return $http.post('/api/userlogin', user).success(function(data){
+           return $http.post(baseUrl+'/api/users', user).success(function(data){
             authentication.saveToken(data.token);
         });
        },
@@ -37,7 +37,7 @@ mp4Services.factory('Chefs', function($http, $window, authentication) {
             });
         },
         post : function(chef){
-           return $http.post('/api/chefs', chef).success(function(data){
+           return $http.post(baseUrl+'/api/chefs', chef).success(function(data){
             authentication.saveToken(data.token);
         });
        },
