@@ -14,7 +14,7 @@
         <md-card-content>
             <h4>Name: {{chef.name}}</h4>
             <h4>Email: {{chef.email}}</h4>
-            <h4>Description: {{chef.description}}</h4>
+            <h4>Description: {{(chef.description.length > 0) ? chef.description : "None"}}</h4>
             <h4>Locations:
                 <span ng-repeat="zip in chef.location">
                     <div>{{zip}} </div>

@@ -20,7 +20,7 @@
                     <div>Payment: ${{request.payment}}</div>
                     <div>Cuisine: {{request.cuisine}}</div>
                     <div>Date: {{request.dateString}}</div>
-                    <div>Description: {{request.description}}</div>
+                    <div>Description: {{(request.description.length > 0) ? request.description : "None"}}</div>
                 </md-card-content>
                 <div class="md-actions" layout="row" layout-align="end center">
                     <md-button ng-click="acceptRequest(request);">Accept</md-button>
@@ -40,7 +40,7 @@
                     <div>Payment: ${{request.payment}}</div>
                     <div>Cuisine: {{request.cuisine}}</div>
                     <div>Date: {{request.dateString}}</div>
-                    <div>Description: {{request.description}}</div>
+                    <div>Description: {{(request.description.length > 0) ? request.description : "None"}}</div>
                 </md-card-content>
                 <div class="md-actions" layout="row" layout-align="end center">
                     <md-button ng-click="markPending(request);">Mark as Pending</md-button>

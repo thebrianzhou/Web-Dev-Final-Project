@@ -115,10 +115,13 @@ mp4Services.factory('Requests', function($http, $window) {
             return $http.get(baseUrl+'/api/requests');
         },
         getByID : function(id) {
-            return $http.get(baseUrl+'/api/requests/' + id)
+            return $http.get(baseUrl+'/api/requests/' + id);
+        },
+        getPendingForUser : function(userID) {
+            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": "pending"}');
         },
         getFutureForUser : function(userID) {
-            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": {$ne: "completed"}}');
+            return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": "accepted"}');
         },
         getCompletedForUser : function(userID) {
             return $http.get(baseUrl+'/api/requests?where={"assignedUser": "'+ userID + '", "status": "completed"}');
