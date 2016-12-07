@@ -36,7 +36,7 @@
               
             </md-card-title>
             <md-card-content>
-              <p>{{chef.description}}</p>
+              <p>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
               <md-button class="md-icon-button" ng-click="showDialog($event,$index);">
