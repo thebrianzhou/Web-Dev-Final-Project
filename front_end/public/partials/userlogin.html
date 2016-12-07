@@ -3,8 +3,7 @@
         <h2>
           <span>Users</span>
         </h2>
-  	  <span flex>
-  	  </span>
+  	  
       </div>
       <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
         <md-tab label="Log In">
@@ -22,8 +21,8 @@
 						<md-button class="md-accent md-raised" ng-click = "userlogin()"> Log In</md-button>
 
 					</md-card-content>
-					<div class = "error" ng-if="incorrect">
-						{{displayText}}
+					<div class = "error" ng-if="incorrectL">
+						{{incorrectLogin}}
 					</div>
 				</md-card>
 			</div>
@@ -52,8 +51,11 @@
 							  <label>Password</label>
 							  <input type = "password" ng-model = "password" required hidden>
 							</md-input-container>
-							<md-button class="md-accent md-raised" ng-click = "submitUser()"> Sign Up </md-button>
+							<md-button class="md-accent md-raised" ng-click = "submituser()"> Sign Up </md-button>
 			        </md-card-content>
+			        <div class = "error" ng-if="incorrectS">
+						{{incorrectSignup}}
+					</div>
 			    </md-card>
 			</div>
         </md-tab>
