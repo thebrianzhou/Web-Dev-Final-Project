@@ -200,8 +200,9 @@ $acct_icn_holder_size: 60px;
 .md-card-image {
     display: block;
     width: auto;
+    max-width: 100%;
     margin: auto;
-    height: 200px;
+    max-height: 200px;
 }
 
 
@@ -221,26 +222,39 @@ $acct_icn_holder_size: 60px;
   transform: translateY(-50%);
   height:200px;
 }
+.material-icons{
+  vertical-align: middle;
+  font-size: 35px;
+}
+.icon-text{
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 2%;
+}
 
 #buttons {
-  border-right:thick double black;
-  padding: 70px 70px 70px 0px;
-  float:left;
+  margin-left:13%;
+  padding-right: 4%;
   .md-button
   {
-    font-size:20px;
+    font-size:30px;
   }
 }
 
 #description{
+  border-left:thin solid white;
   font-size:20px;
   padding:30px;
+  padding-left: 60px;
+  max-wdith:500px;
 }
 
 md-input-container {
   margin: 5px 0;
 }
-
+.tolowercase {
+  font-family: 'Open Sans', sans-serif;
+}
 .login-card
 {
   max-width: 600px;
@@ -281,3 +295,16 @@ md-nav-bar
 .date-picker-row .md-datepicker-input-container {
     margin-left: 0;
 }
+
+.content {
+    max-width: 1400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edit-button {
+    float: right;
+}
+
+
