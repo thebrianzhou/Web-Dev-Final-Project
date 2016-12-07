@@ -142,16 +142,15 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     });
     
     $scope.submit = function() {
-        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description};
-        console.log(newRequest);
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description, status: "pending"};
         Requests.post(newRequest).success(function(data) {
             $scope.err = 0;
             $location.path('/userrequests/');
         })
         .error(function(err){
+            console.log(err);
             $scope.err = 1;
             $scope.errormessage = "Request could not be submitted!";
-            console.log(err);
         });
     };
     
@@ -561,7 +560,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.addReview = function(ev, userID, chef) {
+    $scope.addReview = function(ev, user, chef) {
         $mdDialog.show({
           controller: DialogController,
           controllerAs: 'DialogCont',
@@ -569,18 +568,18 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
           parent: angular.element(document.body),
           targetEvent: ev,
           locals: {
-            userID: userID,
+            user: user,
             chef: chef
         },
         clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
   })
 
-        function DialogController($scope, $mdDialog, userID, chef, Chefs) {
+        function DialogController($scope, $mdDialog, user, chef, Chefs) {
           $scope.hide = function() {
             $mdDialog.hide();
         };
-        $scope.userID = userID;
+        $scope.user = user;
         $scope.chef = chef;
         $scope.cancel = function() {
             $mdDialog.cancel();
@@ -590,7 +589,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         $scope.review = "";
         
         $scope.submit = function() {
-            var newReview = {assignedUser: $scope.curUser.name, rating: $scope.DialogCont.rating, review: $scope.review};
+            var newReview = {assignedUser: $scope.user.name, rating: $scope.DialogCont.rating, review: $scope.review};
             $scope.chef.reviews.push(newReview);
             Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
                 $scope.hide(); 

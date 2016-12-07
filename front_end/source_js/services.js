@@ -134,7 +134,7 @@ mp4Services.factory('Requests', function($http, $window) {
         },
         post : function(request){
            return $http.post(baseUrl+'/api/requests', request);
-       },
+        },
         put : function(data, id) {
             return $http.put(baseUrl+'/api/requests/' + id, data);
         },
