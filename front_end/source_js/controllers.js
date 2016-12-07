@@ -43,7 +43,6 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
             $scope.password = "";
             $scope.incorrectLogin = "Incorrect Email or Password";
             $scope.incorrectL = true;
-
         });
     }
 
@@ -59,7 +58,6 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
           $scope.incorrectSignup = "Error:" + err;
           console.log(err);
        });
-
     }
 
 }]);
