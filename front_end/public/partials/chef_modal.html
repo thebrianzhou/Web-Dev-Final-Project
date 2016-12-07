@@ -23,8 +23,9 @@
                   </div>
                   <md-button class="md-icon-button" ng-click="closeDialog();" style="float: right;">
                     <md-icon>close</md-icon>
-                  </md-button>
+                  </md-button> 
               </span>
+              <span class="md-subhead">{{chef.email}}</span>
               <span class="md-subhead">{{chef.cuisines.join(", ")}}</span>
               <p>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
               
@@ -36,23 +37,8 @@
 
             <div layout="row" layout-align="center">
               <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-init="slick_init()" ng-cloak>
-                <div class="slick-slide">
-                  <img ng-src="http://placehold.it/350x150">
-                </div>
-                <div class="slick-slide">
-                  <img src="http://placehold.it/150x150">
-                </div>
-                <div class="slick-slide">
-                  <img src="http://placehold.it/250x450">
-                </div>
-                <div class="slick-slide">
-                  <img src="http://placehold.it/450x150">
-                </div>
-                <div class="slick-slide">
-                  <img src="http://placehold.it/550x150">
-                </div>
-                <div class="slick-slide">
-                  <img src="http://placehold.it/350x50">
+                <div class="slick-slide" ng-repeat="slide in chef.carousel">
+                  <img ng-src="{{slide}}">
                 </div>
               </div>
             </div>
@@ -71,7 +57,7 @@
               <md-virtual-repeat-container id="vertical-container" style="min-width: 85%">
                 <div md-virtual-repeat="review in chef.reviews" class="repeated-item" flex>
                   <div layout="row">
-                    <span class="md-headline" style="display: inline-block;">{{usernames[$index]}}</span>
+                    <span class="md-headline" style="display: inline-block;">{{reivew.assignedUser}}</span>
                     <div style="display: inline-block;">
                       <input-stars class = "modal-user" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="review.rating" readonly></input-stars>
                     </div>

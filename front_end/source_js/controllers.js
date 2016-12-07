@@ -177,15 +177,17 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
   $scope.data = "";
   $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
-   Chefs.get().success(function(data){
-    $scope.chefs = data.data;
-    //console.log($scope.chefs[0]);
-    //console.log($scope.chefs[0].reviews);
-    })
-   .error(function(err){
-      console.log('Error' + err);
-   })
-
+   $scope.getChefs = function(){
+     Chefs.get().success(function(data){
+      $scope.chefs = data.data;
+      //console.log($scope.chefs[0]);
+      //console.log($scope.chefs[0].reviews);
+      })
+     .error(function(err){
+        console.log('Error' + err);
+     })
+   };
+   $scope.getChefs();
    $scope.$watch(function() { return $mdMedia('xs'); }, function() {
     if($mdMedia('xs') == true)
       $scope.breakpoint = "xs";
@@ -256,12 +258,18 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
       
       
       $scope.getTotalRating = function(){
+        if($scope.chef.reviews.length === 0){
+          return 0;
+        }
         var inc = 0;
         for(var ctr = 0 ;ctr < $scope.chef.reviews.length; ctr++){
+          console.log($scope.chef.reviews[ctr].rating);
           inc+=$scope.chef.reviews[ctr].rating;
         }
+              console.log(inc);
         return inc/$scope.chef.reviews.length;
       };
+
       $scope.rating = $scope.getTotalRating();
       $scope.initSlick = function () {
          jQuery("#sliding-carousel").slick({
