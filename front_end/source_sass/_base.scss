@@ -86,6 +86,11 @@ section .md-button {
 .card-media {
   background-color: #999999; }
 
+md-card-title {
+    flex: none !important;
+    overflow: hidden;
+}
+
 $card-padding: 16px !default;
 
 md-card-title-media {

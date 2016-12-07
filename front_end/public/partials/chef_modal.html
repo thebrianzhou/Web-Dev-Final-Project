@@ -1,5 +1,4 @@
-
-
+<!DOCTYPE html>
 <md-dialog aria-label="Mango (Fruit)" ng-controller="ChefGridController as dialogCtrl" style="width: 100%;">
   <md-card>
           <md-card-title>
@@ -39,7 +38,7 @@
               </div>
             </div>
             <span class="md-display-1">Reviews</span> 
-            <md-virtual-repeat-container id="vertical-container" flex="75">
+            <md-virtual-repeat-container id="vertical-container" flex>
               <div md-virtual-repeat="fruit in fruits" class="repeated-item" flex>
                 {{fruit}}
               </div>
