@@ -365,34 +365,64 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     });
 }]);
 //Sergey
-mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
+mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
         $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data; 
+    }).error(function(data) {
+        $("md-card").hide();
     });
     
     $scope.submit = function() {
+        if(typeof $scope.user.name === 'undefined' || $scope.user.name==""
+        || typeof $scope.user.email === 'undefined' || $scope.user.email==""
+        || typeof $scope.user.location === 'undefined' || $scope.user.location.length==0)
+        {
+            $scope.incorrect = true;
+            $scope.displayText = "Name, Email, or Location not provided";
+            return;
+        }
+        
         Users.put($scope.user, $scope.userID).success(function(data) {
-            console.log(data.data); 
+            $location.path('/userprofile/');
+        }).error(function(data) {
+            $scope.incorrect = true;
+            $scope.displayText = "Error: " + data;
         });
     };
 }]);
 //Sergey
-mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
+mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', '$location', function($scope, $routeParams, Chefs, authentication, $location) {
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'Chef')
         $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
+    }).error(function(data) {
+        $("md-card").hide();
     });
     
     $scope.submit = function() {
+        if(typeof $scope.name === 'undefined' || $scope.name==""
+        || typeof $scope.email === 'undefined' || $scope.email==""
+        || typeof $scope.location === 'undefined' || $scope.location.length==0
+        || typeof $scope.cuisines === 'undefined' || $scope.cusisines==""
+        || typeof $scope.profile_pic === 'undefined' || $scope.profile_pic=="")
+        {
+            $scope.incorrect = true;
+            $scope.displayText = "Name, Email, Location, Cuisines, or Profile Pic not provided";
+            return;
+        }
+        
         Chefs.put($scope.chef, $scope.chefID).success(function(data) {
-            console.log(data.data); 
+            $location.path('/chefprofile/');
+        }).error(function(data) {
+            $scope.incorrect = true;
+            $scope.displayText = "Error: " + data;
         });
     };
 }]);
@@ -405,6 +435,8 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
             $(".md-card-image").error(function () { 
                 $(this).hide(); 
             });
+        }).error(function(data) {
+            $("md-card").hide();
         });
     };
     
@@ -503,6 +535,8 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
             $(".md-card-image").error(function () { 
                 $(this).hide(); 
             });
+        }).error(function(data) {
+            $("md-card").hide();
         });
     };
     

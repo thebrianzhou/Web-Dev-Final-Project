@@ -1,10 +1,38 @@
-<form class="row">
-    <div><label>Name: <input ng-model="chef.name" type="text" placeholder="Name" required></label></div>
-    <div><label>Email: <input ng-model="chef.email" type="text" placeholder="Email" required></label></div>
-    <div><label>Locations (comma separated zip codes): <input ng-model="chef.location" ng-list="," type="text" placeholder="Locations" required></label></div>
-    <div><label>Profile Picture URL: <input ng-model="chef.profile_pic" type="text" placeholder="Profile Picture URL" required></label></div>
-    <div><label>Carousel Image URLs (comma separated): <input ng-model="chef.carousel" ng-list="," type="text" placeholder="Carousel Images"></label></div>
-    <div><label>Cuisines (comma separated): <input ng-model="chef.cuisines" ng-list="," type="text" placeholder="Cuisines"></label></div>
-    <div><label>Description: <input ng-model="chef.description" type="text" placeholder="Description"></label></div>
-    <div><button ng-click="submit()" class="button">Submit</button></div>
+<form>
+    <md-card class="login-card">
+        <md-card-content layout="column">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="chef.name" type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Email</label>
+                <input ng-model="chef.email" type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <label>List of ZIP Codes (ex. 60089, 90210)</label>
+                <input ng-model="chef.location" ng-list="," type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Profile Picture Link</label>
+                <input ng-model="chef.profile_pic" type="text">
+            </md-input-container>
+            <md-input-container>
+                <label>Carousel Image Links</label>
+                <input ng-model="chef.carousel" ng-list="," type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <label>List of Cuisines (ex. Chinese, Mexican)</label>
+                <input ng-model="chef.cuisines" ng-list="," type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Description</label>
+                <input ng-model="chef.description" type="text">
+            </md-input-container>
+            <md-button class="md-accent md-raised" ng-click="submit()">Submit</md-button>
+        </md-card-content>
+        <div class = "error" ng-if="incorrect">
+            {{displayText}}
+        </div>
+    </md-card>
 </form>
