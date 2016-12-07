@@ -8,7 +8,7 @@
         <span class="flex-size"></span>
     </div>
 </md-toolbar>
-<!DOCTYPE html>
+<div class="md-padding">
   <md-card class="chef-profile-card" ng-controller="ChefProfileController as dialogCtrl">
           <md-card-title>
             <md-card-title-media>
@@ -25,9 +25,6 @@
                   <div style="display: inline-block;" hide-sm hide-xs>
                     <input-stars class = "modal-total" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="rating" readonly hide-sm hide-xs></input-stars>
                   </div>
-                  <md-button class="md-icon-button" ng-click="closeDialog();" style="float: right;">
-                    <md-icon>close</md-icon>
-                  </md-button> 
               </span>
               <input-stars max="5" ng-model="rating" readonly hide-gt-sm></input-stars>
               <span class="md-subhead">{{chef.email}}</span>
@@ -41,7 +38,7 @@
           <md-card-content>
             <p hide-gt-sm>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
             <div layout="row" layout-align="center">
-              <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-init="slick_init()" ng-cloak>
+              <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-cloak>
                 <div class="slick-slide" ng-repeat="slide in chef.carousel">
                   <img ng-src="{{slide}}">
                 </div>
@@ -71,3 +68,4 @@
             
           </md-card-content>
       </md-card>
+</div>

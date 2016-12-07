@@ -361,6 +361,11 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
+        
+        $scope.rating = $scope.getTotalRating();
+        $scope.noreviews = ($scope.chef.reviews.length === 0);
+        
+        setTimeout($scope.initSlick,100);
 
         $(".md-card-image").error(function () { 
             $(this).hide(); 
@@ -389,6 +394,33 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     if($mdMedia('xl') == true)
       $scope.breakpoint = 4;
     });
+    
+    $scope.getTotalRating = function(){
+        if($scope.chef.reviews.length === 0){
+          return 0;
+        }
+        var inc = 0;
+        for(var ctr = 0 ;ctr < $scope.chef.reviews.length; ctr++){
+          inc+=$scope.chef.reviews[ctr].rating;
+        }
+        return inc/$scope.chef.reviews.length;
+      };
+
+      $scope.initSlick = function () {
+         jQuery("#sliding-carousel").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            centerMode: true,
+            centerPadding: '40px',
+            speed: 500,
+            fade: true,
+            cssEase: 'linear'
+        });
+      };
+      $scope.addRequest = function(){
+          $mdDialog.hide("addrequest/"+$scope.chef._id);
+      }
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
