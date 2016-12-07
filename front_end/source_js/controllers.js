@@ -36,7 +36,7 @@ mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , fun
 
 }]);
 //Sree
-mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog', function($scope, CommonData, $mdDialog) {
+mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog','$mdPanel','$mdMedia', function($scope, CommonData, $mdDialog, $mdPanel, $mdMedia) {
   $scope.data = "";
    $scope.displayText = "";
    $scope.users = ['Fabio', 'Leonardo', 'Thomas', 'Gabriele', 'Fabrizio', 'John'];//, 'Luis', 'Kate', 'Max','Fabio1', 'Leonardo1', 'Thomas1', 'Gabriele1','Fabio2', 'Leonardo2', 'Thomas2', 'Gabriele2'];
@@ -45,6 +45,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
     $scope.displayText = "Data set"
 
   };
+  $scope.searching=true;
   /*$scope.showDialog = function(ev,ind) {
     console.log(ind);
     $mdDialog.show({
@@ -74,9 +75,54 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
     
     
   };*/
+  $scope.carData = [
+  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
+  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
+  { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
+  { src: 'http://lab.csschopper.com/placeholder/images/placeholder_image_logo.png' }
+];
+
+
+$scope.initSlick = function () {
+          $(function () {
+            // wait till load event fires so all resources are available
+              $(document).ready(function(){
+                console.log("got here!");
+                $(".sliding-carousel").slick({
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows: true
+                });
+              });
+          });
+      };
+
+      //$scope.initSlick();
+
+  $scope.$watch(function() { return $mdMedia('xs'); }, function() {
+    if($mdMedia('xs') == true)
+      $scope.breakpoint = "xs"
+  });
+  $scope.$watch(function() { return $mdMedia('sm'); }, function() {
+    if($mdMedia('sm') == true)
+      $scope.breakpoint = "sm"
+  });
+  $scope.$watch(function() { return $mdMedia('md'); }, function() {
+    if($mdMedia('md') == true)
+      $scope.breakpoint = "md"
+  });
+  $scope.$watch(function() { return $mdMedia('lg'); }, function() {
+    if($mdMedia('lg') == true)
+      $scope.breakpoint = "lg"
+  });
+  $scope.$watch(function() { return $mdMedia('xl'); }, function() {
+    if($mdMedia('xl') == true)
+      $scope.breakpoint = "xl"
+  });
   
-  $scope.showAdvanced = function(ev,ind) {
-    $mdDialog.show({
+  
+/*  $scope.Panel = function(ev,ind) {
+    $mdPanel.show({
       controller: DialogController,
       templateUrl: '../../partials/trial.html',
       parent: angular.element(document.body),
@@ -95,6 +141,52 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
     
     function DialogController($scope, $mdDialog,user) {
       $scope.user = user;
+    }
+  };*/
+  
+  $scope.showDialog = function(ev,ind) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '../../partials/chef_modal.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: {
+        user: $scope.users[ind]
+      },
+      clickOutsideToClose:true,
+      fullscreen: true // Only for -xs, -sm breakpoints.
+    })
+    .then(function() {
+      $("#sliding-carousel").slick('unslick');
+    });
+    
+    function DialogController($scope, $mdDialog,user) {
+      $scope.user = user;
+      $scope.rating = 4;
+      $scope.fruits = ["orange","quince","plum","apple","peach","banana","apricot","grapes","pomegranate","blueberries"];
+      $scope.initSlick = function () {
+         jQuery("#sliding-carousel").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            centerMode: true,
+            centerPadding: '40px',
+            speed: 500,
+            fade: true,
+            cssEase: 'linear'
+          });
+          //jQuery("#sliding-carousel").css('opacity',"1");
+      };
+
+      
+      $scope.slick_init = function(){
+        console.log("initializing");
+        setTimeout($scope.initSlick,500);
+                console.log("initialized");
+      }; 
+      $scope.clic = function(){
+                console.log("3 "+angular.element(document).find("md-card-title").css("color"));
+      }
     }
   };
   

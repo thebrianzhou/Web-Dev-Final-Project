@@ -5,53 +5,51 @@
         <h2>
           <span>Local Chefs</span>
         </h2>
-        <div id="search_container" ng-show="searching" flex>
-          <md-icon id="search_label">search</md-icon>
-          <input id="search_filter" ng-model="lastName2">
-        </div>
-        <span flex ng-hide="searching" style="height: 50px;">
-        </span>
-        <md-button class="md-icon-button" aria-label="More" ng-click="searching = !searching; ">
-          <md-icon ng-hide="searching" >search</md-icon>
-          <md-icon ng-show="searching" >close</md-icon>
-        </md-button>       
+        <span flex>
+        </span> 
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon >search</md-icon>
+        </md-button> 
+        <md-button> Requests </md-button>
+        <md-button> Edit Profile </md-button>
       </div>
-      <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab label="one">
-          
-        </md-tab>
-        <md-tab label="two" md-colors="{background: 'green-800'}">
-          <md-content class="md-padding">
-            <h1 class="md-display-2">Tab One</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-          </md-content>
-        </md-tab>
-      </md-tabs>
     </md-toolbar>
+    
 
-    <input-stars max="5" icon-base="fa fa-fw" icon-empty="fa-circle-o" icon-hover="hover" icon-full="fa-circle" ng-model="YourCtrl.property"></input-stars>
-<div layout="row" layout-wrap layout-align="center">
-<!-- style="width: calc(100% / 4 - 30px); margin: 15px;" -->
-      <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="user in users">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">{{user}}</span>
-              <span class="md-subhead">{{['Cuisine1', 'Cuisine2'].join(", ")}}</span>
-            </md-card-title-text>
-            <md-card-title-media>
-              <div class="md-media-lg card-media"></div>
-            </md-card-title-media>
-          </md-card-title>
-          <md-card-content>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-          </md-card-content>
-          <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-icon-button" ng-click="showAdvanced($event,$index)">
-              <md-icon>open_in_new</md-icon>
-            </md-button>
-          </md-card-actions>
-      </md-card>
+<p>
+  <input type="button" value="set" ng-click="myCssVar='css-class'">
+  <input type="button" value="clear" ng-click="myCssVar=''">
+  <br>
+  <span ng-class="myCssVar">CSS-Animated Text</span>
+</p>
+                <input-stars max="5" icon-base="fa fa-fw" icon-empty="fa-circle-o" icon-hover="hover" icon-full="fa-circle" ng-model="YourCtrl.property"></input-stars>
+                <br>
+{{breakpoint}}
+  <div layout="row" layout-align="center">
+    <div layout="row" layout-wrap flex="100">
+  <!-- style="width: calc(100% / 4 - 30px); margin: 15px; " -->
+        <div layout="column" flex="25" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="33" ng-repeat="user in users">
+          <md-card>
+            <md-card-title>
+              <md-card-title-media>
+                <div class="md-media-lg card-media"></div>
+              </md-card-title-media>
+              <md-card-title-text style="margin-left:10px;">
+                <span class="md-headline">{{user}}</span>
+                <span class="md-subhead">{{['Cuisine1', 'Cuisine2'].join(", ")}}</span>
+              </md-card-title-text>
+              
+            </md-card-title>
+            <md-card-content>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-icon-button" ng-click="showDialog($event,$index);">
+                <md-icon>open_in_new</md-icon>
+              </md-button>
+            </md-card-actions>
+        </md-card>
+      </div>
     </div>
   </div>
   
