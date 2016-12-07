@@ -198,8 +198,9 @@ $acct_icn_holder_size: 60px;
 .md-card-image {
     display: block;
     width: auto;
+    max-width: 100%;
     margin: auto;
-    height: 200px;
+    max-height: 200px;
 }
 
 .angular-input-stars, textarea {
