@@ -1,17 +1,27 @@
-<form ng-submit="submit()">
+<form name="form" ng-submit="submit()">
     <md-card class="login-card">
         <md-card-content layout="column">
             <md-input-container>
                 <label>Name</label>
-                <input ng-model="user.name" type="text" required>
+                <input ng-model="user.name" name="name" type="text" required="">
+                <div ng-messages="form.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
             </md-input-container>
             <md-input-container>
                 <label>Email</label>
-                <input ng-model="user.email" type="text" required>
+                <input ng-model="user.email" name="email" type="email" required="">
+                <div ng-messages="form.email.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="email">You must enter a valid email.</div>
+                </div>
             </md-input-container>
             <md-input-container>
                 <label>List of ZIP Codes (ex. 60089, 90210)</label>
-                <input ng-model="user.location" ng-list="," type="text" required>
+                <input ng-model="user.location" name="location" ng-list="," type="text" required="">
+                <div ng-messages="form.location.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
             </md-input-container>
             <md-input-container>
                 <label>Profile Picture Link</label>
