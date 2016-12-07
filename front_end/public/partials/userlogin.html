@@ -1,0 +1,56 @@
+<md-toolbar flex="none">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Users</span>
+        </h2>
+  	  <span flex>
+  	  </span>
+      </div>
+      <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
+        <md-tab label="Login">
+	        <div class='md-padding' layout="row" layout-wrap>
+				<md-card style = "max-width:600px; margin:0 auto;" flex = "40">
+					<md-card-content layout = "column">
+						<md-input-container>
+							<label>Email</label>
+							<input ng-model="email" required>
+						</md-input-container>
+						<md-input-container>
+							<label>Password</label>
+							<input type = "password" ng-model="password" type="email" required>
+						<md-button class="md-accent md-raised" ng-click = "userlogin()"> Submit </md-button>
+					</md-card-content>
+				</md-card>
+			</div>
+		</md-tab>
+        <md-tab label="Signup">
+	         <div class='md-padding' layout="row" layout-wrap>
+			    <md-card style = "max-width:600px; margin:0 auto;" flex = "40">
+			        <md-card-content layout = "column">
+					        <md-input-container>
+							  <label>Name</label>
+							  <input ng-model="name" required>
+							</md-input-container>
+							<md-input-container>
+							  <label>Email</label>
+							  <input ng-model="email" type="email" required>
+							</md-input-container>
+							<md-input-container>
+							  <label>Profile Pic (link)</label>
+							  <input ng-model="profile_pic">
+							</md-input-container>
+							<md-input-container>
+							  <label>Location (Zip Codes)</label>
+							  <input ng-list="," ng-model = location required>
+							</md-input-container>
+							<md-input-container>
+							  <label>Password</label>
+							  <input type = "password" ng-model = "password" required hidden>
+							</md-input-container>
+							<md-button class="md-accent md-raised" ng-click = "submitUser()"> Submit </md-button>
+			        </md-card-content>
+			    </md-card>
+			</div>
+        </md-tab>
+      </md-tabs>
+    </md-toolbar>

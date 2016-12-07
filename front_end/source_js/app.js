@@ -10,9 +10,9 @@ angular.module('ngMatTheme', ['ngMaterial'])
 });
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-    when('/login', {//Brian
-    templateUrl: 'partials/login.html',
-    controller: 'LoginController'
+    when('/userlogin', {//Brian
+    templateUrl: 'partials/userlogin.html',
+    controller: 'UserLoginController'
   }).
   when('/addrequest/:id', {//Brian
     templateUrl: 'partials/addrequest.html',
@@ -50,9 +50,9 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/splashpage.html',
     controller: 'SplashPageController'
   }).
-  when('/signup',{
-    templateUrl: 'partials/signup.html',
-    controller: 'SignupController'
+  when('/cheflogin',{
+    templateUrl: 'partials/cheflogin.html',
+    controller: 'ChefLoginController'
   }).
   otherwise({
     redirectTo: '/splashpage'
