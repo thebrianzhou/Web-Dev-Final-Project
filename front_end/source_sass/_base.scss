@@ -20,7 +20,7 @@ section .md-button {
   opacity: 0.54; 
 }
 
-#search_filter{
+/*#search_filter{
   background: rgba(250,250,250,0.16);
   border: white solid 0px;
   width: 100%;
@@ -82,7 +82,7 @@ section .md-button {
   opacity: 0;
   display:block !important;
 }
-
+*/
 .card-media {
   background-color: #999999; }
 
@@ -165,7 +165,9 @@ $acct_icn_holder_size: 60px;
 }
 
 .slick-prev:before, .slick-next:before { 
-    color:red !important;
+    color:gray !important;
+    //font-family: FontAwesome;
+    //content: "\f015"
 }
 
 .slick-slide {
@@ -202,8 +204,15 @@ $acct_icn_holder_size: 60px;
     height: 200px;
 }
 
+
+
 .angular-input-stars, textarea {
+
     width: 100%;
+}
+
+.angular-input-stars > li, .angular-input-stars > li > i.readonly{
+  cursor: default !important;
 }
 
 .vertical {
