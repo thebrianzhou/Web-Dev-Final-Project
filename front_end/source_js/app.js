@@ -18,7 +18,7 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/addrequest.html',
     controller: 'AddRequestController'
   }).
-  when('/chefgrid/:id', {//Sree
+  when('/chefgrid/', {//Sree
     templateUrl: 'partials/chefgrid.html',
     controller: 'ChefGridController'
   }).
