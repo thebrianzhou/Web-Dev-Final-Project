@@ -274,21 +274,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
             cssEase: 'linear'
         });
       };
-      $scope.usernames = {};
-      $scope.getUserName = function(_id,index){
-         Users.getByID(_id).success(function(data) {
-            console.log(data);
-            $scope.usernames[index]= data.data.name;
-          })
-          .error(function(err){
-            console.log(err);
-          });
-          
-      }
       $scope.noreviews = ($scope.chef.reviews.length === 0);
-      for(var ctr =0;ctr < $scope.chef.reviews.length; ctr++){
-        $scope.getUserName($scope.chef.reviews[ctr].assignedUser,ctr);
-      }
       $scope.addRequest = function(){
           $mdDialog.hide("addrequest/"+$scope.chef._id);
       }
