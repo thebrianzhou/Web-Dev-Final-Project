@@ -21,7 +21,7 @@
 					</md-card-content>
 
 					<div class = "error" ng-if="incorrectL">
-						{{incorrectLogin}}
+						{{displayText}}
 					</div>
 				</md-card>
 				
@@ -44,19 +44,11 @@
 								<input ng-model="profile_pic" required>
 							</md-input-container>
 		               		<md-input-container >
-								<label>Cusines</label>
+								<label>List of Cuisines (ex. Chinese, Mexican)</label>
 								<input ng-list="," ng-model = "cuisines" required>
 							</md-input-container>
 		               		<md-input-container >
-								<label>Description</label>
-								<input ng-model = "description">
-							</md-input-container>
-		               		<md-input-container >
-								<label>Food Examples (image links)</label>
-								<input ng-model = "carousel" ng-list=",">
-							</md-input-container>
-		               		<md-input-container >
-								<label>Location (Zip Codes)</label>
+								<label>List of ZIP codes (ex. 60089, 90210))</label>
 								<input ng-list="," ng-model = location required>
 							</md-input-container>
 							<md-input-container >
@@ -65,10 +57,6 @@
 							</md-input-container>
 							<md-button class="md-accent md-raised" ng-click = "submitchef()" > Sign Up</md-button>
 					</md-card-content>
-
-					<div class = "error" ng-if="incorrectS">
-						{{incorrectSignup}}
-					</div>
 				</md-card>
 			</div>
         </md-tab>
