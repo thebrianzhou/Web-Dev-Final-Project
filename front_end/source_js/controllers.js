@@ -113,6 +113,9 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.payment = 0;
     $scope.date = new Date();
     $scope.cuisine = "";
+    $scope.description = "";
+    $scope.err=0;
+    $scope.errormessage="";
     console.log("hi");
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
@@ -134,12 +137,15 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     });
     
     $scope.submit = function() {
-        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description};
         console.log(newRequest);
         Requests.post(newRequest).success(function(data) {
+            $scope.err = 0;
             $location.path('/userrequests/');
         })
         .error(function(err){
+            $scope.err = 1;
+            $scope.errormessage = "Request could not be submitted!";
             console.log(err);
         });
     };
@@ -292,6 +298,14 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+        $scope.curPage = "profile";
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "profile";
     });
     
     angular.element($window).bind('resize', function() {
@@ -340,6 +354,14 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
     
     $scope.$on('$viewContentLoaded', function(){
         setFlexSize();
+        $scope.curPage = "profile";
+    });
+    
+    angular.element($window).bind('resize', function() {
+        setFlexSize();
+        $scope.curPage = null;
+        $scope.$apply();
+        $scope.curPage = "profile";
     });
     
     angular.element($window).bind('resize', function() {
@@ -384,9 +406,6 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     
     angular.element($window).bind('resize', function() {
         setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.submit = function() {
@@ -430,9 +449,6 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     
     angular.element($window).bind('resize', function() {
         setFlexSize();
-        $scope.curPage = null;
-        $scope.$apply();
-        $scope.curPage = "requests";
     });
     
     $scope.submit = function() {
