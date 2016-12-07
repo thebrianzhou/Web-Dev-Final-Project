@@ -113,6 +113,9 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.payment = 0;
     $scope.date = new Date();
     $scope.cuisine = "";
+    $scope.description = "";
+    $scope.err=0;
+    $scope.errormessage="";
     console.log("hi");
     $scope.curUser = authentication.currentUser();
     if ($scope.curUser.type == 'User')
@@ -133,12 +136,15 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
       console.log(err);
     });
     $scope.submit = function() {
-        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment};
+        var newRequest = {assignedChef : $scope.chefid, assignedUser : $scope.userID, date : $scope.date, cuisine : $scope.cuisine, budget : $scope.budget, payment : $scope.payment, description : $scope.description};
         console.log(newRequest);
         Requests.post(newRequest).success(function(data) {
+            $scope.err = 0;
             $location.path('/userrequests/');
         })
         .error(function(err){
+            $scope.err = 1;
+            $scope.errormessage = "Request could not be submitted!";
             console.log(err);
         });
     };
