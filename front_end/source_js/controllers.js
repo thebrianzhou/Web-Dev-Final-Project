@@ -100,7 +100,7 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
 
 
 //Brian
-<<<<<<< HEAD
+
 mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'Chefs', 'Requests', 'authentication', '$location', function($scope, $routeParams, Users, Chefs, Requests, authentication, $location) {
     $scope.budget = 0;
     $scope.chefname = "";
@@ -134,7 +134,8 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
             console.log(err);
         });
     };
-=======
+}]);
+
 mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
   $scope.data = "";
   $scope.displayText = ""
@@ -144,7 +145,6 @@ mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Us
     $scope.displayText = "Data set"
 
 };
->>>>>>> 5fcccab51129877d07d8fc0b9f4e672d03badad5
 
 }]);
 //Sree
