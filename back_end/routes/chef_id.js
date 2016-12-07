@@ -1,13 +1,24 @@
 var secrets = require('../config/secrets');
 var Chef = require('../models/chef');
 var mongoose = require('mongoose');
-
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
+var ctrlAuth = require('./auth');
 module.exports = function(router) {
 
   var chefidRoute = router.route('/chefs/:id');
   
-  chefidRoute.get(function(req, res) {
-    var id = req.params.id;
+  chefidRoute.get(auth, function(req, res) {
+    if (!req.payload._id) {
+    res.status(401).json({
+      "message" : "UnauthorizedError: private profile", "data" : ""
+    });
+  } else {
+    var id = req.payload._id;
+    
   	if(!mongoose.Types.ObjectId.isValid(id))
   	{
   		res.status(404).json({"message" : "not a valid mongoose id", "data" : ""});
@@ -19,6 +30,7 @@ module.exports = function(router) {
   	 	else
   	 		res.status(404).json({"message" : "chef not in database", "data": chef});
   	});
+  }
   });
 
   chefidRoute.put(function(req, res){

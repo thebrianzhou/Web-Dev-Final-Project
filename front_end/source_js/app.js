@@ -10,9 +10,9 @@ angular.module('ngMatTheme', ['ngMaterial'])
 });
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-    when('/login', {//Brian
-    templateUrl: 'partials/login.html',
-    controller: 'LoginController'
+    when('/userlogin', {//Brian
+    templateUrl: 'partials/userlogin.html',
+    controller: 'UserLoginController'
   }).
   when('/addrequest/:id', {//Brian
     templateUrl: 'partials/addrequest.html',
@@ -22,27 +22,27 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/chefgrid.html',
     controller: 'ChefGridController'
   }).
-  when('/userprofile/:id', {//Sergey
+  when('/userprofile/', {//Sergey
     templateUrl: 'partials/userprofile.html',
     controller: 'UserProfileController'
   }).
-  when('/chefprofile/:id', {//Sergey
+  when('/chefprofile/', {//Sergey
     templateUrl: 'partials/chefprofile.html',
     controller: 'ChefProfileController'
   }).
-  when('/edituser/:id', {//Sergey
+  when('/edituser/', {//Sergey
     templateUrl: 'partials/edituser.html',
     controller: 'EditUserController'
   }).
-  when('/editchef/:id', {//Sergey
+  when('/editchef/', {//Sergey
     templateUrl: 'partials/editchef.html',
     controller: 'EditChefController'
   }).
-  when('/userrequests/:id', {//Sergey
+  when('/userrequests/', {//Sergey
     templateUrl: 'partials/userrequests.html',
     controller: 'UserRequestsController'
   }).
-  when('/chefrequests/:id', {//Sergey
+  when('/chefrequests/', {//Sergey
     templateUrl: 'partials/chefrequests.html',
     controller: 'ChefRequestsController'
   }).
@@ -50,9 +50,21 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/splashpage.html',
     controller: 'SplashPageController'
   }).
+  when('/cheflogin',{
+    templateUrl: 'partials/cheflogin.html',
+    controller: 'ChefLoginController'
+  }).
   otherwise({
-    redirectTo: '/login'
+    redirectTo: '/splashpage'
   });
 }]);
 
-
+/*app.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
+  $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+      if (($location.path() !== '/login' && $location.path() !== '/signup' && $location.path() !== '/splashpage') && !authentication.isLoggedIn()) {
+        console.log("hey i'm walking here");
+        $location.path('/splashpage');
+      }
+    });
+}]);
+}]);*/

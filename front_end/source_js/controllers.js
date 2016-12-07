@@ -6,23 +6,122 @@ const months = [
   "November", "December"
 ];
 
-mp4Controllers.controller('SplashPageController', ['$scope', function($scope)
+mp4Controllers.controller('SplashPageController', ['$scope', '$location', function($scope, $location)
 {
   $scope.displayText = "Hello World";
+  $scope.cheflogin= function()
+  {
+    //console.log("chef login function");
+    var path = '/cheflogin';
+    $location.path(path);
+  };
+
+  $scope.userlogin = function()
+  {
+    //console.log("user login function");
+    var path = '/userlogin';
+    $location.path(path);
+  };
 }])
 
 //Brian
-mp4Controllers.controller('LoginController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
+mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication) {
+    $scope.displayText = "Hello World";
+    $scope.email = "";
+    $scope.password = "";
+    $scope.name = "";
+    $scope.profile_pic = "";
+    $scope.location = [];
+    $scope.password = "";
+    $scope.incorrect = false;
+    $scope.userlogin = function()
+    {
+        //console.log("inside login function");
+        if(typeof $scope.email === 'undefined' || $scope.email == ""
+        || typeof $scope.password === 'undefined' || $scope.password == "")
+            return;
+        //console.log($scope.email);
+        authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
+            authentication.saveToken(data.token);
+            //console.log(data);
+            //console.log("success!");
+            $location.path('/chefgrid/' + authentication.currentUser()._id);
+        }).error(function(err){
+            //console.log(err);
+            $scope.password = "";
+            $scope.displayText = "Incorrect Email or Password";
+            $scope.incorrect = true;
+        });
+    }
 
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
+    $scope.submitUser = function()
+    {
+        //console.log("inside submit user");
+        if(typeof $scope.name === 'undefined' || $scope.name==""
+        || typeof $scope.email === 'undefined' || $scope.email==""
+        || typeof $scope.location === 'undefined' || $scope.location.length==0
+        || typeof $scope.password === 'undefined' || $scope.password =="")
+                return;
+        console.log($scope.name);
+        console.log($scope.email);
+        console.log($scope.profile_pic);
+        console.log($scope.location);
 
-  };
+        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
+    }
 
 }]);
+
+mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+    $scope.displayText = "Hello World";
+    $scope.email = "";
+    $scope.password = "";
+    $scope.name = "";
+    $scope.profile_pic = "";
+    $scope.location = [];
+    $scope.cuisines = [];
+    $scope.description = "";
+    $scope.carousel = [];
+    $scope.password = "";
+    $scope.incorrect = false;
+    $scope.cheflogin = function()
+    {
+        //console.log("inside cheflogin function");
+        if(typeof $scope.email === 'undefined' || $scope.email == ""
+        || typeof $scope.password === 'undefined' || $scope.password == "")
+            return;
+        //console.log($scope.email);
+        authentication.cheflogin({email : $scope.email, password : $scope.password}).success(function(data) {
+            authentication.saveToken(data.token);
+           // console.log(data);
+           // console.log("success!");
+            $location.path('/chefrequests/');
+        }).error(function(err){
+            //console.log(err);
+            $scope.password = "";
+            $scope.displayText = "Incorrect Email or Password";
+            $scope.incorrect = true;
+        });
+    }
+
+    $scope.submitchef = function()
+    {
+        console.log("inside submit chef");
+        if(typeof $scope.name === 'undefined' || $scope.name==""
+        || typeof $scope.email === 'undefined' || $scope.email==""
+        || typeof $scope.location === 'undefined' || $scope.location.length==0
+        || typeof $scope.password === 'undefined' || $scope.password =="")
+                return;
+        console.log($scope.name);
+        console.log($scope.email);
+        console.log($scope.profile_pic);
+        console.log($scope.location);
+
+        /*BRIAN DOES INSERT CODE HERE FOR USERS*/
+    }
+}]);
+
+
 //Brian
 mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
   $scope.data = "";
@@ -193,20 +292,26 @@ $scope.initSlick = function () {
   
 }]);
 //Sergey
-mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
-    $scope.userID = $routeParams.id;
+mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
-        $scope.user = data.data; 
-                    
+        $scope.user = data.data;
+
         $(".md-card-image").error(function () { 
             $(this).hide(); 
         });
+    }).error(function(data) {
+        $("md-card").hide();
     });
 }]);
 //Sergey
-mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', function($scope, $routeParams, Chefs) {
-    $scope.chefID = $routeParams.id;
+mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
@@ -214,11 +319,15 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
         $(".md-card-image").error(function () { 
             $(this).hide(); 
         });
+    }).error(function(data) {
+        $("md-card").hide();
     });
 }]);
 //Sergey
-mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', function($scope, $routeParams, Users) {
-    $scope.userID = $routeParams.id;
+mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data; 
@@ -231,8 +340,10 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
     };
 }]);
 //Sergey
-mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', function($scope, $routeParams, Chefs) {
-    $scope.chefID = $routeParams.id;
+mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
@@ -245,7 +356,7 @@ mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chef
     };
 }]);
 //Sergey
-mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog) {
+mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', 'Requests', 'Chefs', '$location', '$mdDialog', 'authentication', function($scope, $routeParams, Requests, Chefs, $location, $mdDialog, authentication) {
     var addChefToRequest = function(request) {
         Chefs.getByID(request.assignedChef).success(function(data) {
             request.chef = data.data; 
@@ -279,7 +390,9 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.userID = $routeParams.id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     reloadRequests();
     
     $scope.cancelRequest = function(request) {
@@ -305,6 +418,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
     $scope.addReview = function(ev, userID, chef) {
     $mdDialog.show({
       controller: DialogController,
+      controllerAs: 'DialogCont',
       templateUrl: '../../partials/addreview.html',
       parent: angular.element(document.body),
       targetEvent: ev,
@@ -326,8 +440,11 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         $mdDialog.cancel();
       };
         
+        $scope.DialogCont.rating = 3;
+        $scope.review = "";
+        
         $scope.submit = function() {
-            var newReview = {assignedUser: $scope.userID, rating: $scope.rating, review: $scope.review};
+            var newReview = {assignedUser: $scope.userID, rating: $scope.DialogCont.rating, review: $scope.review};
             $scope.chef.reviews.push(newReview);
             Chefs.put($scope.chef, $scope.chef._id).success(function(data) {
                 $scope.hide(); 
@@ -337,7 +454,7 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
   };
 }]);
 //Sergey
-mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', function($scope, $routeParams, Requests, Users) {
+mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', 'Requests', 'Users', 'authentication', function($scope, $routeParams, Requests, Users, authentication) {
     var addUserToRequest = function(request) {
         Users.getByID(request.assignedUser).success(function(data) {
             request.user = data.data; 
@@ -372,7 +489,9 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.chefID = $routeParams.id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     reloadRequests();
     
     $scope.acceptRequest = function(request) {

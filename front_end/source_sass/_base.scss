@@ -178,3 +178,49 @@ $acct_icn_holder_size: 60px;
     height: 200px;
 }
 
+.angular-input-stars, textarea {
+    width: 100%;
+}
+
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height:200px;
+}
+
+#buttons {
+  border-right:thick double black;
+  padding: 70px 70px 70px 0px;
+  float:left;
+  .md-button
+  {
+    font-size:20px;
+  }
+}
+
+#description{
+  font-size:20px;
+  padding:30px;
+}
+
+md-input-container {
+  margin: 5px 0;
+}
+
+.login-card
+{
+  max-width: 600px;
+  margin: 0 auto;
+  flex: 1 1 40%;
+}
+
+.error
+{
+  padding:15px;
+  background-color: #E8BEBE;
+  margin:10px auto;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 15px;
+}
