@@ -559,6 +559,10 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
                 $scope.hide(); 
             });
         }
+        
+        $scope.closeDialog = function() {
+            $mdDialog.hide();
+        }
     }
   };
     
