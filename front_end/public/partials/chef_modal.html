@@ -14,8 +14,11 @@
             <md-card-title-text style="margin-left: 10px">
               
               
-              <span class="md-display-2" style="position: relative;">{{chef.name}}
-                  <input-stars class="modal-total-rating" max="5" ng-model="rating" readonly></input-stars>
+              <span class="md-display-1" style="position: relative;">
+                  <span style="display: inline-block;">{{chef.name}}</span>
+                  <div style="display: inline-block;">
+                    <input-stars class = "modal-total" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="rating" readonly></input-stars>
+                  </div>
                   <md-button class="md-icon-button" ng-click="closeDialog();" style="float: right;">
                     <md-icon>close</md-icon>
                   </md-button>
@@ -58,11 +61,11 @@
                 </span>
               </md-button>
             </div>
-            <br>
-            <div layout="row">
+            <br ng-hide="noreviews">
+            <div layout="row" ng-hide="noreviews">
               <span class="md-display-1" style="min-width: 100%;">Reviews</span>
             </div>
-            <div layout="row" layout-align="center">
+            <div layout="row" layout-align="center" ng-hide="noreviews">
               <md-virtual-repeat-container id="vertical-container" style="min-width: 85%">
                 <div md-virtual-repeat="review in chef.reviews" class="repeated-item" flex>
                   <div layout="row">
