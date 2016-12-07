@@ -198,8 +198,9 @@ $acct_icn_holder_size: 60px;
 .md-card-image {
     display: block;
     width: auto;
+    max-width: 100%;
     margin: auto;
-    height: 200px;
+    max-height: 200px;
 }
 
 .angular-input-stars, textarea {
@@ -284,4 +285,15 @@ md-nav-bar
 
 .date-picker-row .md-datepicker-input-container {
     margin-left: 0;
+}
+
+.content {
+    max-width: 1400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edit-button {
+    float: right;
 }
