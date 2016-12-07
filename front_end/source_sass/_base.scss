@@ -205,7 +205,16 @@ $acct_icn_holder_size: 60px;
     max-height: 200px;
 }
 
+.full-width {
+    border-style: solid;
+    border-width: 0 0 1px;
+    border-color: rgba(0, 0, 0, 0.12);
+    width: 100%;
+}
 
+md-tabs-wrapper {
+    border-width: 0 !important;
+}
 
 .angular-input-stars, textarea {
 
@@ -224,7 +233,6 @@ $acct_icn_holder_size: 60px;
 }
 .material-icons{
   vertical-align: middle;
-  font-size: 35px;
 }
 .icon-text{
   display: inline-block;
