@@ -227,7 +227,7 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
           }
         }
       }
-      return true;
+      return false;
     }
     
 
