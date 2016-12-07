@@ -240,9 +240,13 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
     },
     clickOutsideToClose:true,
       fullscreen: true // Only for -xs, -sm breakpoints.
-  })
-    .then(function() {
+  }).then(function(url){
       $("#sliding-carousel").slick('unslick');
+      $location.path(url);
+  },
+  function() {
+      $("#sliding-carousel").slick('unslick');
+      console.log("closed");
   });
 
     function DialogController($scope, $mdDialog,chef) {
@@ -288,7 +292,9 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' , 'Users', '$
       for(var ctr =0;ctr < $scope.chef.reviews.length; ctr++){
         $scope.getUserName($scope.chef.reviews[ctr].assignedUser,ctr);
       }
-     
+      $scope.addRequest = function(){
+          $mdDialog.hide("addrequest/"+$scope.chef._id);
+      }
       
       $scope.slick_init = function(){
         //console.log("initializing");
