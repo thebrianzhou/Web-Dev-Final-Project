@@ -99,8 +99,6 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
     $scope.profile_pic = "";
     $scope.location = [];
     $scope.cuisines = [];
-    $scope.description = "";
-    $scope.carousel = [];
     $scope.password = "";
     $scope.incorrectL = false;
     $scope.incorrectS = false;
