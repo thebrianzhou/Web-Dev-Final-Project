@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <md-dialog aria-label="Mango (Fruit)" ng-controller="ChefGridController as dialogCtrl" style="width: 100%;">
-  <md-card>
+  <md-card style="overflow: scroll; overflow-x: hidden;">
+          <div class="modal-buttons">
+            <md-button ng-href="">
+               Send a Request
+            </md-button>
+            <md-button class="md-icon-button" ng-click="closeDialog();">
+               <md-icon>close</md-icon>
+            </md-button>
+          </div>
+          
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-modal-xl card-media"></div>

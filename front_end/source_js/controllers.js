@@ -325,6 +325,9 @@ $scope.initSlick = function () {
       $scope.clic = function(){
                 console.log("3 "+angular.element(document).find("md-card-title").css("color"));
       }
+      $scope.closeDialog = function(){
+        $mdDialog.hide();
+      }
     }
   };
   
