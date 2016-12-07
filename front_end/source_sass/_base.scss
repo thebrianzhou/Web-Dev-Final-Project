@@ -27,6 +27,7 @@ section .md-button {
   height: 45px;
   border-radius: 4px;
   padding: 10px;
+  right: 0;
   padding-left: 40px;
   padding-right: 40px;
   transition: 0.1s linear all;
@@ -65,7 +66,7 @@ section .md-button {
   position: relative;
 }
 
-#search_container {
+#search_label, #search_filter {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
   -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
   -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
@@ -73,12 +74,13 @@ section .md-button {
 }
 
 
-#search_container.ng-hide-remove{
-  opacity: 0;
+#search_label.ng-hide-add-active, #search_filter.ng-hide-add-active{ 
+  opacity: 1;
 }
 
-#search_container.ng-hide-remove-active{
-  opacity: 1;
+#search_label.ng-hide-add, #search_filter.ng-hide-add{
+  opacity: 0;
+  display:block !important;
 }
 
 .card-media {
@@ -89,10 +91,85 @@ $card-padding: 16px !default;
 md-card-title-media {
       margin-top: - $card-padding / 2;
       .md-media-modal-xl {
-        height: 288px;
-        width: 288px;
+        height: 180px;
+        width: 180px;
       }
     }
+
+/*$acct_icn_size: 40px;
+$acct_icn_holder_size: 60px;
+
+#acct_icn{
+  font-size: $acct_icn_size;
+  width: $acct_icn_size;
+  height: $acct_icn_size;
+}
+
+#acct_icn_holder{
+  width: $acct_icn_holder_size;
+  height: $acct_icn_holder_size;
+}*/
+
+
+
+.css-class-add, .css-class-remove {
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.css-class,
+.css-class-add.css-class-add-active {
+  color: red;
+  font-size:3em;
+}
+
+.css-class-remove.css-class-remove-active {
+  font-size:1.0em;
+  color: black;
+}
+
+.modal-rating{
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);  
+}
+
+.modal-rating > li{
+  font-size: 25px !important;
+}
+
+.slick-prev:before, .slick-next:before { 
+    color:red !important;
+}
+
+.slick-slide {
+    height:200px !important;
+    text-align: center;
+}
+
+.slick-slide > img {
+    max-height:200px;
+    max-width:100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#vertical-container {
+  height: 292px;
+  width: 100%;
+  max-width: 400px; }
+
+.repeated-item {
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 40px;
+  padding-top: 10px; 
+  
+  }
 
 .md-card-image {
     display: block;

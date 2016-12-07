@@ -1,0 +1,59 @@
+
+
+<md-dialog aria-label="Mango (Fruit)" ng-controller="ChefGridController as dialogCtrl" style="width: 100%;">
+  <md-card>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-modal-xl card-media"></div>
+            </md-card-title-media>
+            
+            <md-card-title-text style="margin-left: 10px">
+              <span class="md-display-2" style="position: relative;">{{user}}
+                  <input-stars class="modal-rating" max="5" ng-model="rating"></input-stars>
+              </span>
+              <span class="md-subhead">{{['Cuisine1', 'Cuisine2'].join(", ")}}</span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-align="center">
+              <div id="sliding-carousel" style="width: 75%; text-align: center;" ng-init="slick_init()" ng-cloak>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/350x150">
+                </div>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/150x150">
+                </div>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/250x450">
+                </div>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/450x150">
+                </div>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/550x150">
+                </div>
+                <div class="slick-slide">
+                  <img src="http://placehold.it/350x50">
+                </div>
+              </div>
+            </div>
+            <span class="md-display-1">Reviews</span> 
+            <md-virtual-repeat-container id="vertical-container" flex="75">
+              <div md-virtual-repeat="fruit in fruits" class="repeated-item" flex>
+                {{fruit}}
+              </div>
+            </md-virtual-repeat-container>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-icon-button" ng-click="clic()">
+              <md-icon>cake</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="showAdvanced($event,$index)">
+              <md-icon>open_in_new</md-icon>
+            </md-button>
+          </md-card-actions>
+      </md-card>
+</md-dialog>
+
+
