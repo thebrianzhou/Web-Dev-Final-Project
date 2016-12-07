@@ -28,7 +28,7 @@ mp4Controllers.controller('LoginController', ['$scope', '$location', 'authentica
      $scope.displayText = "Hello World";
      $scope.email = "";
      $scope.password = "";
-     $scope.login = function()
+     $scope.userlogin = function()
      {
         if(typeof $scope.email === 'undefined' || $scope.email == ""
         || typeof $scope.password === 'undefined' || $scope.password == "")
