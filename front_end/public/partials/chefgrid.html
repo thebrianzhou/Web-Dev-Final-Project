@@ -13,7 +13,7 @@
 <div class="content">
     <md-content>
       <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
-        <span class="md-display-3" flex>Local Stuff</span>
+        <span class="md-display-3" flex>Search Nearby Chefs {{breakpoint}}</span>
       </div>
 
       <div layout="row" layout-align="center" style="text-align: center;margin-top: 25px; margin-bottom: 10px;">
@@ -32,6 +32,7 @@
                   </md-card-title-media>
                   <md-card-title-text style="margin-left:10px;">
                     <span class="md-headline">{{chef.name}}</span>
+                    <span class="md-subhead">{{chef.email}}</span>
                     <span class="md-subhead">{{chef.cuisines.join(", ")}}</span>
                   </md-card-title-text>
 
