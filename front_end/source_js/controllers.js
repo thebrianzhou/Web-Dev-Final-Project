@@ -162,7 +162,7 @@ mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authen
 
 
 //Brian
-mp4Controllers.controller('AddRequestController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+mp4Controllers.controller('AddRequestController', ['$scope', '$routeParams', 'Users', 'authentication', '$location', function($scope, $routeParams, Users, authentication, $location) {
   $scope.data = "";
    $scope.displayText = ""
 
