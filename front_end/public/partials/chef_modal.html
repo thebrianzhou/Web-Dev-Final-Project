@@ -24,7 +24,7 @@
                   </md-button>
               </span>
               <span class="md-subhead">{{chef.cuisines.join(", ")}}</span>
-              <p>{{chef.description}}</p>
+              <p>{{(chef.description.length > 0) ? chef.description : "No Description"}}</p>
               
             </md-card-title-text>
 
@@ -69,9 +69,11 @@
               <md-virtual-repeat-container id="vertical-container" style="min-width: 85%">
                 <div md-virtual-repeat="review in chef.reviews" class="repeated-item" flex>
                   <div layout="row">
-                    <span class="md-headline" style="position: relative; min-width: 100%;">{{usernames[$index]}}
-                        <input-stars class="modal-user-rating" max="5" ng-model="review.rating" readonly></input-stars>
-                    </span>
+                    <span class="md-headline" style="display: inline-block;">{{usernames[$index]}}</span>
+                    <div style="display: inline-block;">
+                      <input-stars class = "modal-user" style="margin-top: 0; margin-bottom: 0; margin-left: 10px !important;" max="5" ng-model="review.rating" readonly></input-stars>
+                    </div>
+                    
                   </div>
                   <div layout="row">
                     <p class="md-subhead">{{review.review}}</p>
