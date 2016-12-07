@@ -11,14 +11,14 @@ mp4Controllers.controller('SplashPageController', ['$scope', '$location', functi
   $scope.displayText = "Hello World";
   $scope.cheflogin= function()
   {
-    console.log("chef login function");
+    //console.log("chef login function");
     var path = '/cheflogin';
     $location.path(path);
   };
 
   $scope.userlogin = function()
   {
-    console.log("user login function");
+    //console.log("user login function");
     var path = '/userlogin';
     $location.path(path);
   };
@@ -33,26 +33,30 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
     $scope.profile_pic = "";
     $scope.location = [];
     $scope.password = "";
+    $scope.incorrect = false;
     $scope.userlogin = function()
     {
-        console.log("inside login function");
+        //console.log("inside login function");
         if(typeof $scope.email === 'undefined' || $scope.email == ""
         || typeof $scope.password === 'undefined' || $scope.password == "")
             return;
-        console.log($scope.email);
+        //console.log($scope.email);
         authentication.userlogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-            console.log(data);
-            console.log("success!");
+            //console.log(data);
+            //console.log("success!");
             $location.path('/chefgrid/' + authentication.currentUser()._id);
         }).error(function(err){
-            console.log(err);
+            //console.log(err);
+            $scope.password = "";
+            $scope.displayText = "Incorrect Email or Password";
+            $scope.incorrect = true;
         });
     }
 
     $scope.submitUser = function()
     {
-        console.log("inside submit user");
+        //console.log("inside submit user");
         if(typeof $scope.name === 'undefined' || $scope.name==""
         || typeof $scope.email === 'undefined' || $scope.email==""
         || typeof $scope.location === 'undefined' || $scope.location.length==0
@@ -68,7 +72,7 @@ mp4Controllers.controller('UserLoginController', ['$scope', '$location', 'authen
 
 }]);
 
-mp4Controllers.controller('ChefLoginController', ['$scope', function($scope){
+mp4Controllers.controller('ChefLoginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
     $scope.displayText = "Hello World";
     $scope.email = "";
     $scope.password = "";
@@ -79,20 +83,24 @@ mp4Controllers.controller('ChefLoginController', ['$scope', function($scope){
     $scope.description = "";
     $scope.carousel = [];
     $scope.password = "";
+    $scope.incorrect = false;
     $scope.cheflogin = function()
     {
-        console.log("inside cheflogin function");
+        //console.log("inside cheflogin function");
         if(typeof $scope.email === 'undefined' || $scope.email == ""
         || typeof $scope.password === 'undefined' || $scope.password == "")
             return;
-        console.log($scope.email);
+        //console.log($scope.email);
         authentication.cheflogin({email : $scope.email, password : $scope.password}).success(function(data) {
             authentication.saveToken(data.token);
-            console.log(data);
-            console.log("success!");
-            $location.path('/chefprofile/' + authentication.currentUser()._id);
+           // console.log(data);
+           // console.log("success!");
+            $location.path('/chefrequests/');
         }).error(function(err){
-            console.log(err);
+            //console.log(err);
+            $scope.password = "";
+            $scope.displayText = "Incorrect Email or Password";
+            $scope.incorrect = true;
         });
     }
 

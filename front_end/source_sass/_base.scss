@@ -128,5 +128,22 @@ md-card-title-media {
 }
 
 md-input-container {
-  margin:0;
+  margin: 5px 0;
+}
+
+.login-card
+{
+  max-width: 600px;
+  margin: 0 auto;
+  flex: 1 1 40%;
+}
+
+.error
+{
+  padding:15px;
+  background-color: #E8BEBE;
+  margin:10px auto;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 15px;
 }

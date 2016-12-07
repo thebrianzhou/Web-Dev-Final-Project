@@ -7,9 +7,9 @@
   	  </span>
       </div>
       <md-tabs md-dynamic-height style="background: rgb(250,250,250) none repeat scroll 0% 0% !important;">
-        <md-tab label="Login">
+        <md-tab label="Log In">
 	        <div class='md-padding' layout="row" layout-wrap>
-				<md-card style = "max-width:600px; margin:0 auto;" flex = "40">
+				<md-card class = "login-card">
 					<md-card-content layout = "column">
 						<md-input-container>
 							<label>Email</label>
@@ -18,14 +18,20 @@
 						<md-input-container>
 							<label>Password</label>
 							<input type = "password" ng-model="password" type="email" required>
-						<md-button class="md-accent md-raised" ng-click = "cheflogin()"> Submit </md-button>
+						</md-input-container>
+						<md-button class="md-accent md-raised" ng-click = "cheflogin()"> Log In </md-button>
 					</md-card-content>
+
+					<div class = "error" ng-if="incorrect">
+						{{displayText}}
+					</div>
 				</md-card>
+				
 			</div>
 		</md-tab>
-        <md-tab label="Signup">
+        <md-tab label="Sign Up">
 	        <div class='md-padding' layout="row" layout-wrap>
-	          <md-card style = "max-width:600px; margin:0 auto;" flex = "40" >
+	          <md-card class = "login-card">
 		          <md-card-content layout = "column">
 			               	<md-input-container>
 								<label>Name</label>
@@ -63,7 +69,7 @@
 								<label>Password</label>
 								<input type = "password" ng-model = "password" required>
 							</md-input-container>
-							<md-button class="md-accent md-raised" ng-click = "submitchef()" > Submit </md-button>
+							<md-button class="md-accent md-raised" ng-click = "submitchef()" > Sign Up</md-button>
 					</md-card-content>
 				</md-card>
 			</div>
