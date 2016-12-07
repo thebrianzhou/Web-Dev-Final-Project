@@ -175,8 +175,9 @@ mp4Controllers.controller('ChefGridController', ['$scope', 'Chefs' ,'$mdDialog',
 }]);
 //Sergey
 mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
-    $scope.user = authentication.currentUser();
-    $scope.userID = $scope.user._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data; 
@@ -188,8 +189,9 @@ mp4Controllers.controller('UserProfileController', ['$scope', '$routeParams', 'U
 }]);
 //Sergey
 mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
-    $scope.chef = authentication.currentUser();
-    $scope.chefID = $scope.chef._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
@@ -201,8 +203,9 @@ mp4Controllers.controller('ChefProfileController', ['$scope', '$routeParams', 'C
 }]);
 //Sergey
 mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'Users', 'authentication', function($scope, $routeParams, Users, authentication) {
-    $scope.user = authentication.currentUser();
-    $scope.userID = $scope.user._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     
     Users.getByID($scope.userID).success(function(data) {
         $scope.user = data.data; 
@@ -216,8 +219,9 @@ mp4Controllers.controller('EditUserController', ['$scope', '$routeParams', 'User
 }]);
 //Sergey
 mp4Controllers.controller('EditChefController', ['$scope', '$routeParams', 'Chefs', 'authentication', function($scope, $routeParams, Chefs, authentication) {
-    $scope.chef = authentication.currentUser();
-    $scope.chefID = $scope.chef._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     
     Chefs.getByID($scope.chefID).success(function(data) {
         $scope.chef = data.data; 
@@ -264,8 +268,9 @@ mp4Controllers.controller('UserRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.user = authentication.currentUser();
-    $scope.userID = $scope.user._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'User')
+        $scope.userID = $scope.curUser._id;
     reloadRequests();
     
     $scope.cancelRequest = function(request) {
@@ -362,8 +367,9 @@ mp4Controllers.controller('ChefRequestsController', ['$scope', '$routeParams', '
         });
     }
     
-    $scope.chef = authentication.currentUser();
-    $scope.chefID = $scope.chef._id;
+    $scope.curUser = authentication.currentUser();
+    if ($scope.curUser.type == 'Chef')
+        $scope.chefID = $scope.curUser._id;
     reloadRequests();
     
     $scope.acceptRequest = function(request) {
